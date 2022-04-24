@@ -1,12 +1,19 @@
 export const components = {
   Text: {
     baseStyle: {
-      fontFamily: "oswald",
+      fontFamily: "quattrocento",
     },
   },
   Heading: {
     baseStyle: {
       fontFamily: "oswald",
+    },
+  },
+  Button: {
+    baseStyle: {
+      py: 6,
+      borderRadius: 0,
+      transition: "all 0.3s ease-in",
     },
   },
 };
