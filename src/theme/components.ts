@@ -15,5 +15,8 @@ export const components = {
       borderRadius: 0,
       transition: "all 0.3s ease-in",
     },
+    defaultProps: {
+      colorScheme: "gold",
+    },
   },
 };

@@ -36,7 +36,7 @@ export const Index = () => {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
                   vestibulum ex nec facilisis porta.{" "}
                 </Heading>
-                <Button colorScheme="gold">Login with Google</Button>
+                <Button>Login with Google</Button>
               </VStack>
             </VStack>
             <Spacer />
