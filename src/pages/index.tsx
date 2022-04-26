@@ -14,8 +14,17 @@ import { HERO_IMAGE_SOURCE } from "../utilities";
 export const Index = () => {
   return (
     <VStack h="100vh" w="full">
-      <Box h="65%" w="full" bg="#F7DBA7">
-        <Container maxW="container.xl" h="full">
+      <Box h="65%" w="full" bg="navajoWhite">
+        <Container
+          maxW={[
+            "90%",
+            "container.sm",
+            "container.md",
+            "container.lg",
+            "container.xl",
+          ]}
+          h="full"
+        >
           <Flex h="full">
             <VStack
               w="50%"
@@ -32,11 +41,13 @@ export const Index = () => {
                 align="flex-start"
                 spacing={10}
               >
-                <Heading lineHeight="short">
+                <Heading lineHeight="short" color="charlestonGreen">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
                   vestibulum ex nec facilisis porta.{" "}
                 </Heading>
-                <Button>Login with Google</Button>
+                <Button loadingText="Login with Google">
+                  Login with Google
+                </Button>
               </VStack>
             </VStack>
             <Spacer />
@@ -50,7 +61,7 @@ export const Index = () => {
           </Flex>
         </Container>
       </Box>
-      <Box mt={"0px !important"} h="35%" w="full" bg="#1E2D2F" />
+      <Box mt={"0px !important"} h="35%" w="full" bg="charlestonGreen" />
     </VStack>
   );
 };

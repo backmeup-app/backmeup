@@ -1,6 +1,6 @@
 export const typography = {
   fonts: {
     oswald: "Oswald, sans-serif",
-    quattrocento: "Quattrocento, sans-serif",
+    quattrocento: "Quattrocento Sans, sans-serif",
   },
 };

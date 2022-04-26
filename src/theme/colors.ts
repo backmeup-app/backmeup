@@ -47,5 +47,6 @@ export const colors = {
     "800": "#003066",
     "900": "#001D3D",
   },
-  richBlack: "#000814",
+  navajoWhite: "#F7DBA7",
+  charlestonGreen: "#1E2D2F",
 };
