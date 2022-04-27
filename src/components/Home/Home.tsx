@@ -12,6 +12,12 @@ import {
 import { HERO_IMAGE_SOURCE } from "../../utilities";
 
 export const Home = () => {
+  const redirectGoogleAuth = () => {
+    const googleAuthUrl =
+      String(process.env.REACT_APP_BACKMEUP_API) + "/accounts";
+    window.location.href = googleAuthUrl;
+  };
+
   return (
     <VStack h="100vh" w="full">
       <Box h="65%" w="full" bg="navajoWhite">
@@ -45,7 +51,10 @@ export const Home = () => {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
                   vestibulum ex nec facilisis porta.{" "}
                 </Heading>
-                <Button loadingText="Login with Google">
+                <Button
+                  onClick={redirectGoogleAuth}
+                  loadingText="Login with Google"
+                >
                   Login with Google
                 </Button>
               </VStack>
