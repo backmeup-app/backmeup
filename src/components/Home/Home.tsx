@@ -9,9 +9,9 @@ import {
   Text,
   Button,
 } from "@chakra-ui/react";
-import { HERO_IMAGE_SOURCE } from "../utilities";
+import { HERO_IMAGE_SOURCE } from "../../utilities";
 
-export const Index = () => {
+export const Home = () => {
   return (
     <VStack h="100vh" w="full">
       <Box h="65%" w="full" bg="navajoWhite">

@@ -1,16 +1,18 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "./theme";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Index } from "./pages";
+import { Admin, Home } from "./components";
+import { isAuthenticated } from "./utilities";
+import { AppProvider } from "./contexts";
 
 export const App = () => (
-  <ChakraProvider theme={theme}>
-    <Router>
-      <Switch>
-        <Route path="/">
-          <Index />
-        </Route>
-      </Switch>
-    </Router>
-  </ChakraProvider>
+  <AppProvider>
+    <ChakraProvider theme={theme}>
+      <Router>
+        <Switch>
+          <Route path="/">{isAuthenticated() ? <Admin /> : <Home />}</Route>
+        </Switch>
+      </Router>
+    </ChakraProvider>
+  </AppProvider>
 );
