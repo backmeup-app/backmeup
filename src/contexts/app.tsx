@@ -3,13 +3,17 @@ import { stateReducer, TAppAction, TUser } from "../store";
 
 export type TAppState = {
   me?: TUser;
+  loading?: boolean;
 };
 
 export const initialState: TAppState = {};
 
-export const AppContext = createContext<
-  [TAppState, Dispatch<TAppAction>] | null
->(null);
+const dispatch: any = {};
+
+export const AppContext = createContext<[TAppState, Dispatch<TAppAction>]>([
+  initialState,
+  dispatch,
+]);
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer<Reducer<TAppState, TAppAction>>(

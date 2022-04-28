@@ -1,3 +1,4 @@
+import { Dispatch, useContext, useEffect } from "react";
 import {
   VStack,
   Box,
@@ -10,8 +11,19 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { HERO_IMAGE_SOURCE } from "../../utilities";
+import { TAppAction, useVerifyGoogleAuth } from "../../store";
+import { AppContext, TAppState } from "../../contexts";
 
 export const Home = () => {
+  const [{ loading }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const verifyGoogleAuth = useVerifyGoogleAuth();
+
+  useEffect(() => {
+    const code = new URLSearchParams(window.location.search).get("code");
+    if (code) verifyGoogleAuth(code);
+  }, []);
+
   const redirectGoogleAuth = () => {
     const googleAuthUrl =
       String(process.env.REACT_APP_BACKMEUP_API) + "/accounts";
@@ -52,6 +64,7 @@ export const Home = () => {
                   vestibulum ex nec facilisis porta.{" "}
                 </Heading>
                 <Button
+                  isLoading={loading}
                   onClick={redirectGoogleAuth}
                   loadingText="Login with Google"
                 >
