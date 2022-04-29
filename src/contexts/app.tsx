@@ -1,9 +1,15 @@
 import { createContext, Dispatch, useReducer, Reducer, useMemo } from "react";
 import { stateReducer, TAppAction, TUser } from "../store";
 
+export type TAppNotification = {
+  status: "info" | "success" | "error";
+  text: string;
+};
+
 export type TAppState = {
   me?: TUser;
   loading?: boolean;
+  notification?: TAppNotification;
 };
 
 export const initialState: TAppState = {};

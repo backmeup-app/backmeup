@@ -19,6 +19,13 @@ export const useVerifyGoogleAuth = () => {
       const { user, token } = data;
       cookies.set("token", token);
       dispatch({ type: "SET_USER", payload: user });
+      dispatch({
+        type: "SET_NOTIFICATION",
+        payload: { status: "success", text: "Authenticated Successfully" },
+      });
+      dispatch({ type: "SET_LOADING", payload: false });
+      const pause = new Promise((res) => setTimeout(res, 3000));
+      await pause;
       window.location.href = window.location.origin;
     } catch (error) {
       console.log(error);

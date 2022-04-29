@@ -1,9 +1,9 @@
-import { TLoadingAction, loadingReducer, TUserAction, userReducer } from ".";
+import { TAppReducerAction, appReducer, TUserAction, userReducer } from ".";
 import { combineReducers } from "../../utilities";
 
-export type TAppAction = TLoadingAction | TUserAction;
+export type TAppAction = TAppReducerAction | TUserAction;
 
-export const stateReducer = combineReducers({ loadingReducer, userReducer });
+export const stateReducer = combineReducers({ appReducer, userReducer });
 
-export * from "./loading";
+export * from "./app";
 export * from "./user";
