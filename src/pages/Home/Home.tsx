@@ -60,13 +60,14 @@ export const Home = () => {
                 spacing={10}
               >
                 <Heading lineHeight="short" color="charlestonGreen">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-                  vestibulum ex nec facilisis porta.{" "}
+                  Create automated backups for your file/in memory database
+                  stores today. Easy, fast and simple.
                 </Heading>
                 <Button
                   isLoading={loading}
                   onClick={redirectGoogleAuth}
                   loadingText="Login with Google"
+                  variant="secondary"
                 >
                   Login with Google
                 </Button>

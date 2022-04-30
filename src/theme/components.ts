@@ -1,7 +1,42 @@
-export const components = {
+import { ComponentStyleConfig } from "@chakra-ui/theme";
+
+export const components: { [key: string]: ComponentStyleConfig } = {
+  FormLabel: {
+    baseStyle: {
+      fontFamily: "openSans",
+      color: "gray.700",
+    },
+  },
+  Input: {
+    sizes: {
+      lg: {
+        field: {
+          borderRadius: 4,
+        },
+      },
+    },
+    defaultProps: {
+      size: "lg",
+    },
+  },
+  Textarea: {
+    baseStyle: {
+      borderRadius: 4,
+    },
+    sizes: {
+      lg: {
+        borderRadius: 4,
+        height: 120,
+        resize: "none",
+      },
+    },
+    defaultProps: {
+      size: "lg",
+    },
+  },
   Text: {
     baseStyle: {
-      fontFamily: "quattrocento",
+      fontFamily: "openSans",
     },
   },
   Heading: {
@@ -14,14 +49,49 @@ export const components = {
       py: 6,
       borderRadius: 0,
       transition: "all 0.3s ease-in",
-      fontFamily: "quattrocento",
+      fontFamily: "openSans",
       fontWeight: 400,
+      fontSize: "sm",
+
       _focus: {
         boxShadow: "none",
       },
     },
+    variants: {
+      primary: {
+        background: "charlestonGreen",
+        color: "white",
+        boxShadow: " 0px 9px 0px -5px #FFD60A",
+
+        _focus: {
+          boxShadow: " 0px 9px 0px -5px #FFD60A",
+        },
+
+        _hover: {
+          background: "gray.700",
+        },
+      },
+      secondary: {
+        background: "gold.900",
+        color: "charlestonGreen",
+        boxShadow: " 0px 9px 0px -5px rgba(0,0,0,0.75)",
+
+        _focus: {
+          boxShadow: " 0px 9px 0px -5px rgba(0,0,0,0.75)",
+        },
+
+        _hover: {
+          background: "yellow.500",
+        },
+      },
+    },
+    sizes: {
+      sm: {
+        px: 5,
+      },
+    },
     defaultProps: {
-      colorScheme: "gold",
+      variant: "primary",
     },
   },
 };

@@ -42,6 +42,7 @@ export const Notification = () => {
       bg="rgba(0,0,0,0.15)"
       color="white"
       opacity={display ? 1 : 0}
+      boxShadow="md"
       transition="all 0.5s ease-in"
     >
       <Text mr={3}>{notification?.text}</Text>
