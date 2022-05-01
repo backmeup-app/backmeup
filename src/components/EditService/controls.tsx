@@ -1,13 +1,20 @@
-import { FormLabel } from "@chakra-ui/react";
+import { FormLabel, FormErrorMessage } from "@chakra-ui/react";
+import { TCreateServiceVariables } from "../../store";
+import { createServiceSchema } from "../../utilities";
 import { TFormControl } from "../Form";
+import { useCreateService } from "../../store";
 
 export const useFormConfig = () => {
-  return () => ({
+  const createService = useCreateService();
+  return (onClose?: () => void) => ({
+    validationSchema: createServiceSchema,
     initialValues: {
       name: "",
       description: "",
     },
-    onSubmit: async (values: { name: string; description?: string }) => [],
+    onSubmit: async (values: TCreateServiceVariables) => {
+      await createService(values, onClose);
+    },
   });
 };
 
@@ -19,6 +26,10 @@ export const useEditServiceControls = () => {
         name: "name",
         label: <FormLabel>Name</FormLabel>,
         styleProps: { colSpan: 12, mb: 4, isRequired: true },
+        errorMessage: formik.errors?.name ? (
+          <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
+        ) : undefined,
+        onBlur: formik.handleBlur,
         onChange: formik.handleChange,
         value: formik.values?.name,
       },
@@ -30,6 +41,7 @@ export const useEditServiceControls = () => {
         label: <FormLabel>Description</FormLabel>,
         styleProps: { colSpan: 12, mb: 4 },
         onChange: formik.handleChange,
+        onBlur: formik.handleBlur,
         value: formik.values?.description,
       },
     },

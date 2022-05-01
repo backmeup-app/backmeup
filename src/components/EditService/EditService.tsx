@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import { useFormik } from "formik";
 import { Form, TFormControl } from "..";
 import { useEditServiceControls, useFormConfig } from "./controls";
+import { TEditService } from "./types";
 
-export const EditService = () => {
+export const EditService: FC<TEditService> = ({ onClose }) => {
   const getControls = useEditServiceControls();
   const formikConfig = useFormConfig();
-  const formik = useFormik(formikConfig());
+  const formik = useFormik(formikConfig(onClose));
   const [controls, setControls] = useState<TFormControl[]>([]);
 
   useEffect(() => {
-    console.log(formik.values);
     const controls = getControls(formik);
     setControls(controls);
   }, [formik.values]);
@@ -19,7 +19,7 @@ export const EditService = () => {
     <Form
       controls={controls}
       onSubmit={formik.handleSubmit}
-      submitBtnText={"Create Service"}
+      submitBtnText={"Create"}
     />
   );
 };

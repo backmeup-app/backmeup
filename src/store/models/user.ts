@@ -7,5 +7,5 @@ export type TUser = {
   avatar: string;
   created_at: string;
   updated_at: string;
-  services?: TService[];
+  services: TService[];
 };

@@ -23,9 +23,20 @@ export const Notification = () => {
       case "success":
         return <SuccessIcon color="green.300" size={19} />;
       case "error":
-        return <ErrorIcon />;
+        return <ErrorIcon color="red.900" size={19} />;
       default:
-        return <ErrorIcon />;
+        return <ErrorIcon color="red.400" size={19} />;
+    }
+  }, [notification?.status]);
+
+  const displayBorderColor = useCallback(() => {
+    switch (notification?.status) {
+      case "success":
+        return "green.300";
+      case "error":
+        return "red.400";
+      default:
+        return "red.400";
     }
   }, [notification?.status]);
 
@@ -39,13 +50,17 @@ export const Notification = () => {
       left={6}
       bottom={6}
       p={6}
-      bg="rgba(0,0,0,0.15)"
+      bg="rgba(0,0,0,0.7)"
       color="white"
       opacity={display ? 1 : 0}
       boxShadow="md"
+      border="1px solid"
+      borderColor={displayBorderColor()}
       transition="all 0.5s ease-in"
     >
-      <Text mr={3}>{notification?.text}</Text>
+      <Text mr={3} color="white">
+        {notification?.text ?? "Authenticated successfully"}
+      </Text>
       {displayStatus()}
     </Flex>
   );

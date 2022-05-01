@@ -1,20 +1,7 @@
-import {
-  Flex,
-  VStack,
-  Image,
-  Heading,
-  Text,
-  Button,
-  Modal,
-  ModalHeader,
-  ModalContent,
-  ModalOverlay,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-} from "@chakra-ui/react";
+import { Flex, VStack, Image, Heading, Text, Button } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { EditService } from "..";
+import { Modal } from "../Wrappers";
 
 export const ServiceMessage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,16 +23,8 @@ export const ServiceMessage = () => {
           Create Service
         </Button>
       </VStack>
-      <Modal onClose={onClose} isOpen={isOpen} size="xl">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader fontFamily="oswald">Create Service</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <EditService />
-          </ModalBody>
-          <ModalFooter></ModalFooter>
-        </ModalContent>
+      <Modal title="Create Service" isOpen={isOpen} onClose={onClose}>
+        <EditService onClose={onClose} />
       </Modal>
     </Flex>
   );

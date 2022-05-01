@@ -12,6 +12,17 @@ export const components: { [key: string]: ComponentStyleConfig } = {
       lg: {
         field: {
           borderRadius: 4,
+          fontSize: "md",
+        },
+      },
+    },
+    variants: {
+      outline: {
+        field: {
+          _focus: {
+            boxShadow: "none",
+            borderColor: "gray.500",
+          },
         },
       },
     },
@@ -20,14 +31,20 @@ export const components: { [key: string]: ComponentStyleConfig } = {
     },
   },
   Textarea: {
-    baseStyle: {
-      borderRadius: 4,
-    },
     sizes: {
       lg: {
         borderRadius: 4,
         height: 120,
         resize: "none",
+        fontSize: "md",
+      },
+    },
+    variants: {
+      outline: {
+        _focus: {
+          boxShadow: "none",
+          borderColor: "gray.500",
+        },
       },
     },
     defaultProps: {
