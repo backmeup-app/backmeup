@@ -20,7 +20,7 @@ export const Admin = () => {
     );
   }
 
-  if (!me.services || me.services.length === 0) return <ServiceMessage />;
+  if (!me.default_service) return <ServiceMessage />;
 
   return (
     <SimpleGrid columns={14} bg="white">

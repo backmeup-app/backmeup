@@ -13,7 +13,7 @@ export const EditService: FC<TEditService> = ({ onClose }) => {
   useEffect(() => {
     const controls = getControls(formik);
     setControls(controls);
-  }, [formik.values]);
+  }, [formik.values, formik.errors]);
 
   return (
     <Form

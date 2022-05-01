@@ -1,6 +1,7 @@
 import { TResource } from ".";
 
 export type TService = {
+  _id: string;
   uuid: string;
   name: string;
   description?: string;
