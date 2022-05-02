@@ -78,11 +78,6 @@ export const components: { [key: string]: ComponentStyleConfig } = {
       primary: {
         background: "charlestonGreen",
         color: "white",
-        boxShadow: " 0px 9px 0px -5px #FFD60A",
-
-        _focus: {
-          boxShadow: " 0px 9px 0px -5px #FFD60A",
-        },
 
         _hover: {
           background: "gray.700",
@@ -91,7 +86,7 @@ export const components: { [key: string]: ComponentStyleConfig } = {
       secondary: {
         background: "gold.900",
         color: "charlestonGreen",
-        boxShadow: " 0px 9px 0px -5px rgba(0,0,0,0.75)",
+        // boxShadow: " 0px 9px 0px -5px rgba(0,0,0,0.75)",
 
         _focus: {
           boxShadow: " 0px 9px 0px -5px rgba(0,0,0,0.75)",
@@ -109,6 +104,26 @@ export const components: { [key: string]: ComponentStyleConfig } = {
     },
     defaultProps: {
       variant: "primary",
+    },
+  },
+  Accordion: {
+    baseStyle: {
+      container: {
+        borderTopWidth: 0,
+        borderColor: "gray.100",
+        // borderStyle: "dashed",
+
+        pb: 4,
+      },
+      button: {
+        _focus: {
+          boxShadow: "none",
+        },
+      },
+      panel: {
+        pb: 0,
+        px: 0,
+      },
     },
   },
 };

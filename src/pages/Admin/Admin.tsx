@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { Box, Spinner, SimpleGrid, GridItem } from "@chakra-ui/react";
+import { Box, Spinner, SimpleGrid, GridItem, Button } from "@chakra-ui/react";
 import { AppContext } from "../../contexts";
 import { useGetUser } from "../../store";
 import { ServiceMessage, Sidebar } from "../../components";
@@ -26,6 +26,9 @@ export const Admin = () => {
     <SimpleGrid columns={14} bg="white">
       <GridItem colSpan={2}>
         <Sidebar />
+      </GridItem>
+      <GridItem colSpan={10}>
+        <Button ml={5}>Create Service</Button>
       </GridItem>
     </SimpleGrid>
   );

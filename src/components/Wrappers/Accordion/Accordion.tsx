@@ -11,5 +11,9 @@ export const Accordion: FC<TAccordion> = ({ items }) => {
       </AccordionItem>
     ));
 
-  return <ChakraAccordion allowToggle>{displayItems()}</ChakraAccordion>;
+  return (
+    <ChakraAccordion mb={5} allowToggle>
+      {displayItems()}
+    </ChakraAccordion>
+  );
 };

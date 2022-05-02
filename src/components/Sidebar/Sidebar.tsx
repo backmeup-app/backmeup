@@ -1,5 +1,5 @@
 import { useContext, useState, useCallback } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import { AppContext } from "../../contexts";
 import { Accordion } from "..";
 import { TAccordion } from "../Wrappers/Accordion/types";
@@ -14,7 +14,11 @@ export const Sidebar = () => {
     [key in "services" | "activeService"]: TAccordion;
   }>({
     services: getServicesProps(me?.services as TService[]),
-    activeService: getDefaultServiceProps(me?.default_service as string),
+    activeService: getDefaultServiceProps(
+      me?.services?.find(
+        ({ _id }) => _id.toString() === (me?.default_service as string)
+      ) as TService
+    ),
   });
 
   const displayTabs = useCallback(() => {
@@ -24,7 +28,7 @@ export const Sidebar = () => {
   }, [tabs]);
 
   return (
-    <Box w="100%" minH="100vh" bg="charlestonGreen" color="white">
+    <Box w="100%" minH="100vh" bg="charlestonGreen" color="white" py={10}>
       {displayTabs()}
     </Box>
   );
