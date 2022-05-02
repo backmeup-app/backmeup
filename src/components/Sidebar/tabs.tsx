@@ -10,43 +10,43 @@ import {
   ListItem,
   Link as ChakraLink,
 } from "@chakra-ui/react";
+import { useLocation } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { TService } from "../../store";
 
 const activeTabProps = {
-  bg: "navajoWhite",
+  color: "navajoWhite",
   fontWeight: 600,
-  color: "charlestonGreen",
 };
 
 const manageServiceTabs = [
   {
     name: "Overview",
-    isActive: () => {},
+    isActive: (pathname: string) => pathname === "/overview",
   },
   {
-    name: "Backups",
-    isActive: () => {},
+    name: "Resources",
+    isActive: (pathname: string) => pathname.startsWith("/resources"),
   },
   {
     name: "Settings",
-    isActive: () => {},
+    isActive: (pathname: string) => pathname === "/settings",
   },
 ];
 
 const manageUserTabs = [
   {
     name: "Profile",
-    isActive: () => {},
+    isActive: (pathname: string) => pathname === "/profile",
   },
   {
     name: "Account",
-    isActive: () => {},
+    isActive: (pathname: string) => pathname === "/account",
   },
   {
     name: "Billing",
-    isActive: () => {},
+    isActive: (pathname: string) => pathname === "/billing",
   },
 ];
 
@@ -77,7 +77,7 @@ export const useServicesProps = () => {
               py={3}
               mb={2}
               fontSize={"0.92rem"}
-              {...(service._id !== defaultService ? activeTabProps : {})}
+              {...(service._id === defaultService ? activeTabProps : {})}
               textTransform="capitalize"
               cursor="pointer"
             >
@@ -104,6 +104,7 @@ export const useServicesProps = () => {
 };
 
 export const useDefaultServiceProps = () => {
+  const location = useLocation();
   return (service?: TService) => {
     const heading = (
       <AccordionButton px={5} py={3}>
@@ -119,15 +120,13 @@ export const useDefaultServiceProps = () => {
       <AccordionPanel>
         <VStack spacing={2} align="flex-start">
           {(service ? manageServiceTabs : manageUserTabs).map(
-            ({ name }, index) => {
-              const activeProps =
-                index === 2
-                  ? {
-                      bg: "navajoWhite",
-                      fontWeight: 600,
-                      color: "charlestonGreen",
-                    }
-                  : {};
+            ({ name, isActive }, index) => {
+              const activeProps = isActive(location.pathname)
+                ? {
+                    color: "navajoWhite",
+                    fontWeight: 600,
+                  }
+                : {};
               return (
                 <ChakraLink
                   as={Link}

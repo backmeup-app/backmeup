@@ -1,5 +1,5 @@
-import { useContext, useState, useCallback } from "react";
-import { Box, Button } from "@chakra-ui/react";
+import { useContext, useState, useCallback, useEffect } from "react";
+import { Box } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { AppContext } from "../../contexts";
 import { Accordion, EditService } from "..";
@@ -12,26 +12,37 @@ export const Sidebar = () => {
   const { onOpen, isOpen, onClose } = useDisclosure();
   const getServicesProps = useServicesProps();
   const getDefaultServiceProps = useDefaultServiceProps();
-  const [tabs] = useState<{
-    [key in "services" | "activeService" | "account"]: TAccordion;
+
+  const [tabs, setTabs] = useState<{
+    [key in "services" | "activeService" | "account"]: TAccordion | undefined;
   }>({
-    services: getServicesProps(
-      me?.services as TService[],
-      me?.default_service as string,
-      onOpen
-    ),
-    activeService: getDefaultServiceProps(
-      me?.services?.find(
-        ({ _id }) => _id.toString() === (me?.default_service as string)
-      ) as TService
-    ),
+    services: undefined,
+    activeService: undefined,
     account: getDefaultServiceProps(),
   });
 
+  useEffect(() => {
+    const services = getServicesProps(
+      me?.services as TService[],
+      me?.default_service as string,
+      onOpen
+    );
+    const activeService = getDefaultServiceProps(
+      me?.services?.find(
+        ({ _id }) => _id.toString() === (me?.default_service as string)
+      ) as TService
+    );
+    setTabs((tabs) => ({ ...tabs, services, activeService }));
+  }, [me?.services, me?.default_service]);
+
   const displayTabs = useCallback(() => {
-    return Object.values(tabs).map((tab, index) => (
-      <Accordion key={index} {...tab} />
-    ));
+    return Object.values(tabs).map((tab, index) =>
+      !tab ? (
+        <Box key={index} />
+      ) : (
+        <Accordion key={index} {...(tab as TAccordion)} />
+      )
+    );
   }, [tabs]);
 
   return (

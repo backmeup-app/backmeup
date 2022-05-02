@@ -127,4 +127,11 @@ export const components: { [key: string]: ComponentStyleConfig } = {
       },
     },
   },
+  Link: {
+    baseStyle: {
+      _focus: {
+        boxShadow: "none",
+      },
+    },
+  },
 };
