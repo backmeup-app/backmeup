@@ -86,7 +86,6 @@ export const components: { [key: string]: ComponentStyleConfig } = {
       secondary: {
         background: "gold.900",
         color: "charlestonGreen",
-        // boxShadow: " 0px 9px 0px -5px rgba(0,0,0,0.75)",
 
         _focus: {
           boxShadow: " 0px 9px 0px -5px rgba(0,0,0,0.75)",
@@ -110,8 +109,10 @@ export const components: { [key: string]: ComponentStyleConfig } = {
     baseStyle: {
       container: {
         borderTopWidth: 0,
-        borderColor: "gray.100",
-        // borderStyle: "dashed",
+
+        _last: {
+          borderBottomWidth: 0,
+        },
 
         pb: 4,
       },

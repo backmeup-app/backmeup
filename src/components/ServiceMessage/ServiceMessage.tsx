@@ -1,7 +1,6 @@
 import { Flex, VStack, Image, Heading, Text, Button } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { EditService } from "..";
-import { Modal } from "../Wrappers";
 
 export const ServiceMessage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -23,9 +22,7 @@ export const ServiceMessage = () => {
           Create Service
         </Button>
       </VStack>
-      <Modal title="Create Service" isOpen={isOpen} onClose={onClose}>
-        <EditService onClose={onClose} />
-      </Modal>
+      <EditService isOpen={isOpen} onClose={onClose} />
     </Flex>
   );
 };

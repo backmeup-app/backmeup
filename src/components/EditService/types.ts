@@ -1,3 +1,4 @@
 export type TEditService = {
-  onClose?: () => void;
+  isOpen: boolean;
+  onClose: () => void;
 };
