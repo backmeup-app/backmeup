@@ -5,7 +5,7 @@ import { useGetUser } from "../../store";
 import { ServiceMessage, Sidebar } from "../../components";
 
 export const Admin = () => {
-  const [{ me }] = useContext(AppContext);
+  const [{ me, loading }] = useContext(AppContext);
   const getUser = useGetUser();
 
   useEffect(() => {
@@ -28,6 +28,7 @@ export const Admin = () => {
         <Sidebar />
       </GridItem>
       <GridItem colSpan={10}></GridItem>
+      {loading && <Spinner pos="fixed" right={8} bottom={8} />}
     </SimpleGrid>
   );
 };

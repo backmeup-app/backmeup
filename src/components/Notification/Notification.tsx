@@ -4,6 +4,9 @@ import { BsCheckCircle } from "react-icons/bs";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { AppContext } from "../../contexts";
 
+export const SuccessIcon = chakra(BsCheckCircle);
+export const ErrorIcon = chakra(FaRegTimesCircle);
+
 export const Notification = () => {
   const [{ notification }] = useContext(AppContext);
   const [display, setDisplay] = useState(false);
@@ -25,23 +28,24 @@ export const Notification = () => {
       case "error":
         return <ErrorIcon color="red.900" size={19} />;
       default:
-        return <ErrorIcon color="red.400" size={19} />;
+        return <SuccessIcon color="green.300" size={19} />;
     }
   }, [notification?.status]);
 
-  const displayBorderColor = useCallback(() => {
+  const getStatusColor = useCallback(() => {
     switch (notification?.status) {
       case "success":
         return "green.300";
       case "error":
         return "red.400";
       default:
-        return "red.400";
+        return "green.300";
     }
   }, [notification?.status]);
 
   const SuccessIcon = chakra(BsCheckCircle);
   const ErrorIcon = chakra(FaRegTimesCircle);
+  const statusColor = getStatusColor();
 
   return (
     <Flex
@@ -50,15 +54,14 @@ export const Notification = () => {
       left={6}
       bottom={6}
       p={6}
-      bg="rgba(0,0,0,0.7)"
-      color="white"
+      bg="white"
       opacity={display ? 1 : 0}
       boxShadow="md"
       border="1px solid"
-      borderColor={displayBorderColor()}
+      borderColor={statusColor}
       transition="all 0.5s ease-in"
     >
-      <Text mr={3} color="white">
+      <Text mr={3} color={statusColor} fontWeight={500}>
         {notification?.text ?? "Authenticated successfully"}
       </Text>
       {displayStatus()}

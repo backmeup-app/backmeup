@@ -14,11 +14,8 @@ import { useLocation } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { TService } from "../../store";
-
-const activeTabProps = {
-  color: "navajoWhite",
-  fontWeight: 600,
-};
+import { SuccessIcon } from "..";
+import { useUpdateUser } from "../../store";
 
 const manageServiceTabs = [
   {
@@ -28,6 +25,10 @@ const manageServiceTabs = [
   {
     name: "Resources",
     isActive: (pathname: string) => pathname.startsWith("/resources"),
+  },
+  {
+    name: "Authorization",
+    isActive: (pathname: string) => pathname === "/authorization",
   },
   {
     name: "Settings",
@@ -50,7 +51,20 @@ const manageUserTabs = [
   },
 ];
 
+const isTabParentActive = (pathname: string, isService?: boolean) => {
+  const results = (isService ? manageServiceTabs : manageUserTabs).map(
+    ({ isActive }) => isActive(pathname)
+  );
+  return results.includes(true);
+};
+
 export const useServicesProps = () => {
+  const updateUser = useUpdateUser();
+
+  const changeService = async (uuid: string) => {
+    await updateUser({ default_service: uuid });
+  };
+
   return (
     services: TService[],
     defaultService: string,
@@ -70,20 +84,36 @@ export const useServicesProps = () => {
     const content = (
       <AccordionPanel>
         <List>
-          {services.map((service, index) => (
-            <ListItem
-              key={index}
-              px={5}
-              py={3}
-              mb={2}
-              fontSize={"0.92rem"}
-              {...(service._id === defaultService ? activeTabProps : {})}
-              textTransform="capitalize"
-              cursor="pointer"
-            >
-              {service.name}
-            </ListItem>
-          ))}
+          {services.map(({ _id, uuid, name }, index) => {
+            const isDefaultService = _id === defaultService;
+            return (
+              <ListItem
+                key={index}
+                px={5}
+                py={3}
+                mb={2}
+                fontSize={"0.92rem"}
+                textTransform="capitalize"
+                cursor="pointer"
+                d="flex"
+                alignItems="center"
+                onClick={() => {
+                  !isDefaultService && changeService(uuid);
+                }}
+              >
+                {name}
+                {isDefaultService && (
+                  <SuccessIcon
+                    ml={3}
+                    pos="relative"
+                    top="0.5px"
+                    fontSize="lg"
+                    color="green.500"
+                  />
+                )}
+              </ListItem>
+            );
+          })}
           <ListItem
             px={5}
             py={3}
@@ -99,20 +129,32 @@ export const useServicesProps = () => {
         </List>
       </AccordionPanel>
     );
-    return { items: [{ heading, content }] };
+    return [{ heading, content }];
   };
 };
 
 export const useDefaultServiceProps = () => {
   const location = useLocation();
   return (service?: TService) => {
+    const isParentActive = isTabParentActive(
+      location.pathname,
+      Boolean(service)
+    );
+    const transition = "all 0.3s ease-in";
+    const color = isParentActive ? "navajowhite" : "white";
     const heading = (
       <AccordionButton px={5} py={3}>
         <Flex justify="space-between" align="center" w="100%">
-          <Text fontFamily="oswald" fontSize="md" textTransform="uppercase">
+          <Text
+            fontFamily="oswald"
+            fontSize="md"
+            transition={transition}
+            color={color}
+            textTransform="uppercase"
+          >
             {service ? service.name : "Account"}
           </Text>
-          <AccordionIcon />
+          <AccordionIcon transition={transition} color={color} />
         </Flex>
       </AccordionButton>
     );
@@ -124,7 +166,6 @@ export const useDefaultServiceProps = () => {
               const activeProps = isActive(location.pathname)
                 ? {
                     color: "navajoWhite",
-                    fontWeight: 600,
                   }
                 : {};
               return (
@@ -139,6 +180,7 @@ export const useDefaultServiceProps = () => {
                   _hover={{
                     underline: "none",
                   }}
+                  transition="all 0.3s ease-in"
                   {...activeProps}
                 >
                   {name}
@@ -149,6 +191,6 @@ export const useDefaultServiceProps = () => {
         </VStack>
       </AccordionPanel>
     );
-    return { items: [{ heading, content }] };
+    return [{ heading, content }];
   };
 };

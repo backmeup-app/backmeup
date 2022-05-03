@@ -12,6 +12,10 @@ export const EditService: FC<TEditService> = ({ onClose, isOpen }) => {
   const [controls, setControls] = useState<TFormControl[]>([]);
 
   useEffect(() => {
+    if (!isOpen) formik.resetForm();
+  }, [isOpen]);
+
+  useEffect(() => {
     const controls = getControls(formik);
     setControls(controls);
   }, [formik.values, formik.errors]);

@@ -1,4 +1,5 @@
 import { useContext, useState, useCallback, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { AppContext } from "../../contexts";
@@ -12,13 +13,16 @@ export const Sidebar = () => {
   const { onOpen, isOpen, onClose } = useDisclosure();
   const getServicesProps = useServicesProps();
   const getDefaultServiceProps = useDefaultServiceProps();
+  const location = useLocation();
 
   const [tabs, setTabs] = useState<{
-    [key in "services" | "activeService" | "account"]: TAccordion | undefined;
+    [key in "services" | "activeService" | "account"]:
+      | TAccordion["items"]
+      | undefined;
   }>({
     services: undefined,
     activeService: undefined,
-    account: getDefaultServiceProps(),
+    account: undefined,
   });
 
   useEffect(() => {
@@ -32,17 +36,15 @@ export const Sidebar = () => {
         ({ _id }) => _id.toString() === (me?.default_service as string)
       ) as TService
     );
-    setTabs((tabs) => ({ ...tabs, services, activeService }));
-  }, [me?.services, me?.default_service]);
+    const account = getDefaultServiceProps();
+    setTabs({ services, activeService, account });
+  }, [me?.services, me?.default_service, location.pathname]);
 
   const displayTabs = useCallback(() => {
-    return Object.values(tabs).map((tab, index) =>
-      !tab ? (
-        <Box key={index} />
-      ) : (
-        <Accordion key={index} {...(tab as TAccordion)} />
-      )
-    );
+    let accordionItems: any = Object.values(tabs);
+    accordionItems = [].concat.apply([], accordionItems);
+    if (accordionItems.includes(undefined)) return <Box />;
+    return <Accordion items={accordionItems} defaultIndex={1} />;
   }, [tabs]);
 
   return (

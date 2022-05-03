@@ -1,4 +1,6 @@
-export type TAccordion = {
+import { AccordionProps } from "@chakra-ui/accordion";
+
+export type TAccordion = AccordionProps & {
   items: TAccordionItem[];
 };
 

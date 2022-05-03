@@ -26,9 +26,10 @@ export const useEditServiceControls = () => {
         name: "name",
         label: <FormLabel>Name</FormLabel>,
         styleProps: { colSpan: 12, mb: 4, isRequired: true },
-        errorMessage: formik.errors?.name ? (
-          <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
-        ) : undefined,
+        errorMessage:
+          formik.touched?.name && formik.errors?.name ? (
+            <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
+          ) : undefined,
         onBlur: formik.handleBlur,
         onChange: formik.handleChange,
         value: formik.values?.name,
