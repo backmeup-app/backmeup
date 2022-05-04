@@ -36,7 +36,7 @@ export const Admin = () => {
       <GridItem colSpan={2}>
         <Sidebar />
       </GridItem>
-      <GridItem colSpan={10}>
+      <GridItem colSpan={12} p={10} bg="#FBFBFB">
         <Switch>{renderPages()}</Switch>
       </GridItem>
       {loading && <Spinner pos="fixed" right={8} bottom={8} />}

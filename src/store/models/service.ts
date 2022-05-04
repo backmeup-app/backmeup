@@ -1,4 +1,5 @@
 import { TResource } from ".";
+import { TPagination } from "../../contexts";
 
 export type TService = {
   _id: string;
@@ -8,4 +9,5 @@ export type TService = {
   created_at: string;
   updated_at: string;
   resources?: TResource[];
+  resourcePagination?: TPagination;
 };

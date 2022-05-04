@@ -6,7 +6,7 @@ export const getResources = (
   state: TAppState,
   payload: TResourceAction["payload"]
 ) => {
-  const { me, pagination: appPagination } = state;
+  const { me } = state;
   const services = me?.services as TService[];
   const { pagination, resources } = payload as TMultipleResourcePayload;
   const idx = services.findIndex(
@@ -16,9 +16,12 @@ export const getResources = (
   if (idx === -1) return state;
   const service = services[idx];
   if (pagination.currentPage > 1)
-    service.resources = (service.resources as TResource[]).concat(resources);
+    service.resources = ((service.resources as TResource[]) ?? []).concat(
+      resources
+    );
   else service.resources = resources;
 
+  service.resourcePagination = pagination;
   services[idx] = service;
 
   return {
@@ -26,10 +29,6 @@ export const getResources = (
     me: {
       ...state.me,
       services,
-    },
-    pagination: {
-      ...appPagination,
-      resources: pagination,
     },
   };
 };

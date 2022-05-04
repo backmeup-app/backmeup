@@ -11,9 +11,14 @@ export const useUpdateUser = () => {
 
     try {
       const {
-        data: { user },
+        data: {
+          user: { name, email, avatar, default_service },
+        },
       } = await client().put<TUpdateUserResponse>("/me", variables);
-      dispatch({ type: "SET_USER", payload: user });
+      dispatch({
+        type: "SET_USER",
+        payload: { name, email, avatar, default_service },
+      });
       dispatch({
         type: "SET_NOTIFICATION",
         payload: { status: "success", text: "Service changed successfully" },

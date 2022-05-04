@@ -134,4 +134,13 @@ export const components: { [key: string]: ComponentStyleConfig } = {
       },
     },
   },
+  Switch: {
+    baseStyle: {
+      track: {
+        _focus: {
+          boxShadow: "none",
+        },
+      },
+    },
+  },
 };

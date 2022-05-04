@@ -8,7 +8,7 @@ export const userReducer = (state: TAppState, action: TUserAction) => {
     case "SET_USER":
       return {
         ...state,
-        me: action.payload,
+        me: { ...state.me, ...action.payload },
       };
     default:
       return state;

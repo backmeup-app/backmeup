@@ -10,7 +10,6 @@ export type TAppState = {
   me?: TUser;
   loading?: boolean;
   notification?: TAppNotification;
-  pagination?: { [key in "resources"]: TPagination | undefined };
 };
 
 export type TPagination = {

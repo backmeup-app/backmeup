@@ -2,5 +2,5 @@ import { TUser } from "../..";
 
 export type TUserAction = {
   type: "SET_USER";
-  payload: TUser;
+  payload: Pick<TUser, "name" | "email" | "avatar" | "default_service">;
 };
