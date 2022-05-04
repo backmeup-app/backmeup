@@ -1,8 +1,8 @@
 import { Flex, VStack, Image, Heading, Text, Button } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { EditService } from "..";
+import { EditService } from "../..";
 
-export const ServiceMessage = () => {
+export const Message = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Flex w="100vw" h="100vh" dir="column" align="center" justify="center">

@@ -1,6 +1,5 @@
 export * from "./Form";
-export * from "./EditService";
 export * from "./Notification";
-export * from "./ServiceMessage";
+export * from "./Service";
 export * from "./Sidebar";
 export * from "./Wrappers";

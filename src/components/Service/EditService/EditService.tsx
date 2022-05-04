@@ -1,7 +1,7 @@
 import { useState, useEffect, FC } from "react";
-import { Modal } from "..";
+import { Modal } from "../..";
 import { useFormik } from "formik";
-import { Form, TFormControl } from "..";
+import { Form, TFormControl } from "../..";
 import { useEditServiceControls, useFormConfig } from "./controls";
 import { TEditService } from "./types";
 

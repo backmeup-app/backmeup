@@ -10,6 +10,12 @@ export type TAppState = {
   me?: TUser;
   loading?: boolean;
   notification?: TAppNotification;
+  pagination?: { [key in "resources"]: TPagination | undefined };
+};
+
+export type TPagination = {
+  currentPage: number;
+  maxPages: number;
 };
 
 export const initialState: TAppState = {};

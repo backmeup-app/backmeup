@@ -27,8 +27,8 @@ const manageServiceTabs = [
     isActive: (pathname: string) => pathname.startsWith("/resources"),
   },
   {
-    name: "Authorization",
-    isActive: (pathname: string) => pathname === "/authorization",
+    name: "Api Keys",
+    isActive: (pathname: string) => pathname === "/api-keys",
   },
   {
     name: "Settings",
@@ -173,7 +173,7 @@ export const useDefaultServiceProps = () => {
                   as={Link}
                   key={index}
                   fontSize="0.92rem"
-                  to={`/${name.toLowerCase()}`}
+                  to={`/${name.toLowerCase().replace(/ /g, "-")}`}
                   py={3}
                   px={5}
                   w={"100%"}

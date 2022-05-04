@@ -1,8 +1,8 @@
 import { FormLabel, FormErrorMessage } from "@chakra-ui/react";
-import { TCreateServiceVariables } from "../../store";
-import { createServiceSchema } from "../../utilities";
-import { TFormControl } from "../Form";
-import { useCreateService } from "../../store";
+import { TCreateServiceVariables } from "../../../store";
+import { createServiceSchema } from "../../../utilities";
+import { TFormControl } from "../../Form";
+import { useCreateService } from "../../../store";
 
 export const useFormConfig = () => {
   const createService = useCreateService();
