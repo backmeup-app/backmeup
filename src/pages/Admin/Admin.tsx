@@ -1,10 +1,10 @@
 import { useContext, useEffect } from "react";
-import { useLocation, Switch, Route } from "react-router-dom";
+import { useLocation, Switch } from "react-router-dom";
 import { Box, Spinner, SimpleGrid, GridItem } from "@chakra-ui/react";
 import { Helmet } from "react-helmet";
 import { AppContext } from "../../contexts";
 import { useGetUser } from "../../store";
-import { Sidebar, Message } from "../../components";
+import { Sidebar, Message, Nav } from "../../components";
 import { useRenderPages } from "./pages";
 import { parseTitle } from "../../utilities";
 
@@ -36,8 +36,13 @@ export const Admin = () => {
       <GridItem colSpan={2}>
         <Sidebar />
       </GridItem>
-      <GridItem colSpan={12} p={10} bg="#FBFBFB">
-        <Switch>{renderPages()}</Switch>
+      <GridItem colSpan={12} bg="#FBFBFB">
+        <>
+          <Nav />
+          <Box p={10}>
+            <Switch>{renderPages()}</Switch>
+          </Box>
+        </>
       </GridItem>
       {loading && <Spinner pos="fixed" right={8} bottom={8} />}
     </SimpleGrid>
