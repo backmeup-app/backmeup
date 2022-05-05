@@ -37,7 +37,9 @@ export const Resource: FC<TResource> = ({
         <Dots fontSize="2xl" cursor="pointer" />
       </Flex>
       <Flex alignItems="center" justify="space-between" w="100%">
-        <Text>{description}</Text>
+        <Text textTransform="lowercase">
+          {Boolean(description) ? description : "No description provided"}
+        </Text>
         <Switch
           colorScheme="green"
           onChange={handleStatusChange}

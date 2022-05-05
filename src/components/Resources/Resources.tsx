@@ -1,12 +1,14 @@
 import { useContext, useEffect, useCallback, useMemo } from "react";
 import { SimpleGrid, GridItem, Box, chakra } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/hooks";
 import { AiOutlinePlus } from "react-icons/ai";
-import { Resource, ResourceMessage } from ".";
+import { Resource, ResourceMessage, EditResource } from ".";
 import { AppContext } from "../../contexts";
 import { TService, useGetResources } from "../../store";
 
 export const Resources = () => {
   const [{ me }] = useContext(AppContext);
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const getResources = useGetResources();
   const PlusIcon = chakra(AiOutlinePlus);
 
@@ -41,9 +43,11 @@ export const Resources = () => {
         borderRadius="full"
         bg="charlestonGreen"
         cursor="pointer"
+        onClick={onOpen}
       >
         <PlusIcon color="white" fontSize="xl" />
       </Box>
+      <EditResource isOpen={isOpen} onClose={onClose} />
     </SimpleGrid>
   );
 };

@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { AppContext } from "../../../contexts";
 import { client } from "../client";
-import { TUpdateResourceResponse, TUpdateResourceVariables } from "./types";
+import { TEditResourceResponse, TEditResourceVariables } from "./types";
 
 export const useUpdateResource = () => {
   const [{ me, loading }, dispatch] = useContext(AppContext);
 
-  return async (resource_uuid: string, variables: TUpdateResourceVariables) => {
+  return async (resource_uuid: string, variables: TEditResourceVariables) => {
     if (loading) return;
     const service_uuid = me?.services?.find(
       (service) => service._id === (me?.default_service as string)
@@ -17,7 +17,7 @@ export const useUpdateResource = () => {
     try {
       const {
         data: { resource },
-      } = await client().put<TUpdateResourceResponse>(url, variables);
+      } = await client().put<TEditResourceResponse>(url, variables);
       dispatch({
         type: "UPDATE_RESOURCE",
         payload: { ...resource, service_uuid },

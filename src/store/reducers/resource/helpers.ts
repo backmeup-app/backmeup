@@ -37,6 +37,31 @@ export const getResources = (
   };
 };
 
+export const createResource = (
+  state: TAppState,
+  payload: TResourceAction["payload"]
+) => {
+  const { me } = state;
+  const services = me?.services as TService[];
+  const { service_uuid, ...createdResource } =
+    payload as TSingleResourcePayload;
+  const idx = services.findIndex(
+    (service) => service.uuid === (service_uuid as string)
+  );
+
+  if (idx === -1) return state;
+  const service = services[idx];
+  (service.resources ?? []).unshift(createdResource);
+
+  return {
+    ...state,
+    me: {
+      ...state.me,
+      services,
+    },
+  };
+};
+
 export const updateResource = (
   state: TAppState,
   payload: TResourceAction["payload"]

@@ -1,4 +1,4 @@
-import { TextareaProps } from "@chakra-ui/textarea";
+import { TextareaProps, SwitchProps } from "@chakra-ui/react";
 import { TCustomTextInput } from "../Custom";
 
 export type TCommonFormControlProps = {
@@ -18,4 +18,9 @@ export type TTextarea = {
   properties: TextareaProps & TCommonFormControlProps;
 };
 
-export type TFormControl = TTextInput | TTextarea;
+export type TSwitch = {
+  type: "switch";
+  properties: SwitchProps & TCommonFormControlProps;
+};
+
+export type TFormControl = TTextInput | TTextarea | TSwitch;

@@ -3,6 +3,7 @@ import {
   FormControl as ChakraFormControl,
   GridItem,
   Textarea,
+  Switch,
 } from "@chakra-ui/react";
 import { TFormControl } from ".";
 import { CustomTextInput } from "../Custom";
@@ -19,6 +20,14 @@ export const FormControl: FC<TFormControl> = ({ type, properties }) => {
         return <CustomTextInput {...properties} />;
       case "textarea":
         return <Textarea {...properties} />;
+      case "switch":
+        return (
+          <Switch
+            {...properties}
+            colorScheme="green"
+            isChecked={properties.value}
+          />
+        );
       default:
         return <div />;
     }
