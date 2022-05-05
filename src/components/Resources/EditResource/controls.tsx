@@ -1,16 +1,28 @@
 import { FormLabel, FormErrorMessage } from "@chakra-ui/react";
 import { TFormControl } from "../..";
-import { TResource, useCreateResource } from "../../../store";
+import {
+  TResource,
+  useCreateResource,
+  useUpdateResource,
+} from "../../../store";
 import { editServiceSchema } from "../../../utilities";
 
-type TEditResource = Pick<TResource, "name" | "description" | "is_active">;
+type TEditResource = Pick<TResource, "name" | "description" | "is_active"> & {
+  uuid?: string;
+};
 
 export const useFormConfig = () => {
   const createResource = useCreateResource();
-  return (onClose?: () => void, values?: TEditResource) => ({
+  const updateResource = useUpdateResource();
+  return (onClose?: () => void) => ({
     validationSchema: editServiceSchema,
-    initialValues: values ?? { name: "", description: "", is_active: true },
+    initialValues: { name: "", description: "", is_active: true },
     onSubmit: async (values: TEditResource) => {
+      if (values.uuid) {
+        const resource_uuid = values.uuid;
+        delete values.uuid;
+        return await updateResource(resource_uuid, values, onClose);
+      }
       await createResource(values, onClose);
     },
   });

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useCallback, useMemo } from "react";
+import { useContext, useEffect, useCallback, useState, useMemo } from "react";
 import { SimpleGrid, GridItem, Box, chakra } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -8,6 +8,7 @@ import { TService, useGetResources } from "../../store";
 
 export const Resources = () => {
   const [{ me }] = useContext(AppContext);
+  const [uuid, setUuid] = useState<string>();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const getResources = useGetResources();
   const PlusIcon = chakra(AiOutlinePlus);
@@ -22,10 +23,20 @@ export const Resources = () => {
     if (!defaultService?.resources) getResources(defaultService.uuid);
   }, [defaultService]);
 
+  const handleEdit = (uuid: string) => {
+    setUuid(uuid);
+    onOpen();
+  };
+
+  const handleModalClose = () => {
+    onClose();
+    setUuid(undefined);
+  };
+
   const displayResources = useCallback(() => {
     return defaultService?.resources?.map((resource, index) => (
       <GridItem key={index} colSpan={6}>
-        <Resource {...resource} />
+        <Resource {...resource} edit={handleEdit} />
       </GridItem>
     ));
   }, [defaultService]);
@@ -47,7 +58,7 @@ export const Resources = () => {
       >
         <PlusIcon color="white" fontSize="xl" />
       </Box>
-      <EditResource isOpen={isOpen} onClose={onClose} />
+      <EditResource isOpen={isOpen} onClose={handleModalClose} uuid={uuid} />
     </SimpleGrid>
   );
 };

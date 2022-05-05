@@ -6,7 +6,7 @@ import { AppContext } from "../../contexts";
 import { useGetUser } from "../../store";
 import { Sidebar, Message, Nav } from "../../components";
 import { useRenderPages } from "./pages";
-import { parseTitle } from "../../utilities";
+import { capitalize } from "../../utilities";
 
 export const Admin = () => {
   const [{ me, loading }] = useContext(AppContext);
@@ -31,7 +31,7 @@ export const Admin = () => {
   return (
     <SimpleGrid columns={14} bg="white">
       <Helmet>
-        <title>{parseTitle(location.pathname)}</title>
+        <title>{capitalize(location.pathname)}</title>
       </Helmet>
       <GridItem colSpan={2}>
         <Sidebar />

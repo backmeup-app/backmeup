@@ -143,4 +143,13 @@ export const components: { [key: string]: ComponentStyleConfig } = {
       },
     },
   },
+  Modal: {
+    baseStyle: {
+      closeButton: {
+        _focus: {
+          boxShadow: "none",
+        },
+      },
+    },
+  },
 };

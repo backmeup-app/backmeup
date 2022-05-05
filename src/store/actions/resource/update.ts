@@ -6,7 +6,11 @@ import { TEditResourceResponse, TEditResourceVariables } from "./types";
 export const useUpdateResource = () => {
   const [{ me, loading }, dispatch] = useContext(AppContext);
 
-  return async (resource_uuid: string, variables: TEditResourceVariables) => {
+  return async (
+    resource_uuid: string,
+    variables: TEditResourceVariables,
+    onClose?: () => void
+  ) => {
     if (loading) return;
     const service_uuid = me?.services?.find(
       (service) => service._id === (me?.default_service as string)
@@ -26,6 +30,7 @@ export const useUpdateResource = () => {
         type: "SET_NOTIFICATION",
         payload: { status: "success", text: "Resource updated successfully" },
       });
+      onClose?.();
     } catch (error) {}
 
     dispatch({ type: "SET_LOADING", payload: false });

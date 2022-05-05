@@ -5,6 +5,7 @@ import { TResource, TService } from "../../../store";
 import { useFormConfig, useEditResourceControls } from "./controls";
 import { TEditResource } from "./types";
 import { AppContext } from "../../../contexts";
+import { capitalize } from "../../../utilities";
 
 export const EditResource: FC<TEditResource> = ({ isOpen, onClose, uuid }) => {
   const getControls = useEditResourceControls();
@@ -27,7 +28,14 @@ export const EditResource: FC<TEditResource> = ({ isOpen, onClose, uuid }) => {
   }, [isOpen]);
 
   useEffect(() => {
-    console.log(formik.values.is_active);
+    if (!uuid) return;
+    const parsedResource = JSON.parse(JSON.stringify(resource));
+    ["name", "description", "is_active", "uuid"].forEach((field) => {
+      formik.setFieldValue(field, parsedResource[field]);
+    });
+  }, [resource]);
+
+  useEffect(() => {
     const controls = getControls(formik);
     setControls(controls);
   }, [formik.values, formik.errors]);
@@ -36,12 +44,16 @@ export const EditResource: FC<TEditResource> = ({ isOpen, onClose, uuid }) => {
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={resource ? `Update ${formik.values.name}` : "Create Resource"}
+      title={
+        uuid ? `Update ${capitalize(formik.values.name)}` : "Create Resource"
+      }
     >
       <Form
         controls={controls}
         onSubmit={formik.handleSubmit}
-        submitBtnText={resource ? `Update ${formik.values.name}` : "Create"}
+        submitBtnText={
+          uuid ? `Update ${capitalize(formik.values.name)}` : "Create"
+        }
       />
     </Modal>
   );
