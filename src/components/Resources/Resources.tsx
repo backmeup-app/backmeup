@@ -1,5 +1,5 @@
 import { useContext, useEffect, useCallback, useState, useMemo } from "react";
-import { SimpleGrid, GridItem, Box, chakra } from "@chakra-ui/react";
+import { SimpleGrid, GridItem, Box, chakra, Skeleton } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Resource, ResourceMessage, EditResource } from ".";
@@ -41,11 +41,20 @@ export const Resources = () => {
     ));
   }, [defaultService]);
 
+  const displaySkeletons = () =>
+    new Array(6).fill("").map((value, index) => (
+      <GridItem key={index} colSpan={6}>
+        <Skeleton startColor="gray.300" endColor="gray.400" height="105px" />
+        {value}
+      </GridItem>
+    ));
+
   if (defaultService?.resources?.length === 0) return <ResourceMessage />;
 
   return (
     <SimpleGrid columns={12} spacing={5}>
       {displayResources()}
+      {!defaultService?.resources && displaySkeletons()}
       <Box
         pos="fixed"
         right={10}

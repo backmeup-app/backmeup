@@ -95,3 +95,31 @@ export const updateResource = (
     },
   };
 };
+
+export const deleteResource = (
+  state: TAppState,
+  payload: TResourceAction["payload"]
+) => {
+  const { me } = state;
+  const services = me?.services as TService[];
+  const { service_uuid, ...deletedResource } =
+    payload as TSingleResourcePayload;
+
+  const idx = services.findIndex((service) => service.uuid === service_uuid);
+
+  if (idx === -1) return state;
+
+  let resources = services[idx]?.resources as TResource[];
+  resources = resources.filter(
+    (resource) => resource.uuid !== deletedResource.uuid
+  );
+  services[idx].resources = resources;
+
+  return {
+    ...state,
+    me: {
+      ...state.me,
+      services,
+    },
+  };
+};

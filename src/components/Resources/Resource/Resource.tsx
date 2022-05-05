@@ -14,7 +14,7 @@ import {
   chakra,
 } from "@chakra-ui/react";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
-import { useUpdateResource } from "../../../store";
+import { useUpdateResource, useDeleteResource } from "../../../store";
 import { TResourceComponent } from "./types";
 
 export const Resource: FC<TResourceComponent> = ({
@@ -26,6 +26,7 @@ export const Resource: FC<TResourceComponent> = ({
 }) => {
   const Dots = chakra(BiDotsHorizontalRounded);
   const updateResource = useUpdateResource();
+  const deleteResource = useDeleteResource();
 
   const handleStatusChange = async () => {
     await updateResource(uuid, { is_active: !is_active });
@@ -33,6 +34,10 @@ export const Resource: FC<TResourceComponent> = ({
 
   const handleEdit = () => {
     edit(uuid);
+  };
+
+  const handleDelete = async () => {
+    await deleteResource(uuid);
   };
 
   return (
@@ -72,7 +77,12 @@ export const Resource: FC<TResourceComponent> = ({
               </MenuItem>
             </MenuGroup>
             <MenuDivider m={0} />
-            <MenuItem _focus={{ bg: "none" }} px={3} py={1}>
+            <MenuItem
+              onClick={handleDelete}
+              _focus={{ bg: "none" }}
+              px={3}
+              py={1}
+            >
               <Text fontSize="sm" color="#FF0000">
                 Delete
               </Text>
