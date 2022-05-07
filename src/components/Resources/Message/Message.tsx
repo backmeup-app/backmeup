@@ -1,8 +1,20 @@
+import { useContext, useMemo } from "react";
 import { Flex, VStack, Image, Heading, Text, Button } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { EditResource } from "../..";
+import { AppContext } from "../../../contexts";
+import { TService } from "../../../store";
+import { capitalize } from "../../../utilities";
 
 export const ResourceMessage = () => {
+  const [{ me }] = useContext(AppContext);
+
+  const defaultService: TService = useMemo(() => {
+    return me?.services?.find(
+      (service) => service._id.toString() === (me?.default_service as string)
+    ) as TService;
+  }, [me?.default_service, me?.services]);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Flex
@@ -17,7 +29,9 @@ export const ResourceMessage = () => {
           boxSize={20}
           src="https://res.cloudinary.com/olamileke/image/upload/v1651325548/backmeup/startup-rocket_zrhku3.svg"
         />
-        <Heading fontSize="2xl">No resources exist for Bookble</Heading>
+        <Heading fontSize="2xl">
+          No resources exist for {capitalize(defaultService.name)}
+        </Heading>
         <Text fontSize={"md"} textAlign="center" lineHeight="tall">
           Create your first resource by clicking the button below.
         </Text>

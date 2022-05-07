@@ -9,7 +9,7 @@ import { useDefaultServiceProps, useServicesProps } from "./tabs";
 import { TService } from "../../store";
 
 export const Sidebar = () => {
-  const [{ me }] = useContext(AppContext);
+  const [{ me, networkOperation }] = useContext(AppContext);
   const { onOpen, isOpen, onClose } = useDisclosure();
   const getServicesProps = useServicesProps();
   const getDefaultServiceProps = useDefaultServiceProps();
@@ -29,7 +29,8 @@ export const Sidebar = () => {
     const services = getServicesProps(
       me?.services as TService[],
       me?.default_service as string,
-      onOpen
+      onOpen,
+      networkOperation as string
     );
     const activeService = getDefaultServiceProps(
       me?.services?.find(
@@ -38,7 +39,7 @@ export const Sidebar = () => {
     );
     const account = getDefaultServiceProps();
     setTabs({ services, activeService, account });
-  }, [me?.services, me?.default_service, location.pathname]);
+  }, [me?.services, me?.default_service, location.pathname, networkOperation]);
 
   const displayTabs = useCallback(() => {
     let accordionItems: any = Object.values(tabs);

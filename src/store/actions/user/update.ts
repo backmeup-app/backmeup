@@ -8,6 +8,10 @@ export const useUpdateUser = () => {
 
   return async (variables: TUpdateUserVariables) => {
     dispatch({ type: "SET_LOADING", payload: true });
+    dispatch({
+      type: "SET_NETWORK_OPERATION",
+      payload: variables?.default_service as string,
+    });
 
     try {
       const {
@@ -25,5 +29,9 @@ export const useUpdateUser = () => {
       });
     } catch (error) {}
     dispatch({ type: "SET_LOADING", payload: false });
+    dispatch({
+      type: "SET_NETWORK_OPERATION",
+      payload: "",
+    });
   };
 };

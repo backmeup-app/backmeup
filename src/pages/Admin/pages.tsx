@@ -1,5 +1,5 @@
 import { Route } from "react-router-dom";
-import { ApiKeys, Overview, Resources, Settings } from "../../components";
+import { Overview, Resources, Settings } from "../../components";
 
 const pages = [
   {
@@ -9,10 +9,6 @@ const pages = [
   {
     path: "/resources",
     component: <Resources />,
-  },
-  {
-    path: "/api-keys",
-    component: <ApiKeys />,
   },
   {
     path: "/settings",

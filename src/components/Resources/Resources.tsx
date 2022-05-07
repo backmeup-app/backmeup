@@ -44,7 +44,7 @@ export const Resources = () => {
   const displaySkeletons = () =>
     new Array(6).fill("").map((value, index) => (
       <GridItem key={index} colSpan={6}>
-        <Skeleton startColor="gray.300" endColor="gray.400" height="105px" />
+        <Skeleton startColor="#f6f8fa" endColor="#d0d7de" height="105px" />
         {value}
       </GridItem>
     ));

@@ -8,6 +8,7 @@ import {
   List,
   VStack,
   ListItem,
+  Spinner,
   Link as ChakraLink,
 } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
@@ -25,10 +26,6 @@ const manageServiceTabs = [
   {
     name: "Resources",
     isActive: (pathname: string) => pathname.startsWith("/resources"),
-  },
-  {
-    name: "Api Keys",
-    isActive: (pathname: string) => pathname === "/api-keys",
   },
   {
     name: "Settings",
@@ -68,7 +65,8 @@ export const useServicesProps = () => {
   return (
     services: TService[],
     defaultService: string,
-    openModal: () => void
+    openModal: () => void,
+    networkOperation: string
   ) => {
     const PlusIcon = chakra(AiOutlinePlus);
     const heading = (
@@ -110,6 +108,9 @@ export const useServicesProps = () => {
                     fontSize="lg"
                     color="green.500"
                   />
+                )}
+                {networkOperation === uuid && (
+                  <Spinner ml={3} pos="relative" top="1.5px" boxSize="12px" />
                 )}
               </ListItem>
             );

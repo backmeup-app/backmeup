@@ -10,6 +10,7 @@ export type TAppState = {
   me?: TUser;
   loading?: boolean;
   notification?: TAppNotification;
+  networkOperation?: string;
 };
 
 export type TPagination = {

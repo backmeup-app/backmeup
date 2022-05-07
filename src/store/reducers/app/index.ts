@@ -9,6 +9,8 @@ export const appReducer = (state: TAppState, action: TAppReducerAction) => {
       return { ...state, loading: action.payload };
     case "SET_NOTIFICATION":
       return { ...state, notification: action.payload };
+    case "SET_NETWORK_OPERATION":
+      return { ...state, networkOperation: action.payload };
     default:
       return state;
   }

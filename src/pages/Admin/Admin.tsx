@@ -9,7 +9,7 @@ import { useRenderPages } from "./pages";
 import { capitalize } from "../../utilities";
 
 export const Admin = () => {
-  const [{ me, loading }] = useContext(AppContext);
+  const [{ me }] = useContext(AppContext);
   const getUser = useGetUser();
   const renderPages = useRenderPages();
   const location = useLocation();
@@ -44,7 +44,6 @@ export const Admin = () => {
           </Box>
         </>
       </GridItem>
-      {loading && <Spinner pos="fixed" right={8} bottom={8} />}
     </SimpleGrid>
   );
 };
