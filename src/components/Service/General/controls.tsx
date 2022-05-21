@@ -2,24 +2,45 @@ import { useContext, Dispatch } from "react";
 import { FormLabel, FormErrorMessage } from "@chakra-ui/react";
 import { TFormControl } from "../..";
 import { AppContext, TAppState } from "../../../contexts";
-import { TAppAction, TService } from "../../../store";
+import {
+  TAppAction,
+  TService,
+  TUpdateServiceVariables,
+  useUpdateService,
+} from "../../../store";
 import { editServiceSchema } from "../../../utilities";
 
 export const useFormConfig = () => {
-  const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const [{ me }, dispatch] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const services = me?.services as TService[];
   const defaultService = services.find(
     (service) => service._id === (me?.default_service as string)
   ) as TService;
+  const updateService = useUpdateService();
 
   return () => ({
     validationSchema: editServiceSchema,
     initialValues: {
       name: defaultService.name,
       description: defaultService.description,
-      duration: "1w",
+      backup_duration: defaultService.backup_duration,
     },
-    onSubmit: async () => {},
+    onSubmit: async (values: TUpdateServiceVariables) => {
+      const service = (me?.services as TService[]).find(
+        (service) =>
+          service.name.toLowerCase() === (values?.name?.toLowerCase() as string)
+      );
+      if (!service || service._id === (me?.default_service as string))
+        return await updateService(values);
+      dispatch({
+        type: "SET_NOTIFICATION",
+        payload: {
+          status: "error",
+          text: `You already have a service named ${service.name}`,
+        },
+      });
+    },
   });
 };
 
@@ -54,11 +75,12 @@ export const useGeneralControls = () => {
     {
       type: "radiogroup",
       properties: {
-        name: "duration",
+        name: "backup_duration",
         label: <FormLabel>Duration</FormLabel>,
         styleProps: { colSpan: 12, mb: 4 },
-        onChange: (value: string) => formik.setFieldValue("duration", value),
-        value: formik.values?.duration,
+        onChange: (value: string) =>
+          formik.setFieldValue("backup_duration", value),
+        value: formik.values?.backup_duration,
         options: [
           {
             label: "1 week",

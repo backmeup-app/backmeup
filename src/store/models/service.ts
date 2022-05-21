@@ -6,6 +6,7 @@ export type TService = {
   uuid: string;
   name: string;
   description?: string;
+  backup_duration: "1w" | "1m" | "3m";
   created_at: string;
   updated_at: string;
   resources?: TResource[];

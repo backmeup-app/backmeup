@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { TCreateServiceResponse } from ".";
+import { TEditServiceResponse } from ".";
 import { TUser } from "../..";
 import { AppContext } from "../../../contexts";
 import { client } from "../client";
@@ -14,7 +14,7 @@ export const useCreateService = () => {
     try {
       const {
         data: { service },
-      } = await client().post<TCreateServiceResponse>("/services", variables);
+      } = await client().post<TEditServiceResponse>("/services", variables);
       dispatch({ type: "CREATE_SERVICE", payload: service });
       dispatch({
         type: "SET_NOTIFICATION",

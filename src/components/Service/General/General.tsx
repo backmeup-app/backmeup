@@ -20,6 +20,7 @@ export const General = () => {
   useEffect(() => {
     formik.setFieldValue("name", defaultService.name);
     formik.setFieldValue("description", defaultService.description);
+    formik.setFieldValue("backup_duration", defaultService.backup_duration);
   }, [defaultService._id]);
 
   return (

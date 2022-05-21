@@ -26,7 +26,7 @@ export const Notification = () => {
       case "success":
         return <SuccessIcon color="green.300" size={19} />;
       case "error":
-        return <ErrorIcon color="red.900" size={19} />;
+        return <ErrorIcon color="red.400" size={19} />;
       default:
         return <SuccessIcon color="green.300" size={19} />;
     }
