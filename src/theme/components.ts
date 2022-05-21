@@ -95,6 +95,15 @@ export const components: { [key: string]: ComponentStyleConfig } = {
           background: "yellow.500",
         },
       },
+      danger: {
+        color: "red",
+        border: "1px solid red",
+
+        _hover: {
+          background: "red.500",
+          color: "white",
+        },
+      },
     },
     sizes: {
       sm: {

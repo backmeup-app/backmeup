@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { InputGroup, Input } from "@chakra-ui/react";
-import { TCustomTextInput } from "./types";
+import { TWrapperTextInput } from "./types";
 
-export const CustomTextInput: FC<TCustomTextInput> = ({
+export const WrapperTextInput: FC<TWrapperTextInput> = ({
   rightAddOn,
   leftAddOn,
   rightElement,

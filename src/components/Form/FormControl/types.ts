@@ -1,5 +1,5 @@
 import { TextareaProps, SwitchProps } from "@chakra-ui/react";
-import { TCustomTextInput } from "../Custom";
+import { TWrapperTextInput } from "../Wrappers";
 
 export type TCommonFormControlProps = {
   label?: JSX.Element;
@@ -10,7 +10,7 @@ export type TCommonFormControlProps = {
 
 export type TTextInput = {
   type: "text";
-  properties: TCustomTextInput & TCommonFormControlProps;
+  properties: TWrapperTextInput & TCommonFormControlProps;
 };
 
 export type TTextarea = {

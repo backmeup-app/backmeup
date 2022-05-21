@@ -4,7 +4,7 @@ import {
   InputElementProps,
 } from "@chakra-ui/input";
 
-export type TCustomTextInput = InputProps & {
+export type TWrapperTextInput = InputProps & {
   rightAddOn?: InputAddonProps;
   leftAddOn?: InputAddonProps;
   rightElement?: InputElementProps;

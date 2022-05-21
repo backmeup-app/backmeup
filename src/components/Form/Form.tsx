@@ -7,9 +7,11 @@ import { AppContext } from "../../contexts";
 export const Form: FC<TForm> = ({
   controls,
   onSubmit,
+  networkOperation,
   submitBtnText = "Save",
 }) => {
-  const [{ loading }] = useContext(AppContext);
+  const [{ loading, networkOperation: networkOperationCtxt }] =
+    useContext(AppContext);
 
   const displayControls = () =>
     controls.map((control, index) => <FormControl key={index} {...control} />);
@@ -19,6 +21,10 @@ export const Form: FC<TForm> = ({
     onSubmit();
   };
 
+  const isLoading = !networkOperation
+    ? loading
+    : loading && networkOperation === networkOperationCtxt;
+
   return (
     <SimpleGrid as="form" onSubmit={handleSubmit} columns={12}>
       {displayControls()}
@@ -26,7 +32,7 @@ export const Form: FC<TForm> = ({
         <Button
           type="submit"
           w="100%"
-          isLoading={loading}
+          isLoading={isLoading}
           loadingText={submitBtnText}
         >
           {submitBtnText}

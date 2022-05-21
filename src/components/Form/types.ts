@@ -4,4 +4,5 @@ export type TForm = {
   controls: TFormControl[];
   onSubmit: () => void;
   submitBtnText?: string;
+  networkOperation?: string;
 };

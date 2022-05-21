@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useLocation, Switch } from "react-router-dom";
-import { Box, Spinner, SimpleGrid, GridItem } from "@chakra-ui/react";
+import { Box, Spinner, Flex } from "@chakra-ui/react";
 import { Helmet } from "react-helmet";
 import { AppContext } from "../../contexts";
 import { useGetUser } from "../../store";
@@ -29,21 +29,21 @@ export const Admin = () => {
   if (!me.default_service) return <Message />;
 
   return (
-    <SimpleGrid columns={14} bg="white">
+    <Flex bg="white">
       <Helmet>
         <title>{capitalize(location.pathname)}</title>
       </Helmet>
-      <GridItem colSpan={2}>
+      <Box pos="fixed" w="14.3%">
         <Sidebar />
-      </GridItem>
-      <GridItem colSpan={12} bg="#FBFBFB">
+      </Box>
+      <Box ml="14.3%" w="85.7%" bg="#FBFBFB">
         <>
           <Nav />
-          <Box p={10}>
+          <Box py={10} px={16}>
             <Switch>{renderPages()}</Switch>
           </Box>
         </>
-      </GridItem>
-    </SimpleGrid>
+      </Box>
+    </Flex>
   );
 };

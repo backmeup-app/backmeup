@@ -6,7 +6,7 @@ import {
   Switch,
 } from "@chakra-ui/react";
 import { TFormControl } from ".";
-import { CustomTextInput } from "../Custom";
+import { WrapperTextInput } from "../Wrappers";
 
 export const FormControl: FC<TFormControl> = ({ type, properties }) => {
   const { label, helperText, errorMessage, styleProps, ...props } = properties;
@@ -17,7 +17,7 @@ export const FormControl: FC<TFormControl> = ({ type, properties }) => {
     const properties: any = props;
     switch (type) {
       case "text":
-        return <CustomTextInput {...properties} />;
+        return <WrapperTextInput {...properties} />;
       case "textarea":
         return <Textarea {...properties} />;
       case "switch":
