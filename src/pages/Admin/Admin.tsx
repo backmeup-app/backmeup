@@ -36,13 +36,11 @@ export const Admin = () => {
       <Box pos="fixed" w="14.3%">
         <Sidebar />
       </Box>
-      <Box ml="14.3%" w="85.7%" bg="#FBFBFB">
-        <>
-          <Nav />
-          <Box py={10} px={16}>
-            <Switch>{renderPages()}</Switch>
-          </Box>
-        </>
+      <Box ml="14.3%" w="85.7%" bg="#FBFBFB" minH="100vh">
+        <Nav />
+        <Box py={10} px={16}>
+          <Switch>{renderPages()}</Switch>
+        </Box>
       </Box>
     </Flex>
   );

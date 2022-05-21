@@ -6,7 +6,7 @@ import {
   Switch,
 } from "@chakra-ui/react";
 import { TFormControl } from ".";
-import { WrapperTextInput } from "../Wrappers";
+import { WrapperRadioGroup, WrapperTextInput } from "../Wrappers";
 
 export const FormControl: FC<TFormControl> = ({ type, properties }) => {
   const { label, helperText, errorMessage, styleProps, ...props } = properties;
@@ -28,6 +28,8 @@ export const FormControl: FC<TFormControl> = ({ type, properties }) => {
             isChecked={properties.value}
           />
         );
+      case "radiogroup":
+        return <WrapperRadioGroup {...properties} />;
       default:
         return <div />;
     }

@@ -1,5 +1,5 @@
 import { TextareaProps, SwitchProps } from "@chakra-ui/react";
-import { TWrapperTextInput } from "../Wrappers";
+import { TWrapperRadioGroup, TWrapperTextInput } from "../Wrappers";
 
 export type TCommonFormControlProps = {
   label?: JSX.Element;
@@ -23,4 +23,9 @@ export type TSwitch = {
   properties: SwitchProps & TCommonFormControlProps;
 };
 
-export type TFormControl = TTextInput | TTextarea | TSwitch;
+export type TRadioGroup = {
+  type: "radiogroup";
+  properties: TWrapperRadioGroup & TCommonFormControlProps;
+};
+
+export type TFormControl = TTextInput | TTextarea | TSwitch | TRadioGroup;

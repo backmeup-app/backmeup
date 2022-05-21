@@ -17,6 +17,7 @@ export const useFormConfig = () => {
     initialValues: {
       name: defaultService.name,
       description: defaultService.description,
+      duration: "1w",
     },
     onSubmit: async () => {},
   });
@@ -48,6 +49,24 @@ export const useGeneralControls = () => {
         onChange: formik.handleChange,
         onBlur: formik.handleBlur,
         value: formik.values?.description,
+      },
+    },
+    {
+      type: "radiogroup",
+      properties: {
+        name: "duration",
+        label: <FormLabel>Duration</FormLabel>,
+        styleProps: { colSpan: 12, mb: 4 },
+        onChange: (value: string) => formik.setFieldValue("duration", value),
+        value: formik.values?.duration,
+        options: [
+          {
+            label: "1 week",
+            value: "1w",
+          },
+          { label: "1 month", value: "1m" },
+          { label: "3 months", value: "3m" },
+        ],
       },
     },
   ];
