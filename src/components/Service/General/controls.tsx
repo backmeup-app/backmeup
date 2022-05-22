@@ -76,7 +76,7 @@ export const useGeneralControls = () => {
       type: "radiogroup",
       properties: {
         name: "backup_duration",
-        label: <FormLabel>Duration</FormLabel>,
+        label: <FormLabel>Backup Duration</FormLabel>,
         styleProps: { colSpan: 12, mb: 4 },
         onChange: (value: string) =>
           formik.setFieldValue("backup_duration", value),

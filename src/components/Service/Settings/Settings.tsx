@@ -1,5 +1,6 @@
 import { Box, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
 import { General } from "../General";
+import { Security } from "../Security";
 
 export const Settings = () => {
   const selectedTabStyles = {
@@ -26,7 +27,9 @@ export const Settings = () => {
           <TabPanel>
             <General />
           </TabPanel>
-          <TabPanel>Notifications</TabPanel>
+          <TabPanel>
+            <Security />
+          </TabPanel>
           <TabPanel>Security</TabPanel>
         </TabPanels>
       </Tabs>

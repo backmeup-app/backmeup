@@ -78,22 +78,23 @@ export const components: { [key: string]: ComponentStyleConfig } = {
       primary: {
         background: "charlestonGreen",
         color: "white",
+        boxShadow: " 0px 9px 0px -5px navajoWhite",
 
         _hover: {
           background: "gray.700",
         },
       },
       secondary: {
-        background: "gold.900",
+        background: "navajoWhite",
         color: "charlestonGreen",
-
-        _focus: {
-          boxShadow: " 0px 9px 0px -5px rgba(0,0,0,0.75)",
-        },
+        boxShadow: " 0px 9px 0px -5px rgba(0,0,0,0.75)",
 
         _hover: {
           background: "yellow.500",
         },
+      },
+      neutral: {
+        background: "#FBFBFB",
       },
       danger: {
         color: "red",
@@ -107,7 +108,8 @@ export const components: { [key: string]: ComponentStyleConfig } = {
     },
     sizes: {
       sm: {
-        px: 5,
+        px: 4,
+        py: 5,
       },
     },
     defaultProps: {

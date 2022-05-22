@@ -1,6 +1,6 @@
-import { FC, useState, useEffect, useContext, useMemo } from "react";
+import { FC, useEffect, useContext, useMemo } from "react";
 import { useFormik } from "formik";
-import { Modal, TFormControl, Form } from "../..";
+import { Modal, Form } from "../..";
 import { TResource, TService } from "../../../store";
 import { useFormConfig, useEditResourceControls } from "./controls";
 import { TEditResource } from "./types";
@@ -12,7 +12,7 @@ export const EditResource: FC<TEditResource> = ({ isOpen, onClose, uuid }) => {
   const [{ me }] = useContext(AppContext);
   const formikConfig = useFormConfig();
   const formik = useFormik(formikConfig(onClose));
-  const [controls, setControls] = useState<TFormControl[]>([]);
+  const controls = getControls(formik);
 
   const resource = useMemo((): TResource | undefined => {
     if (!uuid) return undefined;
@@ -34,11 +34,6 @@ export const EditResource: FC<TEditResource> = ({ isOpen, onClose, uuid }) => {
       formik.setFieldValue(field, parsedResource[field]);
     });
   }, [resource]);
-
-  useEffect(() => {
-    const controls = getControls(formik);
-    setControls(controls);
-  }, [formik.values, formik.errors]);
 
   return (
     <Modal
