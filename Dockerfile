@@ -8,7 +8,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 COPY . .
 
-RUN yarn install --silent
+RUN yarn install --silent --ignore-engines
 
 RUN yarn global add serve
 
