@@ -41,10 +41,10 @@ export const General = () => {
         align="center"
       >
         <Box w="60%" textAlign="left">
-          <Text fontWeight="500" mb={1}>
+          <Text fontWeight="600" mb={1}>
             Delete {capitalize(defaultService.name)}
           </Text>
-          <Text fontSize="15px">
+          <Text>
             Doing this will delete all its associated resources along with their
             backups. Please be certain.
           </Text>
