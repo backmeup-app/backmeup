@@ -4,7 +4,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 export const Ips = () => {
   const PlusIcon = chakra(AiOutlinePlus);
   const headerStyleProps = {
-    py: 5,
+    py: 4,
     px: 6,
     mb: 10,
     align: "center",

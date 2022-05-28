@@ -11,7 +11,7 @@ export const useCreateApiKey = () => {
     (service) => service._id === (me?.default_service as string)
   ) as TService;
 
-  return async (variables: TCreateApiKeyVariables) => {
+  return async (variables: TCreateApiKeyVariables, onClose?: () => void) => {
     dispatch({ type: "SET_LOADING", payload: true });
     dispatch({ type: "SET_NETWORK_OPERATION", payload: "create.api.key" });
 
@@ -21,6 +21,14 @@ export const useCreateApiKey = () => {
         data: { apiKey },
       } = await client().post<TCreateApiKeyResponse>(url, variables);
       dispatch({ type: "CREATE_API_KEY", payload: apiKey });
+      dispatch({
+        type: "SET_NOTIFICATION",
+        payload: {
+          status: "success",
+          text: `${variables.name} created successfully`,
+        },
+      });
+      onClose?.();
     } catch (error) {}
     dispatch({ type: "SET_LOADING", payload: false });
     dispatch({ type: "SET_NETWORK_OPERATION", payload: "" });

@@ -9,7 +9,7 @@ import { TAppAction } from "../../../store";
 export const CreateApiKey: FC<TCreateApiKey> = ({ isOpen, onClose }) => {
   const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const getFormConfig = useFormConfig();
-  const formik = useFormik(getFormConfig());
+  const formik = useFormik(getFormConfig(onClose));
   const getControls = useCreateApiKeyControls();
   const controls = getControls(formik);
 

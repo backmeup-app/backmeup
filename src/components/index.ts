@@ -1,3 +1,4 @@
+export * from "./DeleteDialog";
 export * from "./Form";
 export * from "./Nav";
 export * from "./Notification";
