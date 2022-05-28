@@ -38,7 +38,7 @@ export const ApiKeys = () => {
         src="https://res.cloudinary.com/olamileke/image/upload/v1653248142/backmeup/api-keys_ugv8zw.png"
       />
       <Box>
-        <Text fontSize="sm" fontFamily="openSans" w="60%" lineHeight="tall">
+        <Text fontSize="15px" w="60%" lineHeight="tall">
           No API Keys currently exist for {capitalize(defaultService.name)}. API
           Keys are required to backup {capitalize(defaultService.name)}'s
           resources.

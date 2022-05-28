@@ -6,19 +6,28 @@ import {
   ModalOverlay,
   ModalCloseButton,
   ModalBody,
-  ModalFooter,
 } from "@chakra-ui/react";
 import { TModal } from ".";
 
-export const Modal: FC<TModal> = ({ title, isOpen, onClose, children }) => {
+export const Modal: FC<TModal> = ({
+  title,
+  isOpen,
+  onClose,
+  children,
+  isCentered = true,
+}) => {
   return (
-    <ChakraModal onClose={onClose} isOpen={isOpen} size="xl" isCentered>
+    <ChakraModal
+      onClose={onClose}
+      isOpen={isOpen}
+      size="xl"
+      isCentered={isCentered}
+    >
       <ModalOverlay />
-      <ModalContent>
-        <ModalHeader fontFamily="oswald">{title}</ModalHeader>
+      <ModalContent pb={4} borderRadius={"sm"}>
+        <ModalHeader fontSize="md">{title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>{children}</ModalBody>
-        <ModalFooter></ModalFooter>
       </ModalContent>
     </ChakraModal>
   );
