@@ -16,6 +16,7 @@ export const ApiKeys = () => {
       (service) => service._id === (me?.default_service as string)
     ) as TService;
   }, [me?.default_service]);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isApiKeys =
     defaultService.api_keys && defaultService.api_keys.length > 0;

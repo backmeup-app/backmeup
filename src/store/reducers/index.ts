@@ -3,6 +3,8 @@ import {
   appReducer,
   TApiKeyAction,
   apiKeyReducer,
+  TIpAction,
+  ipAddressReducer,
   TResourceAction,
   resourceReducer,
   TServiceAction,
@@ -15,6 +17,7 @@ import { combineReducers } from "../../utilities";
 export type TAppAction =
   | TApiKeyAction
   | TAppReducerAction
+  | TIpAction
   | TResourceAction
   | TServiceAction
   | TUserAction;
@@ -22,6 +25,7 @@ export type TAppAction =
 export const stateReducer = combineReducers({
   apiKeyReducer,
   appReducer,
+  ipAddressReducer,
   resourceReducer,
   serviceReducer,
   userReducer,
@@ -29,6 +33,7 @@ export const stateReducer = combineReducers({
 
 export * from "./api-key";
 export * from "./app";
+export * from "./ip";
 export * from "./resource";
 export * from "./service";
 export * from "./user";
