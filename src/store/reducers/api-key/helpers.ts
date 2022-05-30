@@ -15,7 +15,7 @@ export const createApiKey = (
   if (idx === -1) return state;
 
   const defaultService = services[idx];
-  defaultService.api_keys = [...(defaultService.api_keys ?? []), payload];
+  defaultService.api_keys = [payload, ...(defaultService.api_keys ?? [])];
   services[idx] = defaultService;
 
   return {

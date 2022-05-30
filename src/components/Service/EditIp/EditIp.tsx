@@ -6,7 +6,7 @@ import { useEditIpControls, useFormConfig } from "./controls";
 
 export const EditIp: FC<TEditIp> = ({ isOpen, onClose }) => {
   const getFormConfig = useFormConfig();
-  const formik = useFormik(getFormConfig());
+  const formik = useFormik(getFormConfig(onClose));
   const getControls = useEditIpControls();
   const controls = getControls(formik);
 

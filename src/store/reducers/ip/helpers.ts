@@ -15,7 +15,7 @@ export const createIpAddress = (
   if (idx === -1) return state;
 
   const defaultService = services[idx];
-  defaultService.ips = [...(defaultService.ips ?? []), payload];
+  defaultService.ips = [payload, ...(defaultService.ips ?? [])];
 
   services[idx] = defaultService;
 

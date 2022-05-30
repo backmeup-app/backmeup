@@ -6,6 +6,7 @@ import { capitalize } from "../../../utilities";
 import { AppContext, TAppState } from "../../../contexts";
 import { TAppAction, TService } from "../../../store";
 import { EditIp } from "..";
+import { Ip } from "./Ip";
 
 export const Ips = () => {
   const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
@@ -21,7 +22,6 @@ export const Ips = () => {
   const headerStyleProps = {
     py: 4,
     px: 6,
-    mb: 10,
     align: "center",
     justify: "space-between",
     borderBottom: "1px solid",
@@ -45,16 +45,25 @@ export const Ips = () => {
     </VStack>
   );
 
+  const displayIps = () =>
+    (defaultService.ips ?? []).map((ip, index) => <Ip key={index} {...ip} />);
+
   return (
     <Box bgColor="white" w="100%" boxShadow="md">
       <Flex {...headerStyleProps}>
         <Text>IP Whitelist</Text>
         <Flex align="center" cursor="pointer" onClick={onOpen}>
-          <Text fontSize="sm">Add to Whitelist</Text>
+          <Text fontSize="sm">Add IP Address</Text>
           <PlusIcon ml={2} />
         </Flex>
       </Flex>
-      {isIps ? <VStack></VStack> : <ZeroIps />}
+      {isIps ? (
+        <VStack spacing={6} p={6}>
+          {displayIps()}
+        </VStack>
+      ) : (
+        <ZeroIps />
+      )}
       <EditIp isOpen={isOpen} onClose={onClose} />
     </Box>
   );

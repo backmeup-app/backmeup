@@ -1,14 +1,18 @@
 import { FormLabel, FormErrorMessage } from "@chakra-ui/react";
 import { TFormControl } from "../..";
+import { useCreateIpAddress } from "../../../store";
 import { createIpSchema } from "../../../utilities";
 
 export const useFormConfig = () => {
-  return () => ({
+  const createIpAddress = useCreateIpAddress();
+  return (onClose?: () => void) => ({
     validationSchema: createIpSchema,
     initialValues: {
       address: "",
     },
-    onSubmit: () => {},
+    onSubmit: async (values: { address: string }) => {
+      await createIpAddress({ value: values.address }, onClose);
+    },
   });
 };
 
