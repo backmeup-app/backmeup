@@ -36,7 +36,7 @@ export const Ips = () => {
         src="https://res.cloudinary.com/olamileke/image/upload/v1655041065/backmeup/pixeltrue-icons-seo-growth-1_air921.png"
       />
       <Box>
-        <Text fontSize="15px" w="60%" textAlign="center" lineHeight="tall">
+        <Text fontSize="15px" w="60%" textAlign="center" lineHeight="7">
           Add an extra layer of security by making sure that only requests from
           whitelisted IP Addresses are able to backup your resources
         </Text>

@@ -1,4 +1,4 @@
-import { TApiKey, TIpAddress, TResource } from ".";
+import { TApiKey, TIpAddress, TNotification, TResource } from ".";
 import { TPagination } from "../../contexts";
 
 export type TService = {
@@ -11,6 +11,7 @@ export type TService = {
   updated_at: string;
   api_keys: TApiKey[];
   ips: TIpAddress[];
+  notifications: TNotification;
   resources?: TResource[];
   resourcePagination?: TPagination;
 };
