@@ -14,6 +14,7 @@ export const useDeleteResource = () => {
       (resource) => resource.uuid === resource_uuid
     ) as TResource;
     dispatch({ type: "SET_LOADING", payload: true });
+    dispatch({ type: "SET_NETWORK_OPERATION", payload: "delete.resource" });
 
     try {
       const url = `/services/${service?.uuid}/resources/${resource_uuid}`;
@@ -29,5 +30,6 @@ export const useDeleteResource = () => {
     } catch (error) {}
 
     dispatch({ type: "SET_LOADING", payload: false });
+    dispatch({ type: "SET_NETWORK_OPERATION", payload: "" });
   };
 };

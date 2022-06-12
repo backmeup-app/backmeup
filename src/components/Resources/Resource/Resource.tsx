@@ -1,6 +1,9 @@
-import { FC } from "react";
+import { FC, useContext, Dispatch } from "react";
 import {
   VStack,
+  HStack,
+  Button,
+  Box,
   Flex,
   Text,
   Heading,
@@ -13,9 +16,17 @@ import {
   MenuItem,
   chakra,
 } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/hooks";
+import { Modal } from "../..";
+import { BsExclamationDiamondFill } from "react-icons/bs";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
-import { useUpdateResource, useDeleteResource } from "../../../store";
+import {
+  useUpdateResource,
+  useDeleteResource,
+  TAppAction,
+} from "../../../store";
 import { TResourceComponent } from "./types";
+import { AppContext, TAppState } from "../../../contexts";
 
 export const Resource: FC<TResourceComponent> = ({
   name,
@@ -24,7 +35,11 @@ export const Resource: FC<TResourceComponent> = ({
   is_active,
   edit,
 }) => {
+  const [{ loading, networkOperation }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const Dots = chakra(BiDotsHorizontalRounded);
+  const DangerIcon = chakra(BsExclamationDiamondFill);
   const updateResource = useUpdateResource();
   const deleteResource = useDeleteResource();
 
@@ -39,6 +54,27 @@ export const Resource: FC<TResourceComponent> = ({
   const handleDelete = async () => {
     await deleteResource(uuid);
   };
+
+  const DeleteConfirmation = () => (
+    <VStack align="flex-start" spacing={4}>
+      <Box lineHeight="7" fontSize="15px">
+        <Text mb={2}></Text>
+        <Text>Are you sure you want to delete {name}?</Text>
+      </Box>
+      <HStack justify="flex-end" w="100%" spacing={4}>
+        <Button
+          size="sm"
+          variant="danger"
+          isLoading={loading && networkOperation === "delete.resource"}
+        >
+          Delete
+        </Button>
+        <Button size="sm" variant="outline" onClick={onClose}>
+          Cancel
+        </Button>
+      </HStack>
+    </VStack>
+  );
 
   return (
     <VStack
@@ -100,6 +136,17 @@ export const Resource: FC<TResourceComponent> = ({
           isChecked={is_active}
         />
       </Flex>
+      <Modal
+        title={
+          <Flex alignItems="center">
+            <DangerIcon color="red.500" fontSize="xl" mr={3} /> Delete Resource
+          </Flex>
+        }
+        isOpen={isOpen}
+        onClose={onClose}
+      >
+        <DeleteConfirmation />
+      </Modal>
     </VStack>
   );
 };

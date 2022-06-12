@@ -1,5 +1,12 @@
 import { useContext, useEffect, useCallback, useState, useMemo } from "react";
-import { SimpleGrid, GridItem, Box, chakra, Skeleton } from "@chakra-ui/react";
+import {
+  SimpleGrid,
+  GridItem,
+  Box,
+  Spinner,
+  chakra,
+  Skeleton,
+} from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Resource, ResourceMessage, EditResource } from ".";
@@ -7,11 +14,15 @@ import { AppContext } from "../../contexts";
 import { TService, useGetResources } from "../../store";
 
 export const Resources = () => {
-  const [{ me }] = useContext(AppContext);
+  const [{ me, loading, networkOperation }] = useContext(AppContext);
   const [uuid, setUuid] = useState<string>();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const getResources = useGetResources();
   const PlusIcon = chakra(AiOutlinePlus);
+  const showSpinner =
+    loading &&
+    (networkOperation === "delete.resource" ||
+      networkOperation === "update.resource");
 
   const defaultService: TService = useMemo(() => {
     return me?.services?.find(
@@ -59,13 +70,21 @@ export const Resources = () => {
         pos="fixed"
         right={10}
         bottom={10}
-        p="5"
+        w="60px"
+        h="60px"
+        d="flex"
+        justifyContent="center"
+        alignItems="center"
         borderRadius="full"
         bg="charlestonGreen"
         cursor="pointer"
-        onClick={onOpen}
+        onClick={!showSpinner ? onOpen : () => {}}
       >
-        <PlusIcon color="white" fontSize="xl" />
+        {showSpinner ? (
+          <Spinner color="white" size="sm" />
+        ) : (
+          <PlusIcon color="white" fontSize="xl" />
+        )}
       </Box>
       <EditResource isOpen={isOpen} onClose={handleModalClose} uuid={uuid} />
     </SimpleGrid>

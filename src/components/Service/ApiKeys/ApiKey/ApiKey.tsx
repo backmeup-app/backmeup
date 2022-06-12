@@ -12,6 +12,7 @@ import { useDisclosure } from "@chakra-ui/hooks";
 import { TApiKeyComponent } from "./types";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { BiTrashAlt } from "react-icons/bi";
+import { BsExclamationDiamondFill } from "react-icons/bs";
 import { Modal } from "../../..";
 import { TAppAction, useDeleteApiKey } from "../../../../store";
 import { AppContext, TAppState } from "../../../../contexts";
@@ -29,6 +30,7 @@ export const ApiKey: FC<TApiKeyComponent> = ({
   const VisibleIcon = chakra(AiOutlineEye);
   const InvisibleIcon = chakra(AiOutlineEyeInvisible);
   const TrashIcon = chakra(BiTrashAlt);
+  const DangerIcon = chakra(BsExclamationDiamondFill);
   const deleteApiKey = useDeleteApiKey();
 
   const handleVisibilityChange = () => {
@@ -42,23 +44,23 @@ export const ApiKey: FC<TApiKeyComponent> = ({
   const DeleteConfirmation = () => (
     <VStack align="flex-start" spacing={4}>
       <Box lineHeight="7" fontSize="15px">
-        <Text mb={2}>
+        <Text mb={1}>
           Backup API requests that make use of {name} for authentication will
           fail to work.
         </Text>
-        <Text>Are you sure you wish to proceed?</Text>
+        <Text>Are you sure you want to delete it?</Text>
       </Box>
       <HStack justify="flex-end" w="100%" spacing={4}>
-        <Button size="sm" variant="outline" onClick={onClose}>
-          Cancel
-        </Button>
         <Button
           size="sm"
           variant="danger"
           isLoading={loading && networkOperation === "delete.api.key"}
           onClick={handleDelete}
         >
-          Delete {name}
+          Delete
+        </Button>
+        <Button size="sm" variant="outline" onClick={onClose}>
+          Cancel
         </Button>
       </HStack>
     </VStack>
@@ -98,7 +100,11 @@ export const ApiKey: FC<TApiKeyComponent> = ({
       <Modal
         isOpen={isOpen}
         onClose={onClose}
-        title={`Delete ${name}`}
+        title={
+          <Flex alignItems="center">
+            <DangerIcon color="red.500" fontSize="xl" mr={3} /> Delete API Key
+          </Flex>
+        }
         isCentered={false}
       >
         <DeleteConfirmation />

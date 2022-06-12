@@ -1,6 +1,11 @@
 import { ComponentStyleConfig } from "@chakra-ui/theme";
 
 export const components: { [key: string]: ComponentStyleConfig } = {
+  // VStack: {
+  //   baseStyle: {
+  //     justifyContent: "flex-start",
+  //   },
+  // },
   FormLabel: {
     baseStyle: {
       fontFamily: "openSans",
@@ -54,6 +59,7 @@ export const components: { [key: string]: ComponentStyleConfig } = {
   Text: {
     baseStyle: {
       fontFamily: "openSans",
+      textAlign: "left",
     },
   },
   Heading: {
