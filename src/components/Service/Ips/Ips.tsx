@@ -29,17 +29,16 @@ export const Ips = () => {
   };
 
   const ZeroIps = () => (
-    <VStack spacing={8} my={10}>
+    <VStack spacing={0} mt={6} mb={12}>
       <Image
-        boxSize="155px"
+        boxSize="220px"
         objectFit="contain"
-        src="https://res.cloudinary.com/olamileke/image/upload/v1653248142/backmeup/api-keys_ugv8zw.png"
+        src="https://res.cloudinary.com/olamileke/image/upload/v1655041065/backmeup/pixeltrue-icons-seo-growth-1_air921.png"
       />
       <Box>
-        <Text fontSize="15px" w="60%" lineHeight="tall">
-          No API Keys currently exist for {capitalize(defaultService.name)}. API
-          Keys are required to backup {capitalize(defaultService.name)}'s
-          resources.
+        <Text fontSize="15px" w="60%" textAlign="center" lineHeight="tall">
+          Add an extra layer of security by making sure that only requests from
+          whitelisted IP Addresses are able to backup your resources
         </Text>
       </Box>
     </VStack>

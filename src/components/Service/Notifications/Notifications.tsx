@@ -40,10 +40,10 @@ export const Notifications = () => {
         alignItems="center"
       >
         <Box>
-          <Text fontSize="sm" mb={2}>
+          <Text fontSize="md" mb={2}>
             {channel.name}
           </Text>
-          <Text fontSize="14px">{channel.value}</Text>
+          <Text fontSize="15px">{channel.value}</Text>
         </Box>
         <Switch colorScheme="green" />
       </Flex>
@@ -52,7 +52,7 @@ export const Notifications = () => {
   const displayEvents = () =>
     events.map((event, index) => (
       <Flex key={index} px={6} w="100%" justifyContent="space-between">
-        <Text fontSize="15px">{event}</Text>
+        <Text fontSize="15.5px">{event}</Text>
         <Switch colorScheme="green" />
       </Flex>
     ));

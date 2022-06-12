@@ -11,6 +11,10 @@ export const serviceReducer = (state: TAppState, action: TServiceAction) => {
         ...state,
         me: {
           ...state.me,
+          default_service:
+            (state?.me?.services ?? []).length > 0
+              ? state?.me?.default_service
+              : action.payload._id,
           services: state.me
             ? [...state.me.services, action.payload]
             : [action.payload],

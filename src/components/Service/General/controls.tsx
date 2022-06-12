@@ -22,9 +22,9 @@ export const useFormConfig = () => {
   return () => ({
     validationSchema: editServiceSchema,
     initialValues: {
-      name: defaultService.name,
-      description: defaultService.description,
-      backup_duration: defaultService.backup_duration,
+      name: defaultService?.name ?? "",
+      description: defaultService?.description ?? "",
+      backup_duration: defaultService?.backup_duration ?? "1w",
     },
     onSubmit: async (values: TUpdateServiceVariables) => {
       const service = (me?.services as TService[]).find(

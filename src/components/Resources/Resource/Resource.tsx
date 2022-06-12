@@ -57,14 +57,12 @@ export const Resource: FC<TResourceComponent> = ({
 
   const DeleteConfirmation = () => (
     <VStack align="flex-start" spacing={4}>
-      <Box lineHeight="7" fontSize="15px">
-        <Text mb={2}></Text>
-        <Text>Are you sure you want to delete {name}?</Text>
-      </Box>
+      <Text>Are you sure you want to delete {name} ?</Text>
       <HStack justify="flex-end" w="100%" spacing={4}>
         <Button
           size="sm"
           variant="danger"
+          onClick={handleDelete}
           isLoading={loading && networkOperation === "delete.resource"}
         >
           Delete
@@ -113,12 +111,7 @@ export const Resource: FC<TResourceComponent> = ({
               </MenuItem>
             </MenuGroup>
             <MenuDivider m={0} />
-            <MenuItem
-              onClick={handleDelete}
-              _focus={{ bg: "none" }}
-              px={3}
-              py={1}
-            >
+            <MenuItem onClick={onOpen} _focus={{ bg: "none" }} px={3} py={1}>
               <Text fontSize="sm" color="#FF0000">
                 Delete
               </Text>
@@ -144,6 +137,7 @@ export const Resource: FC<TResourceComponent> = ({
         }
         isOpen={isOpen}
         onClose={onClose}
+        isCentered={false}
       >
         <DeleteConfirmation />
       </Modal>

@@ -1,4 +1,4 @@
-import { useEffect, useContext, Dispatch } from "react";
+import { useEffect, useContext, useMemo, Dispatch } from "react";
 import { Box, Flex, VStack, Text, Button } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { Form } from "../..";
@@ -9,19 +9,22 @@ import { capitalize } from "../../../utilities";
 
 export const General = () => {
   const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
-  const defaultService = (me?.services as TService[]).find(
-    (service) => service._id === (me?.default_service as string)
-  ) as TService;
+  const defaultService = useMemo(() => {
+    return (me?.services as TService[]).find(
+      (service) => service._id === (me?.default_service as string)
+    ) as TService;
+  }, [me?.default_service]);
   const getFormConfig = useFormConfig();
   const getControls = useGeneralControls();
   const formik = useFormik(getFormConfig());
   const controls = getControls(formik);
 
   useEffect(() => {
+    if (!defaultService) return;
     formik.setFieldValue("name", defaultService.name);
     formik.setFieldValue("description", defaultService.description);
     formik.setFieldValue("backup_duration", defaultService.backup_duration);
-  }, [defaultService._id]);
+  }, [defaultService?._id]);
 
   return (
     <VStack spacing="24px" mx={10}>
@@ -42,7 +45,7 @@ export const General = () => {
       >
         <Box w="60%" textAlign="left">
           <Text fontWeight="600" mb={1}>
-            Delete {capitalize(defaultService.name)}
+            Delete {capitalize(defaultService?.name ?? "")}
           </Text>
           <Text>
             Doing this will delete all its associated resources along with their
