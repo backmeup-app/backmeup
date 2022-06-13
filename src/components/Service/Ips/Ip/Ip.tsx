@@ -9,7 +9,12 @@ import {
   chakra,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { TAppAction, TIpAddress, TService } from "../../../../store";
+import {
+  TAppAction,
+  TIpAddress,
+  TService,
+  useDeleteIpAddress,
+} from "../../../../store";
 import { BiTrashAlt } from "react-icons/bi";
 import { BsExclamationDiamondFill } from "react-icons/bs";
 import { Modal } from "../../..";
@@ -27,6 +32,7 @@ export const Ip: FC<TIpAddress> = ({ uuid, value }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const TrashIcon = chakra(BiTrashAlt);
   const DangerIcon = chakra(BsExclamationDiamondFill);
+  const deleteIp = useDeleteIpAddress();
 
   const DeleteConfirmation = () => (
     <VStack align="flex-start" spacing={4}>
@@ -41,7 +47,10 @@ export const Ip: FC<TIpAddress> = ({ uuid, value }) => {
         <Button
           size="sm"
           variant="danger"
-          isLoading={loading && networkOperation === "delete.api.key"}
+          isLoading={loading && networkOperation === "delete.ip.address"}
+          onClick={() => {
+            deleteIp({ uuid, value });
+          }}
         >
           Delete
         </Button>

@@ -1,7 +1,7 @@
 import { useContext, Dispatch, useMemo } from "react";
 import { Box, VStack, Flex, Text, Switch } from "@chakra-ui/react";
 import { AppContext, TAppState } from "../../../contexts";
-import { TAppAction, TService } from "../../../store";
+import { TAppAction, TService, useUpdateNotifications } from "../../../store";
 import { events } from "./helpers";
 
 export const Notifications = () => {
@@ -11,6 +11,7 @@ export const Notifications = () => {
       (service) => service._id === (me?.default_service as string)
     ) as TService;
   }, [me?.default_service]);
+  const updateNotifications = useUpdateNotifications();
   const headerStyleProps = {
     py: 4,
     px: 6,
@@ -47,11 +48,18 @@ export const Notifications = () => {
 
   const displayEvents = () =>
     events.map(({ name, key }, index) => {
+      const isChecked = Boolean(defaultService?.notifications?.events[key]);
       return (
         <Flex key={index} px={6} w="100%" justifyContent="space-between">
           <Text fontSize="15.5px">{name}</Text>
           <Switch
-            isChecked={defaultService?.notifications?.events[key]}
+            isChecked={isChecked}
+            onChange={() => {
+              updateNotifications({
+                key: "event." + key.toLowerCase(),
+                value: !isChecked,
+              });
+            }}
             colorScheme="green"
           />
         </Flex>

@@ -24,47 +24,39 @@ export const Notification = () => {
   const displayStatus = useCallback(() => {
     switch (notification?.status) {
       case "success":
-        return <SuccessIcon color="green.300" size={19} />;
+        return <SuccessIcon color="white" size={19} />;
       case "error":
-        return <ErrorIcon color="red.400" size={19} />;
+        return <ErrorIcon color="white" size={19} />;
       default:
-        return <SuccessIcon color="green.300" size={19} />;
-    }
-  }, [notification?.status]);
-
-  const getStatusColor = useCallback(() => {
-    switch (notification?.status) {
-      case "success":
-        return "green.300";
-      case "error":
-        return "red.400";
-      default:
-        return "green.300";
+        return <SuccessIcon color="white" size={19} />;
     }
   }, [notification?.status]);
 
   const SuccessIcon = chakra(BsCheckCircle);
   const ErrorIcon = chakra(FaRegTimesCircle);
-  const statusColor = getStatusColor();
 
   return (
     <Flex
       pos="fixed"
       align="center"
-      left={6}
+      right={6}
       bottom={6}
-      p={6}
-      bg="white"
+      p={5}
+      bg={
+        notification?.status === "success"
+          ? "rgb(85,85,85)"
+          : notification?.status === "error"
+          ? "red.400"
+          : "blue"
+      }
       opacity={display ? 1 : 0}
       boxShadow="md"
-      border="1px solid"
-      borderColor={statusColor}
       transition="all 0.5s ease-in"
     >
-      <Text mr={3} color={statusColor} fontWeight={500}>
-        {notification?.text ?? "Authenticated successfully"}
-      </Text>
       {displayStatus()}
+      <Text ml={3} fontSize="15px" color="white">
+        {notification?.text ?? ""}
+      </Text>
     </Flex>
   );
 };

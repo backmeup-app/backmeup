@@ -9,7 +9,7 @@ export const notificationReducer = (
   action: TNotificationAction
 ) => {
   switch (action.type) {
-    case "UPDATE_NOTIFICATION":
+    case "UPDATE_SERVICE_NOTIFICATION":
       return updateNotification(state, action.payload);
     default:
       return state;
