@@ -17,7 +17,8 @@ export const useVerifyGoogleAuth = () => {
         `/tokens?code=${code}`
       );
       const { user, token } = data;
-      cookies.set("token", token);
+      const tokenExpiry = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000);
+      cookies.set("token", token, { expires: tokenExpiry });
       dispatch({ type: "SET_USER", payload: user });
       dispatch({
         type: "SET_NOTIFICATION",

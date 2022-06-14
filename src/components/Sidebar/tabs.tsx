@@ -1,22 +1,15 @@
 import {
-  chakra,
   AccordionButton,
   AccordionIcon,
   AccordionPanel,
   Flex,
   Text,
-  List,
   VStack,
-  ListItem,
-  Spinner,
   Link as ChakraLink,
 } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
-import { AiOutlinePlus } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { TService } from "../../store";
-import { SuccessIcon } from "..";
-import { useUpdateUser } from "../../store";
 
 const manageServiceTabs = [
   {
@@ -53,85 +46,6 @@ const isTabParentActive = (pathname: string, isService?: boolean) => {
     ({ isActive }) => isActive(pathname)
   );
   return results.includes(true);
-};
-
-export const useServicesProps = () => {
-  const updateUser = useUpdateUser();
-
-  const changeService = async (uuid: string) => {
-    await updateUser({ default_service: uuid });
-  };
-
-  return (
-    services: TService[],
-    defaultService: string,
-    openModal: () => void,
-    networkOperation: string
-  ) => {
-    const PlusIcon = chakra(AiOutlinePlus);
-    const heading = (
-      <AccordionButton px={5}>
-        <Flex justify="space-between" align="center" w="100%">
-          <Text fontFamily="oswald" fontSize="md">
-            SERVICES
-          </Text>
-          <AccordionIcon />
-        </Flex>
-      </AccordionButton>
-    );
-    const content = (
-      <AccordionPanel>
-        <List>
-          {services.map(({ _id, uuid, name }, index) => {
-            const isDefaultService = _id === defaultService;
-            return (
-              <ListItem
-                key={index}
-                px={5}
-                py={3}
-                mb={2}
-                fontSize={"0.92rem"}
-                textTransform="capitalize"
-                cursor="pointer"
-                d="flex"
-                alignItems="center"
-                onClick={() => {
-                  !isDefaultService && changeService(uuid);
-                }}
-              >
-                {name}
-                {isDefaultService && (
-                  <SuccessIcon
-                    ml={3}
-                    pos="relative"
-                    top="0.5px"
-                    fontSize="lg"
-                    color="green.500"
-                  />
-                )}
-                {networkOperation === uuid && (
-                  <Spinner ml={3} pos="relative" top="1.5px" boxSize="12px" />
-                )}
-              </ListItem>
-            );
-          })}
-          <ListItem
-            px={5}
-            py={3}
-            cursor="pointer"
-            fontSize="0.92rem"
-            onClick={openModal}
-          >
-            <Flex align="center">
-              <PlusIcon mr={2} />
-              New Service
-            </Flex>
-          </ListItem>
-        </List>
-      </AccordionPanel>
-    );
-    return [{ heading, content }];
-  };
 };
 
 export const useDefaultServiceProps = () => {

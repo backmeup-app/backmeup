@@ -32,7 +32,7 @@ export const useFormConfig = () => {
           },
         });
       }
-      await createApiKey({ ...values });
+      await createApiKey({ ...values }, onClose);
     },
   });
 };
