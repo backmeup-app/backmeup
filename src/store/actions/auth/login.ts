@@ -14,7 +14,7 @@ export const useVerifyGoogleAuth = () => {
     dispatch({ type: "SET_LOADING", payload: true });
     try {
       const { data } = await client().post<TVerifyGoogleAuth>(
-        `/tokens?code=${code}`
+        `/tokens/google?code=${code}`
       );
       const { user, token } = data;
       const tokenExpiry = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000);

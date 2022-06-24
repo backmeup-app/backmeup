@@ -118,9 +118,13 @@ export const Nav = () => {
         <Services />
       </Box>
       <HStack align="center" spacing={3}>
-        <Avatar src={me?.avatar} boxSize="40px" name={me?.name} />
+        <Avatar
+          src={me?.avatar}
+          boxSize="40px"
+          name={me?.first_name + " " + me?.last_name}
+        />
         <VStack spacing={0} align="flex-start" ml={1}>
-          <Text fontSize="sm">{me?.name}</Text>
+          <Text fontSize="sm">{me?.first_name + " " + me?.last_name}</Text>
           <Text fontSize="sm">{me?.email}</Text>
         </VStack>
         <CaretDown boxSize="14px" color="gray.600" pos="relative" top="2px" />
