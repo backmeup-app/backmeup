@@ -4,7 +4,7 @@ import { AppContext, TAppState } from "../../../contexts";
 import { TAppAction, TService, useUpdateNotifications } from "../../../store";
 import { events } from "./helpers";
 
-export const Notifications = () => {
+export const ServiceNotifications = () => {
   const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const defaultService = useMemo(() => {
     return (me?.services as TService[]).find(

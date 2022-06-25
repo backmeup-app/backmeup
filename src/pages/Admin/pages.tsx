@@ -1,5 +1,11 @@
 import { Route } from "react-router-dom";
-import { Overview, Resources, Settings } from "../../components";
+import {
+  Overview,
+  Resources,
+  Settings,
+  Profile,
+  Notifications,
+} from "../../components";
 
 const pages = [
   {
@@ -13,6 +19,14 @@ const pages = [
   {
     path: "/settings",
     component: <Settings />,
+  },
+  {
+    path: "/profile",
+    component: <Profile />,
+  },
+  {
+    path: "/notifications",
+    component: <Notifications />,
   },
 ];
 

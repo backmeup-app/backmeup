@@ -5,4 +5,5 @@ export type TForm = {
   onSubmit: () => void;
   submitBtnText?: string;
   networkOperation?: string;
+  classNames?: { [key: string]: any };
 };

@@ -1,5 +1,10 @@
 import { FC } from "react";
-import { InputGroup, Input } from "@chakra-ui/react";
+import {
+  InputGroup,
+  Input,
+  InputRightElement,
+  InputLeftElement,
+} from "@chakra-ui/react";
 import { TWrapperTextInput } from "./types";
 
 export const WrapperTextInput: FC<TWrapperTextInput> = ({
@@ -11,7 +16,9 @@ export const WrapperTextInput: FC<TWrapperTextInput> = ({
 }) => {
   return (
     <InputGroup>
+      {leftElement && <InputLeftElement {...leftElement} />}
       <Input {...props} />
+      {rightElement && <InputRightElement {...rightElement} />}
     </InputGroup>
   );
 };

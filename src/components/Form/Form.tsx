@@ -9,6 +9,7 @@ export const Form: FC<TForm> = ({
   onSubmit,
   networkOperation,
   submitBtnText = "Save",
+  classNames,
 }) => {
   const [{ loading, networkOperation: networkOperationCtxt }] =
     useContext(AppContext);
@@ -26,9 +27,9 @@ export const Form: FC<TForm> = ({
     : loading && networkOperation === networkOperationCtxt;
 
   return (
-    <SimpleGrid as="form" onSubmit={handleSubmit} columns={12}>
+    <SimpleGrid as="form" onSubmit={handleSubmit} columnGap={5} columns={12}>
       {displayControls()}
-      <GridItem colSpan={12} mt={2}>
+      <GridItem colSpan={12} mt={2} {...(classNames?.buttonParent ?? {})}>
         <Button
           type="submit"
           w="100%"
