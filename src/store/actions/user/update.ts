@@ -1,7 +1,12 @@
-import { useContext } from "react";
-import { AppContext } from "../../../contexts";
+import { useContext, Dispatch } from "react";
+import { TAppAction } from "../..";
+import { AppContext, TAppState } from "../../../contexts";
 import { client } from "../client";
-import { TUpdateUserResponse, TUpdateUserVariables } from "./types";
+import {
+  TUpdateUserPasswordVariables,
+  TUpdateUserResponse,
+  TUpdateUserVariables,
+} from "./types";
 
 export const useUpdateUser = () => {
   const [, dispatch] = useContext(AppContext);
@@ -10,7 +15,9 @@ export const useUpdateUser = () => {
     dispatch({ type: "SET_LOADING", payload: true });
     dispatch({
       type: "SET_NETWORK_OPERATION",
-      payload: variables?.default_service as string,
+      payload: variables?.default_service
+        ? variables.default_service
+        : "update.user",
     });
 
     try {
@@ -25,9 +32,41 @@ export const useUpdateUser = () => {
       });
       dispatch({
         type: "SET_NOTIFICATION",
-        payload: { status: "success", text: "Service changed successfully" },
+        payload: {
+          status: "success",
+          text: variables?.default_service
+            ? "Service changed successfully"
+            : "Updated successfully",
+        },
       });
     } catch (error) {}
+    dispatch({ type: "SET_LOADING", payload: false });
+    dispatch({
+      type: "SET_NETWORK_OPERATION",
+      payload: "",
+    });
+  };
+};
+
+export const useUpdateUserPassword = () => {
+  const [, dispatch] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+
+  return async (variables: TUpdateUserPasswordVariables) => {
+    dispatch({ type: "SET_LOADING", payload: true });
+    dispatch({
+      type: "SET_NETWORK_OPERATION",
+      payload: "update.user.password",
+    });
+
+    try {
+      await client().put("/me/password/change", variables);
+      dispatch({
+        type: "SET_NOTIFICATION",
+        payload: { status: "success", text: "Password updated successfully" },
+      });
+    } catch (error) {}
+
     dispatch({ type: "SET_LOADING", payload: false });
     dispatch({
       type: "SET_NETWORK_OPERATION",

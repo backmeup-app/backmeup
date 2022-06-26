@@ -3,6 +3,7 @@ import { SimpleGrid, Button, GridItem } from "@chakra-ui/react";
 import { TForm } from "./types";
 import { FormControl } from "./FormControl";
 import { AppContext } from "../../contexts";
+import { convertTypeAcquisitionFromJson } from "typescript";
 
 export const Form: FC<TForm> = ({
   controls,

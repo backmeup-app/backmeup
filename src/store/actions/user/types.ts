@@ -1,11 +1,14 @@
 import { TUser } from "../..";
 import { TCommonApiResponse } from "../types";
 
-export type TUpdateUserVariables = {
-  name?: string;
-  email?: string;
-  avatar?: string;
-  default_service?: string;
+export type TUpdateUserVariables = Partial<
+  Pick<TUser, "first_name" | "last_name" | "default_service">
+> & {
+  avatar?: File;
+};
+
+export type TUpdateUserPasswordVariables = {
+  password: string;
 };
 
 export type TUpdateUserResponse = TCommonApiResponse & {

@@ -17,7 +17,9 @@ export const FormControl: FC<TFormControl> = ({ type, properties }) => {
     const properties: any = props;
     switch (type) {
       case "text":
-        return <WrapperTextInput {...properties} />;
+        return (
+          <WrapperTextInput {...properties} isInvalid={Boolean(errorMessage)} />
+        );
       case "textarea":
         return <Textarea {...properties} />;
       case "switch":

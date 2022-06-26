@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { VStack, Box, Image } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { AppContext } from "../../../contexts";
@@ -12,17 +12,19 @@ import {
 
 export const Profile = () => {
   const [{ me }] = useContext(AppContext);
+
   const getProfileConfig = useProfileConfig();
-  const getPasswordConfig = usePasswordConfig();
   const getProfileControls = useProfileControls();
-  const getPasswordControls = usePasswordControls();
   const profileFormik = useFormik(getProfileConfig());
-  const passwordFormik = useFormik(getPasswordConfig());
   const profileControls = getProfileControls(profileFormik);
+
+  const getPasswordConfig = usePasswordConfig();
+  const getPasswordControls = usePasswordControls();
+  const passwordFormik = useFormik(getPasswordConfig());
   const passwordControls = getPasswordControls(passwordFormik);
 
   return (
-    <VStack mx={10} pt={5} spacing={6} alignItems="flex-start">
+    <VStack mx={10} spacing={6} alignItems="flex-start">
       <Box w="100%">
         <Image
           src={me?.avatar}
@@ -38,6 +40,7 @@ export const Profile = () => {
             onSubmit={profileFormik.handleSubmit}
             submitBtnText="Update"
             classNames={{ buttonParent: { colSpan: 6, mt: 8 } }}
+            networkOperation="update.user"
           />
         </Box>
       </Box>
@@ -46,6 +49,7 @@ export const Profile = () => {
           controls={passwordControls}
           onSubmit={passwordFormik.handleSubmit}
           submitBtnText="Update"
+          networkOperation="update.user.password"
         />
       </Box>
     </VStack>
