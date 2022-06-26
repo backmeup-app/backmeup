@@ -48,7 +48,7 @@ export const usePasswordConfig = () => {
 
 export const useProfileControls = () => {
   const PencilEdit = chakra(HiOutlinePencilAlt);
-  return (formik: any): TFormControl[] => {
+  return (formik: any, onOpen: () => void): TFormControl[] => {
     const handleChange = (
       field: string,
       event: React.ChangeEvent<HTMLInputElement>
@@ -98,7 +98,13 @@ export const useProfileControls = () => {
           isDisabled: true,
           label: (
             <FormLabel d="flex" alignItems="center">
-              Email <PencilEdit cursor="pointer" ml={2} fontSize="lg" />
+              Email{" "}
+              <PencilEdit
+                cursor="pointer"
+                onClick={onOpen}
+                ml={2}
+                fontSize="lg"
+              />
             </FormLabel>
           ),
           styleProps: { colSpan: 6, mb: 4, isRequired: true },

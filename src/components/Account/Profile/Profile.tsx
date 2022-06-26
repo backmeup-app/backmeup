@@ -1,8 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { VStack, Box, Image } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/hooks";
 import { useFormik } from "formik";
 import { AppContext } from "../../../contexts";
 import { Form } from "../..";
+import { ResetEmail } from "./ResetEmail";
 import {
   useProfileConfig,
   usePasswordConfig,
@@ -12,11 +14,12 @@ import {
 
 export const Profile = () => {
   const [{ me }] = useContext(AppContext);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const getProfileConfig = useProfileConfig();
   const getProfileControls = useProfileControls();
   const profileFormik = useFormik(getProfileConfig());
-  const profileControls = getProfileControls(profileFormik);
+  const profileControls = getProfileControls(profileFormik, onOpen);
 
   const getPasswordConfig = usePasswordConfig();
   const getPasswordControls = usePasswordControls();
@@ -52,6 +55,7 @@ export const Profile = () => {
           networkOperation="update.user.password"
         />
       </Box>
+      <ResetEmail isOpen={isOpen} onClose={onClose} />
     </VStack>
   );
 };

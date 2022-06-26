@@ -16,3 +16,9 @@ export const updateUserPasswordSchema = Yup.object().shape({
     .required("Passwords must match")
     .oneOf([Yup.ref("password"), null], "Passwords must match"),
 });
+
+export const resetEmailSchema = Yup.object().shape({
+  password: Yup.string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters in length"),
+});
