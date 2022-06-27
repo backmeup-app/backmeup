@@ -2,7 +2,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "./theme";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Notification } from "./components";
-import { Admin, Home } from "./pages";
+import { Admin, Home, ResetEmail } from "./pages";
 import { isAuthenticated } from "./utilities";
 import { AppProvider } from "./contexts";
 
@@ -11,6 +11,9 @@ export const App = () => (
     <ChakraProvider theme={theme}>
       <Router>
         <Switch>
+          <Route path="/email/reset/:token">
+            <ResetEmail />
+          </Route>
           <Route path="/">{isAuthenticated() ? <Admin /> : <Home />}</Route>
         </Switch>
       </Router>

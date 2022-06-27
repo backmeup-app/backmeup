@@ -9,3 +9,11 @@ export type TVerifyGoogleAuth = TCommonApiResponse & {
 export type TResetEmailVariables = {
   password: string;
 };
+
+export type TChangeEmailVariables = {
+  token: string;
+};
+
+export type TChangeEmailInitialVariables = TChangeEmailVariables & {
+  email: string;
+};

@@ -22,3 +22,9 @@ export const resetEmailSchema = Yup.object().shape({
     .required("Password is required")
     .min(8, "Password must be at least 8 characters in length"),
 });
+
+export const changeEmailSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Must be a valid email address")
+    .required("Email is required"),
+});

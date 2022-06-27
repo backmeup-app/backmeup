@@ -1,4 +1,5 @@
 export * from "./Account";
+export * from "./Auth";
 export * from "./Form";
 export * from "./Nav";
 export * from "./Notification";
