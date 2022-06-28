@@ -1,15 +1,19 @@
 import { FormErrorMessage, FormLabel } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
 import { TFormControl } from "../..";
 import { useChangeEmailInitial } from "../../../store";
 import { changeEmailSchema } from "../../../utilities";
 
 export const useFormConfig = () => {
   const changeEmailInitial = useChangeEmailInitial();
+  const { token } = useParams<{ token: string }>();
 
   return () => ({
     initialValues: { email: "" },
     validationSchema: changeEmailSchema,
-    onSubmit: async (values: { email: string }) => {},
+    onSubmit: async (values: { email: string }) => {
+      await changeEmailInitial({ ...values, token });
+    },
   });
 };
 

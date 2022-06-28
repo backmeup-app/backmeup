@@ -1,17 +1,11 @@
-import { ChangeEmail } from "../../components";
-import { Box } from "@chakra-ui/react";
+import { useLocation } from "react-router-dom";
+import { ChangeEmail, EmailChanged } from "../../components";
 
 export const ResetEmail = () => {
-  return (
-    <Box
-      h="100vh"
-      w="100vw"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      bg="rgba(247, 219, 167, 0.5)"
-    >
-      <ChangeEmail />
-    </Box>
-  );
+  const location = useLocation();
+  const isResetEmail = location.pathname.toLowerCase().includes("reset");
+
+  if (isResetEmail) return <ChangeEmail />;
+
+  return <EmailChanged />;
 };

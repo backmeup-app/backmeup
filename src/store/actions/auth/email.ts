@@ -1,4 +1,5 @@
 import { useContext, Dispatch } from "react";
+import { useParams } from "react-router-dom";
 import { TAppAction } from "../..";
 import { AppContext, TAppState } from "../../../contexts";
 import { client } from "../client";
@@ -45,7 +46,7 @@ export const useChangeEmailInitial = () => {
         type: "SET_NOTIFICATION",
         payload: {
           status: "success",
-          text: `Check ${variables.email}'s inbox'`,
+          text: `Check ${variables.email}'s inbox`,
         },
       });
     } catch (error) {}
@@ -55,5 +56,19 @@ export const useChangeEmailInitial = () => {
       type: "SET_NETWORK_OPERATION",
       payload: "",
     });
+  };
+};
+
+export const useChangeEmailFinal = () => {
+  const [, dispatch] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const { token } = useParams<{ token: string }>();
+
+  return async () => {
+    dispatch({ type: "SET_LOADING", payload: true });
+    try {
+      await client().put(`/me/email/change/${token}`);
+      dispatch({ type: "SET_LOADING", payload: false });
+    } catch (error) {}
   };
 };

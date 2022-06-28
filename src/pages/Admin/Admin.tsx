@@ -20,9 +20,9 @@ export const Admin = () => {
 
   if (!me) {
     return (
-      <Box w="100vw" h="100vh">
-        <Spinner pos="fixed" right={8} bottom={8} />
-      </Box>
+      <Flex w="100vw" h="100vh" justifyContent="center" alignItems="center">
+        <Spinner size="lg" />
+      </Flex>
     );
   }
 
@@ -31,7 +31,7 @@ export const Admin = () => {
   return (
     <Box>
       <Helmet>
-        <title>{capitalize(location.pathname)}</title>
+        <title>{capitalize(location.pathname)} | Backmeup</title>
       </Helmet>
       <Flex bg="white">
         <Box pos="fixed" w="14.3%">
