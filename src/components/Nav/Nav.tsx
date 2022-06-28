@@ -111,7 +111,12 @@ export const Nav = () => {
         alignItems="center"
       >
         <HStack onClick={toggleServices} spacing={4}>
-          <Avatar size="sm" borderRadius="none" name={defaultService?.name} />
+          <Avatar
+            size="sm"
+            borderRadius="none"
+            bg="navajowhite"
+            name={defaultService?.name}
+          />
           <Text>{defaultService?.name}</Text>
           <ArrowDown mt="2px" fontSize="xl" />
         </HStack>

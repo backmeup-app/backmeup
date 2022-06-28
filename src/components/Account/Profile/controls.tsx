@@ -7,7 +7,11 @@ import {
   useUpdateUser,
   useUpdateUserPassword,
 } from "../../../store";
-import { updateUserPasswordSchema, updateUserSchema } from "../../../utilities";
+import {
+  updateUserPasswordSchema,
+  updateUserSchema,
+  validateImage,
+} from "../../../utilities";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 
@@ -212,5 +216,28 @@ export const usePasswordControls = () => {
         },
       },
     ];
+  };
+};
+
+export const useHandleFileChange = () => {
+  const [, dispatch] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+
+  return (
+    formik: any,
+    event: React.ChangeEvent<HTMLInputElement>,
+    ref: React.MutableRefObject<HTMLImageElement | null>
+  ) => {
+    const file = event.target.files ? event.target.files[0] : null;
+    if (!file) return;
+
+    if (validateImage(file, dispatch)) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        ref.current?.setAttribute("src", event.target?.result as string);
+        formik.setValue("avatar", file);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 };
