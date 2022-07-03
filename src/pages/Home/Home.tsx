@@ -32,7 +32,7 @@ export const Home = () => {
 
   return (
     <VStack h="100vh" w="full">
-      <Box h="65%" w="full" bg="navajoWhite">
+      <Box h="65%" w="full" bg="rgba(247, 219, 167, 0.5)">
         <Container
           maxW={[
             "90%",
@@ -59,28 +59,32 @@ export const Home = () => {
                 align="flex-start"
                 spacing={10}
               >
-                <Heading lineHeight="short" color="charlestonGreen">
-                  Create automated backups for your file/in memory database
+                <Heading
+                  fontFamily="openSans"
+                  lineHeight="tall"
+                  color="charlestonGreen"
+                  fontSize="25px"
+                >
+                  Setup automated backups for your file, in memory database
                   stores today. Easy, fast and simple.
                 </Heading>
                 <Button
                   isLoading={loading}
                   onClick={redirectGoogleAuth}
                   loadingText="Login with Google"
-                  variant="secondary"
                 >
                   Login with Google
                 </Button>
               </VStack>
             </VStack>
             <Spacer />
-            <Image
+            {/* <Image
               src={HERO_IMAGE_SOURCE}
               boxSize="29rem"
               pos="relative"
               objectFit="cover"
               top="13vh"
-            />
+            /> */}
           </Flex>
         </Container>
       </Box>
