@@ -37,7 +37,7 @@ export const Profile = () => {
   };
 
   return (
-    <VStack mx={10} spacing={6} alignItems="flex-start">
+    <VStack spacing={6} alignItems="flex-start">
       <Box w="100%">
         <Flex mb={5} alignItems="flex-end">
           <Image

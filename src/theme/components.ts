@@ -85,17 +85,19 @@ export const components: { [key: string]: ComponentStyleConfig } = {
         background: "charlestonGreen",
         color: "white",
         boxShadow: " 0px 9px 0px -5px navajoWhite",
+        opacity: 1,
 
         _hover: {
           background: "gray.700",
         },
 
-        _focus: {
+        _loading: {
+          opacity: 1,
           boxShadow: " 0px 9px 0px -5px navajoWhite",
-        },
 
-        _active: {
-          boxShadow: " 0px 9px 0px -5px navajoWhite",
+          _hover: {
+            background: "gray.700",
+          },
         },
       },
       secondary: {

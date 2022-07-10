@@ -44,14 +44,14 @@ export const Notification = () => {
       p={5}
       bg={
         notification?.status === "success"
-          ? "rgb(85,85,85)"
+          ? "green.400"
           : notification?.status === "error"
           ? "red.400"
           : "blue"
       }
       opacity={display ? 1 : 0}
       boxShadow="md"
-      transition="all 0.5s ease-in"
+      transition="opacity 0.5s ease-in"
       zIndex={display ? 10 : -9999}
     >
       {displayStatus()}

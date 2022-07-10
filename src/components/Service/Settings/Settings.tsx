@@ -23,13 +23,13 @@ export const Settings = () => {
           </Tab>
         </TabList>
         <TabPanels>
-          <TabPanel>
+          <TabPanel px={0}>
             <General />
           </TabPanel>
-          <TabPanel>
+          <TabPanel px={0}>
             <Security />
           </TabPanel>
-          <TabPanel>
+          <TabPanel px={0}>
             <ServiceNotifications />
           </TabPanel>
         </TabPanels>

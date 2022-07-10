@@ -49,7 +49,7 @@ export const ApiKeys = () => {
   );
 
   const displayApiKeys = () =>
-    (defaultService.api_keys ?? []).map((key, index) => (
+    (defaultService.api_keys ?? []).map((key) => (
       <ApiKey {...key} value={key.key} />
     ));
 

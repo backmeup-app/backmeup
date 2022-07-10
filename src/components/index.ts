@@ -1,6 +1,7 @@
 export * from "./Account";
 export * from "./Auth";
 export * from "./Form";
+export * from "./Loader";
 export * from "./Nav";
 export * from "./Notification";
 export * from "./Resources";

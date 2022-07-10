@@ -27,7 +27,7 @@ export const General = () => {
   }, [defaultService?._id]);
 
   return (
-    <VStack spacing="24px" mx={10}>
+    <VStack spacing="24px">
       <Box w="100%" bgColor="white" boxShadow="md" p={10}>
         <Form
           controls={controls}

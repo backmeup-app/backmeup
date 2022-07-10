@@ -67,7 +67,7 @@ export const ServiceNotifications = () => {
     });
 
   return (
-    <VStack spacing={6} mx={10}>
+    <VStack spacing={6}>
       <Box bg="white" shadow="md" w="100%">
         <Box {...headerStyleProps}>
           <Text textAlign="left">Channels</Text>

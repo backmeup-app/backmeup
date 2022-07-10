@@ -1,29 +1,33 @@
 import { useContext, useEffect } from "react";
 import { useLocation, Switch, Route, Redirect } from "react-router-dom";
-import { Box, Spinner, Flex } from "@chakra-ui/react";
+import { Box, Flex, Spinner } from "@chakra-ui/react";
 import { Helmet } from "react-helmet";
 import { AppContext } from "../../contexts";
 import { useGetUser } from "../../store";
-import { Sidebar, Message, Nav, VerifyEmail } from "../../components";
+import { Sidebar, Message, Nav, Loader } from "../../components";
 import { useRenderPages } from "./pages";
 import { capitalize } from "../../utilities";
 
 export const Admin = () => {
-  const [{ me }] = useContext(AppContext);
+  const [{ me, loading: contextLoading, networkOperation }] =
+    useContext(AppContext);
   const getUser = useGetUser();
   const renderPages = useRenderPages();
   const location = useLocation();
+  const operations = [
+    "update.resource.status",
+    "delete.resource",
+    "update.default.service",
+  ];
+  const isLoading =
+    contextLoading && operations.includes(networkOperation ?? "");
 
   useEffect(() => {
     if (!me) getUser();
   }, []);
 
   if (!me) {
-    return (
-      <Flex w="100vw" h="100vh" justifyContent="center" alignItems="center">
-        <Spinner size="lg" />
-      </Flex>
-    );
+    return <Loader />;
   }
 
   if (!me.default_service) return <Message />;
@@ -49,6 +53,9 @@ export const Admin = () => {
           </Box>
         </Box>
       </Flex>
+      {isLoading && (
+        <Spinner size="lg" pos="fixed" right={"52px"} bottom={10} />
+      )}
     </Box>
   );
 };

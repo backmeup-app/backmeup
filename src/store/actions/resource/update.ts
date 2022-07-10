@@ -17,7 +17,13 @@ export const useUpdateResource = () => {
     )?.uuid as string;
     const url = `/services/${service_uuid}/resources/${resource_uuid}`;
     dispatch({ type: "SET_LOADING", payload: true });
-    dispatch({ type: "SET_NETWORK_OPERATION", payload: "update.resource" });
+    dispatch({
+      type: "SET_NETWORK_OPERATION",
+      payload:
+        Object.keys(variables).length === 1
+          ? "update.resource.status"
+          : "update.resource",
+    });
 
     try {
       const {

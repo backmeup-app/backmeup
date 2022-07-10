@@ -16,7 +16,7 @@ export const useUpdateUser = () => {
     dispatch({
       type: "SET_NETWORK_OPERATION",
       payload: variables?.default_service
-        ? variables.default_service
+        ? "update.default.service"
         : "update.user",
     });
 
