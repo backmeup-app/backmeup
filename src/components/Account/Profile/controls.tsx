@@ -153,31 +153,32 @@ export const usePasswordControls = () => {
           type: show.password ? "text" : "password",
           label: <FormLabel>Password</FormLabel>,
           styleProps: { colSpan: 6, mb: 4, isRequired: true },
-          rightElement: formik?.touched?.password && {
-            children: show.password ? (
-              <IconButton
-                aria-label="button"
-                cursor="pointer"
-                variant="ghost"
-                onClick={() => {
-                  setShow({ ...show, password: false });
-                }}
-                fontSize="lg"
-                icon={<AiOutlineEyeInvisible />}
-              />
-            ) : (
-              <IconButton
-                aria-label="button"
-                cursor="pointer"
-                variant="ghost"
-                onClick={() => {
-                  setShow({ ...show, password: true });
-                }}
-                fontSize="lg"
-                icon={<AiOutlineEye />}
-              />
-            ),
-          },
+          rightElement: formik?.touched?.password &&
+            formik.values?.password.length > 0 && {
+              children: show.password ? (
+                <IconButton
+                  aria-label="button"
+                  cursor="pointer"
+                  variant="ghost"
+                  onClick={() => {
+                    setShow({ ...show, password: false });
+                  }}
+                  fontSize="lg"
+                  icon={<AiOutlineEyeInvisible />}
+                />
+              ) : (
+                <IconButton
+                  aria-label="button"
+                  cursor="pointer"
+                  variant="ghost"
+                  onClick={() => {
+                    setShow({ ...show, password: true });
+                  }}
+                  fontSize="lg"
+                  icon={<AiOutlineEye />}
+                />
+              ),
+            },
           errorMessage:
             formik.touched?.password && formik.errors?.password ? (
               <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
@@ -196,31 +197,32 @@ export const usePasswordControls = () => {
           type: show.password_confirmation ? "text" : "password",
           label: <FormLabel>Password Confirmation</FormLabel>,
           styleProps: { colSpan: 6, mb: 4, isRequired: true },
-          rightElement: formik?.touched?.password_confirmation && {
-            children: show.password_confirmation ? (
-              <IconButton
-                aria-label="button"
-                cursor="pointer"
-                variant="ghost"
-                onClick={() => {
-                  setShow({ ...show, password_confirmation: false });
-                }}
-                fontSize="lg"
-                icon={<AiOutlineEyeInvisible />}
-              />
-            ) : (
-              <IconButton
-                aria-label="button"
-                cursor="pointer"
-                variant="ghost"
-                onClick={() => {
-                  setShow({ ...show, password_confirmation: true });
-                }}
-                fontSize="lg"
-                icon={<AiOutlineEye />}
-              />
-            ),
-          },
+          rightElement: formik?.touched?.password_confirmation &&
+            formik.values?.password_confirmation.length > 0 && {
+              children: show.password_confirmation ? (
+                <IconButton
+                  aria-label="button"
+                  cursor="pointer"
+                  variant="ghost"
+                  onClick={() => {
+                    setShow({ ...show, password_confirmation: false });
+                  }}
+                  fontSize="lg"
+                  icon={<AiOutlineEyeInvisible />}
+                />
+              ) : (
+                <IconButton
+                  aria-label="button"
+                  cursor="pointer"
+                  variant="ghost"
+                  onClick={() => {
+                    setShow({ ...show, password_confirmation: true });
+                  }}
+                  fontSize="lg"
+                  icon={<AiOutlineEye />}
+                />
+              ),
+            },
           errorMessage:
             formik.touched?.password_confirmation &&
             formik.errors?.password_confirmation ? (

@@ -60,7 +60,7 @@ export const Resources = () => {
   if (defaultService?.resources?.length === 0) return <ResourceMessage />;
 
   return (
-    <SimpleGrid columns={12} spacing={5}>
+    <SimpleGrid columns={12} mx={5} spacing={5}>
       {displayResources()}
       {!defaultService?.resources && displaySkeletons()}
       {defaultService.resources && (

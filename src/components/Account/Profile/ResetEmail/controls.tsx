@@ -47,34 +47,35 @@ export const useResetEmailControls = () => {
             </FormLabel>
           ),
           styleProps: { colSpan: 12, mb: 3 },
-          rightElement: formik?.touched?.user_password && {
-            children: show ? (
-              <IconButton
-                aria-label="Button"
-                variant="ghost"
-                icon={<AiOutlineEyeInvisible />}
-                onClick={() => {
-                  setShow(false);
-                }}
-                fontSize="lg"
-                cursor="pointer"
-              />
-            ) : (
-              <IconButton
-                aria-label="Button"
-                variant="ghost"
-                icon={<AiOutlineEye />}
-                onClick={() => {
-                  setShow(true);
-                }}
-                fontSize="lg"
-                cursor="pointer"
-              />
-            ),
-          },
+          rightElement: formik?.touched?.user_password &&
+            formik.values?.user_password.length > 0 && {
+              children: show ? (
+                <IconButton
+                  aria-label="Button"
+                  variant="ghost"
+                  icon={<AiOutlineEyeInvisible />}
+                  onClick={() => {
+                    setShow(false);
+                  }}
+                  fontSize="lg"
+                  cursor="pointer"
+                />
+              ) : (
+                <IconButton
+                  aria-label="Button"
+                  variant="ghost"
+                  icon={<AiOutlineEye />}
+                  onClick={() => {
+                    setShow(true);
+                  }}
+                  fontSize="lg"
+                  cursor="pointer"
+                />
+              ),
+            },
           errorMessage:
             formik.touched?.user_password && formik.errors?.user_password ? (
-              <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+              <FormErrorMessage>{formik.errors.user_password}</FormErrorMessage>
             ) : undefined,
           onBlur: formik.handleBlur,
           onChange: (event) => {

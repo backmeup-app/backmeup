@@ -11,7 +11,6 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  MenuGroup,
   MenuDivider,
   MenuItem,
   chakra,
@@ -74,6 +73,45 @@ export const Resource: FC<TResourceComponent> = ({
     </VStack>
   );
 
+  const ResourceMenu = () => {
+    return (
+      <Menu>
+        <MenuButton as="button">
+          <Dots fontSize="2xl" cursor="pointer" />
+        </MenuButton>
+        <MenuList
+          minW="fit-content"
+          borderRadius="none"
+          boxShadow="md"
+          fontSize="15px"
+          w="135px"
+        >
+          <MenuItem py={2} _hover={{ bg: "transparent" }}>
+            <Text onClick={handleEdit} textAlign="center" w="100%">
+              Edit resource
+            </Text>
+          </MenuItem>
+          <MenuItem py={2} _hover={{ bg: "transparent" }}>
+            <Text onClick={handleEdit} textAlign="center" w="100%">
+              View URL
+            </Text>
+          </MenuItem>
+          <MenuItem py={2} _hover={{ bg: "transparent" }}>
+            <Text textAlign="center" w="100%">
+              View Backups
+            </Text>
+          </MenuItem>
+          <MenuDivider />
+          <MenuItem onClick={onOpen} _hover={{ bg: "transparent" }}>
+            <Text textAlign="center" color="#FF0000" w="100%">
+              Delete
+            </Text>
+          </MenuItem>
+        </MenuList>
+      </Menu>
+    );
+  };
+
   return (
     <VStack
       w="100%"
@@ -92,36 +130,11 @@ export const Resource: FC<TResourceComponent> = ({
         >
           {name}
         </Heading>
-        <Menu>
-          <MenuButton as="button">
-            <Dots fontSize="2xl" cursor="pointer" />
-          </MenuButton>
-          <MenuList minW="fit-content" p={0}>
-            <MenuGroup p={0}>
-              <MenuItem
-                onClick={handleEdit}
-                _focus={{ bg: "none" }}
-                px={3}
-                py={2}
-              >
-                <Text fontSize="sm">Edit</Text>
-              </MenuItem>
-              <MenuItem _focus={{ bg: "none" }} px={3} py={2}>
-                <Text fontSize="sm">View Backups</Text>
-              </MenuItem>
-            </MenuGroup>
-            <MenuDivider m={0} />
-            <MenuItem onClick={onOpen} _focus={{ bg: "none" }} px={3} py={1}>
-              <Text fontSize="sm" color="#FF0000">
-                Delete
-              </Text>
-            </MenuItem>
-          </MenuList>
-        </Menu>
+        <ResourceMenu />
       </Flex>
       <Flex alignItems="center" justify="space-between" w="100%">
         <Text textTransform="lowercase">
-          {Boolean(description) ? description : "No description provided"}
+          {Boolean(description) ? description : "----"}
         </Text>
         <Switch
           colorScheme="green"

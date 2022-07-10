@@ -1,4 +1,4 @@
-import { useContext, useRef, useEffect } from "react";
+import { useContext, useRef } from "react";
 import { VStack, Box, Image, Flex, Text } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { useFormik } from "formik";
@@ -29,8 +29,6 @@ export const Profile = () => {
   const getPasswordControls = usePasswordControls();
   const passwordFormik = useFormik(getPasswordConfig());
   const passwordControls = getPasswordControls(passwordFormik);
-
-  useEffect(() => {}, [fileRef.current]);
 
   const handleFileClick = () => {
     fileRef.current && fileRef.current.click();
