@@ -26,6 +26,7 @@ import {
 } from "../../../store";
 import { TResourceComponent } from "./types";
 import { AppContext, TAppState } from "../../../contexts";
+import { capitalize } from "../../../utilities";
 
 export const Resource: FC<TResourceComponent> = ({
   name,
@@ -36,7 +37,16 @@ export const Resource: FC<TResourceComponent> = ({
 }) => {
   const [{ loading, networkOperation }] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenDelete,
+    onOpen: onOpenDelete,
+    onClose: onCloseDelete,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenUrl,
+    onOpen: onOpenUrl,
+    onClose: onCloseUrl,
+  } = useDisclosure();
   const Dots = chakra(BiDotsHorizontalRounded);
   const DangerIcon = chakra(BsExclamationDiamondFill);
   const updateResource = useUpdateResource();
@@ -66,7 +76,7 @@ export const Resource: FC<TResourceComponent> = ({
         >
           Delete
         </Button>
-        <Button size="sm" variant="outline" onClick={onClose}>
+        <Button size="sm" variant="outline" onClick={onCloseDelete}>
           Cancel
         </Button>
       </HStack>
@@ -92,7 +102,7 @@ export const Resource: FC<TResourceComponent> = ({
             </Text>
           </MenuItem>
           <MenuItem py={2} _hover={{ bg: "transparent" }}>
-            <Text onClick={handleEdit} textAlign="center" w="100%">
+            <Text onClick={onOpenUrl} textAlign="center" w="100%">
               View URL
             </Text>
           </MenuItem>
@@ -102,13 +112,55 @@ export const Resource: FC<TResourceComponent> = ({
             </Text>
           </MenuItem>
           <MenuDivider />
-          <MenuItem onClick={onOpen} _hover={{ bg: "transparent" }}>
+          <MenuItem onClick={onOpenDelete} _hover={{ bg: "transparent" }}>
             <Text textAlign="center" color="#FF0000" w="100%">
               Delete
             </Text>
           </MenuItem>
         </MenuList>
       </Menu>
+    );
+  };
+
+  const ResourceUrl = () => {
+    return (
+      <VStack spacing={5} alignItems="flex-start" w="100%">
+        <Text
+          bg="#f5f8fa"
+          p={5}
+          boxShadow="md"
+          fontSize="sm"
+          lineHeight="taller"
+        >
+          Note: Make your backup requests for {capitalize(name)} to the below
+          URL. Remember that backup requests require two things. A valid API key
+          for the service specified as the Authorization header and the intended
+          file to be backed up for {capitalize(name)}.
+        </Text>
+
+        <Text
+          p={5}
+          textAlign="center"
+          w="100%"
+          bg="#FBFBFB"
+          boxShadow="md"
+          fontSize="sm"
+        >
+          https://duran.olamileke.me/{uuid}
+        </Text>
+
+        <Text
+          w="100%"
+          fontSize="sm"
+          textAlign="center"
+          textDecoration="underline"
+        >
+          Copy
+        </Text>
+        <Button w="100%" onClick={onCloseUrl}>
+          Close
+        </Button>
+      </VStack>
     );
   };
 
@@ -148,11 +200,18 @@ export const Resource: FC<TResourceComponent> = ({
             <DangerIcon color="red.500" fontSize="xl" mr={3} /> Delete Resource
           </Flex>
         }
-        isOpen={isOpen}
-        onClose={onClose}
+        isOpen={isOpenDelete}
+        onClose={onCloseDelete}
         isCentered={false}
       >
         <DeleteConfirmation />
+      </Modal>
+      <Modal
+        title={`${capitalize(name)}'s Unique Backup URL`}
+        isOpen={isOpenUrl}
+        onClose={onCloseUrl}
+      >
+        <ResourceUrl />
       </Modal>
     </VStack>
   );
