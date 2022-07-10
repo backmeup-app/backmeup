@@ -3,7 +3,6 @@ import { SimpleGrid, Button, GridItem } from "@chakra-ui/react";
 import { TForm } from "./types";
 import { FormControl } from "./FormControl";
 import { AppContext } from "../../contexts";
-import { convertTypeAcquisitionFromJson } from "typescript";
 
 export const Form: FC<TForm> = ({
   controls,
@@ -36,6 +35,7 @@ export const Form: FC<TForm> = ({
           w="100%"
           isLoading={isLoading}
           loadingText={submitBtnText}
+          mb={1}
         >
           {submitBtnText}
         </Button>

@@ -80,7 +80,10 @@ export const Nav = () => {
         );
       })}
       <Flex
-        onClick={onOpen}
+        onClick={() => {
+          onOpen();
+          setShowServices(false);
+        }}
         px={4}
         alignItems="center"
         justifyContent="flex-start"
@@ -100,9 +103,8 @@ export const Nav = () => {
       boxShadow="md"
       alignItems="center"
       justify="space-between"
-      py={5}
-      pl={16}
-      pr={10}
+      py={6}
+      px={20}
     >
       <Box
         pos="relative"

@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { FormLabel, FormErrorMessage, chakra } from "@chakra-ui/react";
+import {
+  FormLabel,
+  FormErrorMessage,
+  IconButton,
+  chakra,
+} from "@chakra-ui/react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { TFormControl } from "../../..";
 import { useResetEmail } from "../../../../store";
@@ -9,18 +14,16 @@ export const useFormConfig = () => {
   const resetEmail = useResetEmail();
 
   return (onClose?: () => void) => ({
-    initialValues: { password: "" },
+    initialValues: { user_password: "" },
     validationSchema: resetEmailSchema,
-    onSubmit: async (values: { password: string }) => {
-      const { password } = values;
-      await resetEmail({ password }, onClose);
+    onSubmit: async (values: { user_password: string }) => {
+      const { user_password } = values;
+      await resetEmail({ password: user_password }, onClose);
     },
   });
 };
 
 export const useResetEmailControls = () => {
-  const EyeOpen = chakra(AiOutlineEye);
-  const EyeClosed = chakra(AiOutlineEyeInvisible);
   const [show, setShow] = useState(false);
 
   return (formik: any): TFormControl[] => {
@@ -36,40 +39,48 @@ export const useResetEmailControls = () => {
       {
         type: "text",
         properties: {
-          name: "password",
+          name: "user_password",
           type: show ? "text" : "password",
           label: (
             <FormLabel mb={4}>
               Enter your Backmeup password to get started
             </FormLabel>
           ),
-          styleProps: { colSpan: 12, mb: 3, isRequired: true },
-          rightElement: formik?.touched?.password && {
+          styleProps: { colSpan: 12, mb: 3 },
+          rightElement: formik?.touched?.user_password && {
             children: show ? (
-              <EyeClosed
-                cursor="pointer"
+              <IconButton
+                aria-label="Button"
+                variant="ghost"
+                icon={<AiOutlineEyeInvisible />}
                 onClick={() => {
                   setShow(false);
                 }}
+                fontSize="lg"
+                cursor="pointer"
               />
             ) : (
-              <EyeOpen
-                cursor="pointer"
+              <IconButton
+                aria-label="Button"
+                variant="ghost"
+                icon={<AiOutlineEye />}
                 onClick={() => {
                   setShow(true);
                 }}
+                fontSize="lg"
+                cursor="pointer"
               />
             ),
           },
           errorMessage:
-            formik.touched?.password && formik.errors?.password ? (
+            formik.touched?.user_password && formik.errors?.user_password ? (
               <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
             ) : undefined,
           onBlur: formik.handleBlur,
           onChange: (event) => {
-            handleChange("password", event);
+            handleChange("user_password", event);
           },
-          value: formik.values?.password,
+          value: formik.values?.user_password,
         },
       },
     ];

@@ -13,10 +13,6 @@ import { TService } from "../../store";
 
 const manageServiceTabs = [
   {
-    name: "Overview",
-    isActive: (pathname: string) => pathname === "/overview",
-  },
-  {
     name: "Resources",
     isActive: (pathname: string) => pathname.startsWith("/resources"),
   },

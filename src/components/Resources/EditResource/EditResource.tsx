@@ -32,6 +32,7 @@ export const EditResource: FC<TEditResource> = ({ isOpen, onClose, uuid }) => {
     const parsedResource = JSON.parse(JSON.stringify(resource));
     ["name", "description", "is_active", "uuid"].forEach((field) => {
       formik.setFieldValue(field, parsedResource[field]);
+      formik.touched = { ...formik.touched, [field]: false };
     });
   }, [resource]);
 

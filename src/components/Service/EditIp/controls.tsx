@@ -17,20 +17,31 @@ export const useFormConfig = () => {
 };
 
 export const useEditIpControls = () => {
-  return (formik: any): TFormControl[] => [
-    {
-      type: "text",
-      properties: {
-        name: "address",
-        label: <FormLabel>IP Address</FormLabel>,
-        styleProps: { colSpan: 12, mb: 4, isRequired: true },
-        errorMessage: formik.errors?.address ? (
-          <FormErrorMessage>{formik.errors.address}</FormErrorMessage>
-        ) : undefined,
-        onBlur: formik.handleBlur,
-        onChange: formik.handleChange,
-        value: formik.values?.address,
+  return (formik: any): TFormControl[] => {
+    const handleChange = (
+      field: string,
+      event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+      if (!formik.touched?.[field]) formik.touched[field] = true;
+      formik.setFieldValue(field, event.target.value);
+    };
+    return [
+      {
+        type: "text",
+        properties: {
+          name: "address",
+          label: <FormLabel>IP Address</FormLabel>,
+          styleProps: { colSpan: 12, mb: 4, isRequired: true },
+          errorMessage: formik.errors?.address ? (
+            <FormErrorMessage>{formik.errors.address}</FormErrorMessage>
+          ) : undefined,
+          onBlur: formik.handleBlur,
+          onChange: (event) => {
+            handleChange("address", event);
+          },
+          value: formik.values?.address,
+        },
       },
-    },
-  ];
+    ];
+  };
 };

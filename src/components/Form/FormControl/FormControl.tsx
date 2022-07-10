@@ -10,8 +10,7 @@ import { WrapperRadioGroup, WrapperTextInput } from "../Wrappers";
 
 export const FormControl: FC<TFormControl> = ({ type, properties }) => {
   const { label, helperText, errorMessage, styleProps, ...props } = properties;
-  const isRequired = styleProps?.isRequired ?? false;
-  delete styleProps?.isRequired;
+  const { isRequired, ...gridItemProps } = styleProps;
 
   const displayControl = () => {
     const properties: any = props;
@@ -38,12 +37,12 @@ export const FormControl: FC<TFormControl> = ({ type, properties }) => {
   };
 
   return (
-    <GridItem {...styleProps}>
+    <GridItem {...gridItemProps}>
       <ChakraFormControl
         isInvalid={Boolean(errorMessage)}
-        isRequired={isRequired}
+        isRequired={Boolean(isRequired)}
       >
-        {label && label}
+        {label ? label : undefined}
         {displayControl()}
         {helperText && helperText}
         {errorMessage && errorMessage}

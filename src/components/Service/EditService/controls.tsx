@@ -19,32 +19,45 @@ export const useFormConfig = () => {
 };
 
 export const useEditServiceControls = () => {
-  return (formik: any): TFormControl[] => [
-    {
-      type: "text",
-      properties: {
-        name: "name",
-        label: <FormLabel>Name</FormLabel>,
-        styleProps: { colSpan: 12, mb: 4, isRequired: true },
-        errorMessage:
-          formik.touched?.name && formik.errors?.name ? (
-            <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
-          ) : undefined,
-        onBlur: formik.handleBlur,
-        onChange: formik.handleChange,
-        value: formik.values?.name,
+  return (formik: any): TFormControl[] => {
+    const handleChange = (
+      field: string,
+      event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+      if (!formik.touched?.[field]) formik.touched[field] = true;
+      formik.setFieldValue(field, event.target.value);
+    };
+    return [
+      {
+        type: "text",
+        properties: {
+          name: "name",
+          label: <FormLabel>Name</FormLabel>,
+          styleProps: { colSpan: 12, mb: 4, isRequired: true },
+          errorMessage:
+            formik.touched?.name && formik.errors?.name ? (
+              <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
+            ) : undefined,
+          onBlur: formik.handleBlur,
+          onChange: (event) => {
+            handleChange("name", event);
+          },
+          value: formik.values?.name,
+        },
       },
-    },
-    {
-      type: "textarea",
-      properties: {
-        name: "description",
-        label: <FormLabel>Description</FormLabel>,
-        styleProps: { colSpan: 12, mb: 4 },
-        onChange: formik.handleChange,
-        onBlur: formik.handleBlur,
-        value: formik.values?.description,
+      {
+        type: "textarea",
+        properties: {
+          name: "description",
+          label: <FormLabel>Description</FormLabel>,
+          styleProps: { colSpan: 12, mb: 4 },
+          onChange: (event: any) => {
+            handleChange("description", event);
+          },
+          onBlur: formik.handleBlur,
+          value: formik.values?.description,
+        },
       },
-    },
-  ];
+    ];
+  };
 };

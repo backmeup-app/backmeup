@@ -14,6 +14,6 @@ export const createApiKeySchema = Yup.object().shape({
 
 export const createIpSchema = Yup.object().shape({
   address: Yup.string()
-    .required("Address is required")
-    .matches(ipRegex, "Address is not a valid IP"),
+    .required("IP Address is required")
+    .matches(ipRegex, "IP Address is not valid"),
 });

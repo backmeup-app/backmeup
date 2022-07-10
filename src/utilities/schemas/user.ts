@@ -18,7 +18,7 @@ export const updateUserPasswordSchema = Yup.object().shape({
 });
 
 export const resetEmailSchema = Yup.object().shape({
-  password: Yup.string()
+  user_password: Yup.string()
     .required("Password is required")
     .min(8, "Password must be at least 8 characters in length"),
 });

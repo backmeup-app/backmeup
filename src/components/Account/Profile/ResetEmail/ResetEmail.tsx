@@ -11,7 +11,10 @@ export const ResetEmail: FC<TResetEmail> = ({ isOpen, onClose }) => {
   const controls = getControls(formik);
 
   useEffect(() => {
-    if (!isOpen) formik.resetForm();
+    if (!isOpen) {
+      formik.resetForm();
+      formik.touched.user_password = false;
+    }
   }, [isOpen]);
 
   return (

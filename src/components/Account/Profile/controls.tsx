@@ -1,5 +1,10 @@
 import { useContext, Dispatch, useState } from "react";
-import { FormLabel, FormErrorMessage, chakra } from "@chakra-ui/react";
+import {
+  FormLabel,
+  FormErrorMessage,
+  IconButton,
+  chakra,
+} from "@chakra-ui/react";
 import { TFormControl } from "../..";
 import { AppContext, TAppState } from "../../../contexts";
 import {
@@ -111,7 +116,7 @@ export const useProfileControls = () => {
               />
             </FormLabel>
           ),
-          styleProps: { colSpan: 6, mb: 4, isRequired: true },
+          styleProps: { colSpan: 6, mb: 4 },
           errorMessage:
             formik.touched?.email && formik.errors?.email ? (
               <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
@@ -128,8 +133,6 @@ export const useProfileControls = () => {
 };
 
 export const usePasswordControls = () => {
-  const EyeOpen = chakra(AiOutlineEye);
-  const EyeClosed = chakra(AiOutlineEyeInvisible);
   const [show, setShow] = useState<{
     [key in "password" | "password_confirmation"]: boolean;
   }>({ password: false, password_confirmation: false });
@@ -152,18 +155,26 @@ export const usePasswordControls = () => {
           styleProps: { colSpan: 6, mb: 4, isRequired: true },
           rightElement: formik?.touched?.password && {
             children: show.password ? (
-              <EyeClosed
+              <IconButton
+                aria-label="button"
                 cursor="pointer"
+                variant="ghost"
                 onClick={() => {
                   setShow({ ...show, password: false });
                 }}
+                fontSize="lg"
+                icon={<AiOutlineEyeInvisible />}
               />
             ) : (
-              <EyeOpen
+              <IconButton
+                aria-label="button"
                 cursor="pointer"
+                variant="ghost"
                 onClick={() => {
                   setShow({ ...show, password: true });
                 }}
+                fontSize="lg"
+                icon={<AiOutlineEye />}
               />
             ),
           },
@@ -187,23 +198,32 @@ export const usePasswordControls = () => {
           styleProps: { colSpan: 6, mb: 4, isRequired: true },
           rightElement: formik?.touched?.password_confirmation && {
             children: show.password_confirmation ? (
-              <EyeClosed
+              <IconButton
+                aria-label="button"
                 cursor="pointer"
+                variant="ghost"
                 onClick={() => {
                   setShow({ ...show, password_confirmation: false });
                 }}
+                fontSize="lg"
+                icon={<AiOutlineEyeInvisible />}
               />
             ) : (
-              <EyeOpen
+              <IconButton
+                aria-label="button"
                 cursor="pointer"
+                variant="ghost"
                 onClick={() => {
                   setShow({ ...show, password_confirmation: true });
                 }}
+                fontSize="lg"
+                icon={<AiOutlineEye />}
               />
             ),
           },
           errorMessage:
-            formik.touched?.password && formik.errors?.password_confirmation ? (
+            formik.touched?.password_confirmation &&
+            formik.errors?.password_confirmation ? (
               <FormErrorMessage>
                 {formik.errors.password_confirmation}
               </FormErrorMessage>

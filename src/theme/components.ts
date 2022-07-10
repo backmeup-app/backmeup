@@ -26,7 +26,6 @@ export const components: { [key: string]: ComponentStyleConfig } = {
         field: {
           _focus: {
             boxShadow: "none",
-            borderColor: "gray.500",
           },
         },
       },
@@ -89,6 +88,10 @@ export const components: { [key: string]: ComponentStyleConfig } = {
 
         _hover: {
           background: "gray.700",
+        },
+
+        _focus: {
+          boxShadow: " 0px 9px 0px -5px navajoWhite",
         },
 
         _loading: {
