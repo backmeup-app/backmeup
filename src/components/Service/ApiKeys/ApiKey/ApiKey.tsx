@@ -72,14 +72,12 @@ export const ApiKey: FC<TApiKeyComponent> = ({
         <Text fontWeight={600} fontSize="sm">
           {name}
         </Text>
-        <VStack spacing={1} align="flex-start">
-          <Text>
+        <Box>
+          <Text mb={1}>
             {visible ? value : "********************" + value.slice(22)}
           </Text>
-          <Text textAlign="left" fontSize="sm">
-            last used 23/04/2022
-          </Text>
-        </VStack>
+          <Text textAlign="left">last used 23/04/2022</Text>
+        </Box>
       </VStack>
       <HStack
         align="center"

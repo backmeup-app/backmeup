@@ -63,9 +63,12 @@ export const Ip: FC<TIpAddress> = ({ uuid, value }) => {
 
   return (
     <Flex justify="space-between" w="100%" align="center">
-      <Text fontSize="15px" fontWeight={600}>
-        {value}
-      </Text>
+      <VStack alignItems="flex-start" spacing={2}>
+        <Text fontSize="15px" fontWeight={600}>
+          {value}
+        </Text>
+        <Text>last used 25/04/2022</Text>
+      </VStack>
       <TrashIcon
         fontSize="lg"
         cursor="pointer"

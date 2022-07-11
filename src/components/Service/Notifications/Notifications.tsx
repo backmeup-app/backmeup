@@ -50,8 +50,20 @@ export const ServiceNotifications = () => {
     events.map(({ name, key }, index) => {
       const isChecked = Boolean(defaultService?.notifications?.events[key]);
       return (
-        <Flex key={index} px={6} w="100%" justifyContent="space-between">
-          <Text fontSize="15.5px">{name}</Text>
+        <Flex
+          key={index}
+          px={6}
+          w="100%"
+          justifyContent="space-between"
+          alignItems="center"
+          textTransform="uppercase"
+        >
+          <Box>
+            <Text fontSize="15px" mb={3}>
+              {name}
+            </Text>
+            <Text fontSize="13px">ERROR ID - {key}</Text>
+          </Box>
           <Switch
             isChecked={isChecked}
             onChange={() => {
@@ -70,7 +82,7 @@ export const ServiceNotifications = () => {
     <VStack spacing={6}>
       <Box bg="white" shadow="md" w="100%">
         <Box {...headerStyleProps}>
-          <Text textAlign="left">Channels</Text>
+          <Text textAlign="left">Notification Channels</Text>
         </Box>
         <VStack spacing={5} py={5}>
           {displayChannels()}
@@ -78,7 +90,7 @@ export const ServiceNotifications = () => {
       </Box>
       <Box bg="white" shadow="md" w="100%">
         <Box {...headerStyleProps}>
-          <Text textAlign="left">Get notified when</Text>
+          <Text textAlign="left">Notification Alerts</Text>
         </Box>
         <VStack spacing={8} py={8}>
           {displayEvents()}

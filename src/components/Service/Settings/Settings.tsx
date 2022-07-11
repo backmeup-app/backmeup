@@ -9,7 +9,7 @@ export const Settings = () => {
     borderBottomColor: "navajoWhite",
   };
   return (
-    <Box mx={10}>
+    <Box mx={12}>
       <Tabs variant="unstyled" align="center">
         <TabList mb={4}>
           <Tab _selected={{ ...selectedTabStyles }} fontFamily="oswald">

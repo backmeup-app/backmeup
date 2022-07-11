@@ -24,6 +24,14 @@ export const ResourceUrl: FC<TResourceUrl> = ({
     });
   };
 
+  // const handleCreateApiKey = () => {
+  //   const anchor = document.createElement("a");
+  //   anchor.target = "_blank";
+  //   const location = document.location;
+  //   anchor.href = "https:" + "//" + location.host + "settings";
+  //   anchor.click();
+  // };
+
   return (
     <Modal
       title={`${capitalize(name)}'s Unique Backup URL`}

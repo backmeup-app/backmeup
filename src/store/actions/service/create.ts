@@ -10,6 +10,7 @@ export const useCreateService = () => {
 
   return async (variables: TCreateServiceVariables, onClose?: () => void) => {
     dispatch({ type: "SET_LOADING", payload: true });
+    dispatch({ type: "SET_NETWORK_OPERATION", payload: "create.service" });
 
     try {
       const {
@@ -18,14 +19,15 @@ export const useCreateService = () => {
       dispatch({ type: "CREATE_SERVICE", payload: service });
       dispatch({
         type: "SET_NOTIFICATION",
-        payload: { status: "success", text: "Service created successfully" },
+        payload: {
+          status: "success",
+          text: `${service.name} created successfully`,
+        },
       });
-      if (!me?.default_service) {
-        dispatch({
-          type: "SET_USER",
-          payload: { ...(me as TUser), default_service: service._id },
-        });
-      }
+      dispatch({
+        type: "SET_USER",
+        payload: { ...(me as TUser), default_service: service._id },
+      });
       onClose?.();
     } catch (error) {}
 

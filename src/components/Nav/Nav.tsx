@@ -40,7 +40,7 @@ export const Nav = () => {
     <VStack
       pos="absolute"
       left={0}
-      w="300px"
+      w="220px"
       top="150%"
       bg="white"
       boxShadow="md"
