@@ -1,10 +1,5 @@
 import { useState } from "react";
-import {
-  FormLabel,
-  FormErrorMessage,
-  IconButton,
-  chakra,
-} from "@chakra-ui/react";
+import { FormLabel, FormErrorMessage, IconButton } from "@chakra-ui/react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { TFormControl } from "../../..";
 import { useResetEmail } from "../../../../store";

@@ -13,11 +13,7 @@ export const Resources = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const getResources = useGetResources();
   const PlusIcon = chakra(AiOutlinePlus);
-  const operations = [
-    "update.resource.status",
-    "delete.resource",
-    "update.default.service",
-  ];
+  const operations = ["update.resource.status", "update.default.service"];
   const isLoading =
     contextLoading && operations.includes(networkOperation ?? "");
 

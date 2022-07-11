@@ -52,7 +52,7 @@ export const Notification = () => {
       opacity={display ? 1 : 0}
       boxShadow="md"
       transition="opacity 0.5s ease-in"
-      zIndex={display ? 10 : -9999}
+      zIndex={display ? 9999 : -9999}
     >
       {displayStatus()}
       <Text ml={3} fontSize="15px" color="white">
