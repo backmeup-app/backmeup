@@ -25,8 +25,11 @@ export const Home = () => {
   }, []);
 
   const redirectGoogleAuth = () => {
-    const googleAuthUrl =
-      String(process.env.REACT_APP_BACKMEUP_API) + "/accounts";
+    const apiUrl = String(
+      process.env.REACT_APP_BACKMEUP_API ??
+        window.__env__.REACT_APP_BACKMEUP_API
+    );
+    const googleAuthUrl = apiUrl + "/accounts";
     window.location.href = googleAuthUrl;
   };
 
