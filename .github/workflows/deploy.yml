@@ -1,0 +1,92 @@
+# This will build the application, send it to the container registry and ssh into the server to deploy it
+
+name: Gello Continuous Delivery
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build&deploy:
+    runs-on: ubuntu-latest
+    env:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+      DOCKERHUB_REPO: ${{ secrets.DOCKERHUB_REPO }}
+      NOTIFY_BEARER_TOKEN: ${{ secrets.NOTIFY_BEARER_TOKEN }}
+      SSH_USER: ${{ secrets.SERVER_SSH_USER }}
+      SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+      SSH_HOST: ${{ secrets.SERVER_SSH_HOST }}
+
+    steps:
+      - name: Checkout the branch/latest commit
+        uses: actions/checkout@v3
+
+      - name: Builds the application into an image
+        id: build
+        run: |
+          curl -X POST https://notify.olamileke.me
+            -H 'Authorization: Bearer $NOTIFY_BEARER_TOKEN'
+            -d '{"service":"gello", "step":"BUILD_START"}'
+          docker build -t $DOCKERHUB_REPO .
+          END
+
+      - name: Send out notification if application build is successful
+        if: ${{ steps.build.conclusion == 'success' }}
+        run: |
+          curl -X POST https://notify.olamileke.me
+            -H 'Authorization: Bearer $NOTIFY_BEARER_TOKEN'
+            -d '{"service":"gello", "step":"BUILD_COMPLETED"}'
+          END
+
+      - name: Login to the Dockerhub Container Registry
+        if: ${{ success() }}
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Push the image to the Container Registry
+        if: ${{ success() }}
+        id: push
+        run: docker push $DOCKERHUB_REPO
+
+      - name: Send out notification if Container Registry push is successful
+        if: ${{ steps.push.conclusion == 'success' }}
+        run: |
+          curl -X POST https://notify.olamileke.me
+            -H 'Authorization: Bearer $NOTIFY_BEARER_TOKEN'
+            -d '{"service":"gello", "step":"IMAGE_PUSHED"}'
+          END
+
+      - name: Configure SSH
+        if: ${{ success() }}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/server_ssh.key
+          chmod 600 ~/.ssh/server_ssh.key
+          cat >>~/.ssh/config <<END
+          Host me-docker
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/server_ssh.key
+            StrictHostKeyChecking no
+          END
+        env:
+
+      - name: Deploy Application
+        id: deploy
+        run: ssh me-docker 'cd /home/Olamileke/me-docker && ./deploy.sh $DOCKERHUB_REPO'
+
+      - name: Send out notification if deploy is successful
+        if: ${{ steps.deploy.conclusion == 'success' }}
+        run: |
+          curl -X POST https://notify.olamileke.me
+            -H 'Authorization: Bearer $NOTIFY_BEARER_TOKEN'
+            -d '{"service":"gello", "step":"DEPLOYED"}'
+          END
+
+      - name: Send out notification if pipeline fails
+        if: ${{ failure() }}
+        run: |
+          curl -X POST https://notify.olamileke.me
+            -H 'Authorization: Bearer $NOTIFY_BEARER_TOKEN'
+            -d '{"service":"gello", "step":"FAILED"}'
+          END
