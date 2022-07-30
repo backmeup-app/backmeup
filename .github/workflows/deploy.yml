@@ -25,7 +25,7 @@ jobs:
             -H 'Authorization: Bearer ${{ secrets.NOTIFY_BEARER_TOKEN }}' \
             -H 'Content-Type: application/json' \
             -d '{"service":"gello", "step":"BUILD_START"}' 
-          docker build -t $DOCKERHUB_REPO .
+          docker build -t ${{ secrets.DOCKERHUB_REPO }} .
 
       - name: Send out notification if application build is successful
         if: ${{ steps.build.conclusion == 'success' }}
@@ -42,7 +42,7 @@ jobs:
       - name: Push the image to the Container Registry
         if: ${{ success() }}
         id: push
-        run: docker push $DOCKERHUB_REPO
+        run: docker push ${{ secrets.DOCKERHUB_REPO }}
 
       - name: Send out notification if Container Registry push is successful
         if: ${{ steps.push.conclusion == 'success' }}
