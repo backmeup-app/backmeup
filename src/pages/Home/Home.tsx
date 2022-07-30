@@ -68,7 +68,7 @@ export const Home = () => {
                   color="charlestonGreen"
                   fontSize="25px"
                 >
-                  Setup automated backups for your file, in memory database
+                  Setup automated backups for your file and in memory database
                   stores today. Easy, fast and simple.
                 </Heading>
                 <Button
