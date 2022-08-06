@@ -1,15 +1,26 @@
 import { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { AppContext } from "../../../contexts";
 import { client } from "../client";
 import { TEditResourceResponse, TEditResourceVariables } from "./types";
 
 export const useCreateResource = () => {
   const [{ me }, dispatch] = useContext(AppContext);
+  const history = useHistory();
 
   return async (variables: TEditResourceVariables, onClose?: () => void) => {
     const service_uuid = me?.services?.find(
       (service) => service._id === me?.default_service
     )?.uuid as string;
+
+    if (me?.email_verification_token) {
+      dispatch({
+        type: "SET_NOTIFICATION",
+        payload: { status: "error", text: `${me?.email} is not verified` },
+      });
+      return history.push("/profile");
+    }
+
     dispatch({ type: "SET_LOADING", payload: true });
 
     try {

@@ -26,7 +26,7 @@ export const EmailChanged = () => {
     return (
       <Flex w="100vw" h="100vh" justifyContent="center" alignItems="center">
         <Helmet>
-          <title>Change Your Email Address | Backmeup</title>
+          <title>Email Address Changed | Backmeup</title>
         </Helmet>
         <Spinner size="lg" />
       </Flex>
@@ -42,7 +42,7 @@ export const EmailChanged = () => {
       bg="rgba(247, 219, 167, 0.5)"
     >
       <Helmet>
-        <title>Change Your Email Address | Backmeup</title>
+        <title>Email Address Changed | Backmeup</title>
       </Helmet>
       <Flex
         direction="column"

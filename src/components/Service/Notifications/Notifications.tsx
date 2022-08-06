@@ -56,14 +56,8 @@ export const ServiceNotifications = () => {
           w="100%"
           justifyContent="space-between"
           alignItems="center"
-          textTransform="uppercase"
         >
-          <Box>
-            <Text fontSize="15px" mb={3}>
-              {name}
-            </Text>
-            <Text fontSize="13px">ERROR ID - {key}</Text>
-          </Box>
+          <Text fontSize="15.7px">{name}</Text>
           <Switch
             isChecked={isChecked}
             onChange={() => {
@@ -82,7 +76,7 @@ export const ServiceNotifications = () => {
     <VStack spacing={6}>
       <Box bg="white" shadow="md" w="100%">
         <Box {...headerStyleProps}>
-          <Text textAlign="left">Notification Channels</Text>
+          <Text textAlign="left">Channels</Text>
         </Box>
         <VStack spacing={5} py={5}>
           {displayChannels()}
@@ -90,7 +84,7 @@ export const ServiceNotifications = () => {
       </Box>
       <Box bg="white" shadow="md" w="100%">
         <Box {...headerStyleProps}>
-          <Text textAlign="left">Notification Alerts</Text>
+          <Text textAlign="left">Alerts</Text>
         </Box>
         <VStack spacing={8} py={8}>
           {displayEvents()}

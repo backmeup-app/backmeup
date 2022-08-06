@@ -11,10 +11,7 @@ export const App = () => (
     <ChakraProvider theme={theme}>
       <Router>
         <Switch>
-          <Route path="/email/verify/:token">
-            <ResetEmail />
-          </Route>
-          <Route path="/email/reset/:token">
+          <Route path="/email/:action/:token">
             <ResetEmail />
           </Route>
           <Route path="/">{isAuthenticated() ? <Admin /> : <Home />}</Route>

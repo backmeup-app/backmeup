@@ -18,6 +18,7 @@ export const Admin = () => {
     "update.resource.status",
     "delete.resource",
     "update.default.service",
+    "resend.verification.email",
   ];
   const isLoading =
     contextLoading && operations.includes(networkOperation ?? "");
