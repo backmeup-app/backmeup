@@ -67,8 +67,13 @@ export const ApiKey: FC<TApiKeyComponent> = ({
   );
 
   return (
-    <Flex justify="space-between" align="center" w="100%">
-      <VStack spacing={3} align="flex-start" w="80%">
+    <Flex
+      justify={{ md: "space-between" }}
+      direction={{ base: "column", md: "row" }}
+      align={{ md: "center" }}
+      w="100%"
+    >
+      <VStack spacing={3} align="flex-start" w={{ base: "100%", md: "80%" }}>
         <Text fontWeight={600} fontSize="sm">
           {name}
         </Text>
@@ -81,8 +86,9 @@ export const ApiKey: FC<TApiKeyComponent> = ({
       </VStack>
       <HStack
         align="center"
-        w="20%"
-        justify="flex-end"
+        w={{ base: "100%", md: "20%" }}
+        justify={{ md: "flex-end" }}
+        mt={4}
         color="gray.800"
         spacing={5}
       >

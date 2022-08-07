@@ -18,6 +18,7 @@ export const Admin = () => {
     "update.resource.status",
     "delete.resource",
     "update.default.service",
+    "update.notifications",
     "resend.verification.email",
   ];
   const isLoading =
@@ -39,12 +40,17 @@ export const Admin = () => {
         <title>{capitalize(location.pathname)} | Backmeup</title>
       </Helmet>
       <Flex bg="white">
-        <Box pos="fixed" w="14.3%">
+        <Box pos="fixed" display={{ base: "none", lg: "block" }} w="14.3%">
           <Sidebar />
         </Box>
-        <Box ml="14.3%" w="85.7%" bg="#FBFBFB" minH={"100vh"}>
+        <Box
+          ml={{ base: "0", lg: "14.3%" }}
+          w={{ base: "100%", lg: "85.7%" }}
+          bg="#FBFBFB"
+          minH={"100vh"}
+        >
           <Nav />
-          <Box py={10} px={16}>
+          <Box py={10} px={{ base: 8, sm: 12, lg: 16 }}>
             <Switch>
               <Route exact path="/">
                 <Redirect to="/resources" />

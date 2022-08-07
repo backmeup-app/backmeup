@@ -1,4 +1,11 @@
-import { useContext, useState, useRef, Dispatch, useMemo } from "react";
+import {
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+  Dispatch,
+  useMemo,
+} from "react";
 import {
   Flex,
   Text,
@@ -18,6 +25,7 @@ import { EditService } from "..";
 
 export const Nav = () => {
   const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const [width, setWidth] = useState(window.innerWidth);
   const defaultService = useMemo(() => {
     return (me?.services as TService[]).find(
       (service) => service._id === (me?.default_service as string)
@@ -30,6 +38,16 @@ export const Nav = () => {
   const ArrowDown = chakra(IoMdArrowDropdown);
   const CheckIcon = chakra(BsCheckCircle);
   const updateUser = useUpdateUser();
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWidth(window.innerWidth);
+    });
+
+    return () => {
+      window.removeEventListener("resize", () => {});
+    };
+  }, []);
 
   useOutsideClick({
     ref: servicesRef,
@@ -104,7 +122,7 @@ export const Nav = () => {
       alignItems="center"
       justify="space-between"
       py={6}
-      px={20}
+      px={{ base: 8, sm: 12, lg: 20 }}
     >
       <Box
         pos="relative"
@@ -130,10 +148,12 @@ export const Nav = () => {
           boxSize="40px"
           name={me?.first_name + " " + me?.last_name}
         />
-        <VStack spacing={0} align="flex-start" ml={1}>
-          <Text fontSize="sm">{me?.first_name + " " + me?.last_name}</Text>
-          <Text fontSize="sm">{me?.email}</Text>
-        </VStack>
+        {width > 480 && (
+          <VStack spacing={0} align="flex-start" ml={1}>
+            <Text fontSize="sm">{me?.first_name + " " + me?.last_name}</Text>
+            <Text fontSize="sm">{me?.email}</Text>
+          </VStack>
+        )}
         <CaretDown boxSize="14px" color="gray.600" pos="relative" top="2px" />
       </HStack>
       <EditService isOpen={isOpen} onClose={onClose} />
