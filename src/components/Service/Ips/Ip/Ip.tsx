@@ -22,7 +22,7 @@ import { AppContext, TAppState } from "../../../../contexts";
 import { capitalize } from "../../../../utilities";
 
 export const Ip: FC<TIpAddress> = ({ uuid, value }) => {
-  const [{ me, loading, networkOperation }] =
+  const [{ me, browserWidth, loading, networkOperation }] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const defaultService = useMemo(() => {
     return (me?.services as TService[]).find(
@@ -33,6 +33,7 @@ export const Ip: FC<TIpAddress> = ({ uuid, value }) => {
   const TrashIcon = chakra(BiTrashAlt);
   const DangerIcon = chakra(BsExclamationDiamondFill);
   const deleteIp = useDeleteIpAddress();
+  const isResponsive = browserWidth && browserWidth < 769;
 
   const DeleteConfirmation = () => (
     <VStack align="flex-start" spacing={4}>
@@ -62,7 +63,12 @@ export const Ip: FC<TIpAddress> = ({ uuid, value }) => {
   );
 
   return (
-    <Flex justify="space-between" w="100%" align="center">
+    <Flex
+      justify="space-between"
+      direction={{ base: "column", md: "row" }}
+      w="100%"
+      align={{ md: "center" }}
+    >
       <VStack alignItems="flex-start" spacing={2}>
         <Text fontSize="15px" fontWeight={600}>
           {value}

@@ -1,11 +1,4 @@
-import {
-  useContext,
-  useState,
-  useEffect,
-  useRef,
-  Dispatch,
-  useMemo,
-} from "react";
+import { useContext, useState, useRef, Dispatch, useMemo } from "react";
 import {
   Flex,
   Text,
@@ -24,8 +17,8 @@ import { TAppAction, TService, useUpdateUser } from "../../store";
 import { EditService } from "..";
 
 export const Nav = () => {
-  const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
-  const [width, setWidth] = useState(window.innerWidth);
+  const [{ me, browserWidth }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const defaultService = useMemo(() => {
     return (me?.services as TService[]).find(
       (service) => service._id === (me?.default_service as string)
@@ -38,16 +31,6 @@ export const Nav = () => {
   const ArrowDown = chakra(IoMdArrowDropdown);
   const CheckIcon = chakra(BsCheckCircle);
   const updateUser = useUpdateUser();
-
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      setWidth(window.innerWidth);
-    });
-
-    return () => {
-      window.removeEventListener("resize", () => {});
-    };
-  }, []);
 
   useOutsideClick({
     ref: servicesRef,
@@ -148,7 +131,7 @@ export const Nav = () => {
           boxSize="40px"
           name={me?.first_name + " " + me?.last_name}
         />
-        {width > 480 && (
+        {(browserWidth ?? window.innerWidth) > 480 && (
           <VStack spacing={0} align="flex-start" ml={1}>
             <Text fontSize="sm">{me?.first_name + " " + me?.last_name}</Text>
             <Text fontSize="sm">{me?.email}</Text>

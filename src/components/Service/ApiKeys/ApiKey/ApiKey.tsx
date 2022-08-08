@@ -23,7 +23,7 @@ export const ApiKey: FC<TApiKeyComponent> = ({
   value,
   last_used,
 }) => {
-  const [{ loading, networkOperation }] =
+  const [{ browserWidth, loading, networkOperation }] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [visible, setVisible] = useState<boolean>(false);
@@ -32,6 +32,7 @@ export const ApiKey: FC<TApiKeyComponent> = ({
   const TrashIcon = chakra(BiTrashAlt);
   const DangerIcon = chakra(BsExclamationDiamondFill);
   const deleteApiKey = useDeleteApiKey();
+  const isResponsive = browserWidth && browserWidth < 769;
 
   const handleVisibilityChange = () => {
     setVisible(!visible);
@@ -73,12 +74,12 @@ export const ApiKey: FC<TApiKeyComponent> = ({
       align={{ md: "center" }}
       w="100%"
     >
-      <VStack spacing={3} align="flex-start" w={{ base: "100%", md: "80%" }}>
-        <Text fontWeight={600} fontSize="sm">
+      <VStack spacing={2} align="flex-start" w={{ base: "100%", md: "80%" }}>
+        <Text fontWeight={600} fontSize={{ base: "md", md: "sm" }}>
           {name}
         </Text>
         <Box>
-          <Text mb={1}>
+          <Text>
             {visible ? value : "********************" + value.slice(22)}
           </Text>
           <Text textAlign="left">last used 23/04/2022</Text>
@@ -88,18 +89,30 @@ export const ApiKey: FC<TApiKeyComponent> = ({
         align="center"
         w={{ base: "100%", md: "20%" }}
         justify={{ md: "flex-end" }}
-        mt={4}
+        mt={{ base: 2, md: 4 }}
         color="gray.800"
-        spacing={5}
+        spacing={{ base: 3, md: 5 }}
       >
         <Box cursor="pointer" onClick={handleVisibilityChange}>
           {visible ? (
-            <InvisibleIcon fontSize="xl" cursor="pointer" />
+            isResponsive ? (
+              <Text fontSize="15px">Hide</Text>
+            ) : (
+              <InvisibleIcon fontSize="xl" cursor="pointer" />
+            )
+          ) : isResponsive ? (
+            <Text fontSize="15px">Show</Text>
           ) : (
             <VisibleIcon fontSize="xl" cursor="pointer" />
           )}
         </Box>
-        <TrashIcon fontSize="lg" cursor="pointer" onClick={onOpen} />
+        {isResponsive ? (
+          <Text fontSize="15px" onClick={onOpen}>
+            Delete
+          </Text>
+        ) : (
+          <TrashIcon fontSize="lg" cursor="pointer" onClick={onOpen} />
+        )}
       </HStack>
       <Modal
         isOpen={isOpen}
