@@ -28,7 +28,12 @@ export const General = () => {
 
   return (
     <VStack spacing="24px">
-      <Box w="100%" bgColor="white" boxShadow="md" p={10}>
+      <Box
+        w="100%"
+        bgColor="white"
+        boxShadow="md"
+        p={{ base: 6, sm: 8, md: 10 }}
+      >
         <Form
           controls={controls}
           onSubmit={formik.handleSubmit}
@@ -39,20 +44,27 @@ export const General = () => {
         w="100%"
         bgColor="white"
         boxShadow="md"
-        p={10}
+        p={{ base: 6, sm: 8, md: 10 }}
+        direction={["column", "row"]}
         justify="space-between"
-        align="center"
+        align={["flex-start", "center"]}
       >
-        <Box w="60%" textAlign="left">
-          <Text fontWeight="600" mb={1}>
+        <Box
+          w={{ base: "100%", sm: "70%", md: "60%" }}
+          mb={[4, 0]}
+          textAlign="left"
+        >
+          <Text fontWeight="600" fontSize="lg" mb={2}>
             Delete {capitalize(defaultService?.name ?? "")}
           </Text>
-          <Text>
+          <Text lineHeight={["tall", "unset"]}>
             Doing this will delete all its associated resources along with their
             backups. Please be certain.
           </Text>
         </Box>
-        <Button variant="danger">Delete</Button>
+        <Button variant="danger" w={["100%", "fit-content"]}>
+          Delete
+        </Button>
       </Flex>
     </VStack>
   );

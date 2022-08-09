@@ -22,7 +22,7 @@ import { AppContext, TAppState } from "../../../../contexts";
 import { capitalize } from "../../../../utilities";
 
 export const Ip: FC<TIpAddress> = ({ uuid, value }) => {
-  const [{ me, loading, networkOperation }] =
+  const [{ me, browserWidth, loading, networkOperation }] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const defaultService = useMemo(() => {
     return (me?.services as TService[]).find(
@@ -33,6 +33,7 @@ export const Ip: FC<TIpAddress> = ({ uuid, value }) => {
   const TrashIcon = chakra(BiTrashAlt);
   const DangerIcon = chakra(BsExclamationDiamondFill);
   const deleteIp = useDeleteIpAddress();
+  const isResponsive = browserWidth && browserWidth < 769;
 
   const DeleteConfirmation = () => (
     <VStack align="flex-start" spacing={4}>
@@ -62,19 +63,30 @@ export const Ip: FC<TIpAddress> = ({ uuid, value }) => {
   );
 
   return (
-    <Flex justify="space-between" w="100%" align="center">
+    <Flex
+      justify="space-between"
+      direction={{ base: "column", md: "row" }}
+      w="100%"
+      align={{ md: "center" }}
+    >
       <VStack alignItems="flex-start" spacing={2}>
-        <Text fontSize="15px" fontWeight={600}>
+        <Text fontSize={{ base: "md", md: "15px" }} fontWeight={600}>
           {value}
         </Text>
-        <Text>last used 25/04/2022</Text>
+        <Text>{isResponsive ? "L" : "l"}ast used 25/04/2022</Text>
       </VStack>
-      <TrashIcon
-        fontSize="lg"
-        cursor="pointer"
-        color="gray.800"
-        onClick={onOpen}
-      />
+      {isResponsive ? (
+        <Text mt={2} onClick={onOpen} fontSize="15px">
+          Delete
+        </Text>
+      ) : (
+        <TrashIcon
+          fontSize="lg"
+          cursor="pointer"
+          color="gray.800"
+          onClick={onOpen}
+        />
+      )}
       <Modal
         title={
           <Flex alignItems="center">

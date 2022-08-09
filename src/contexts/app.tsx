@@ -1,4 +1,11 @@
-import { createContext, Dispatch, useReducer, Reducer, useMemo } from "react";
+import {
+  createContext,
+  Dispatch,
+  useEffect,
+  useReducer,
+  Reducer,
+  useMemo,
+} from "react";
 import { stateReducer, TAppAction, TUser } from "../store";
 
 export type TAppNotification = {
@@ -11,6 +18,7 @@ export type TAppState = {
   loading?: boolean;
   notification?: TAppNotification;
   networkOperation?: string;
+  browserWidth?: number;
 };
 
 export type TPagination = {
@@ -32,6 +40,17 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     stateReducer,
     initialState
   );
+
+  useEffect(() => {
+    dispatch({ type: "SET_BROWSER_WIDTH", payload: window.innerWidth });
+    window.addEventListener("resize", () => {
+      dispatch({ type: "SET_BROWSER_WIDTH", payload: window.innerWidth });
+    });
+
+    return () => {
+      window.removeEventListener("resize", () => {});
+    };
+  }, []);
 
   const store = useMemo(
     (): [TAppState, Dispatch<TAppAction>] => [state, dispatch],

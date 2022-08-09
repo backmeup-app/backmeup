@@ -3,7 +3,7 @@ import { VStack, Box, Image, Flex, Text } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { useFormik } from "formik";
 import { AppContext } from "../../../contexts";
-import { Form } from "../..";
+import { Form, VerifyEmail } from "../..";
 import { ResetEmail } from "./ResetEmail";
 import {
   useProfileConfig,
@@ -35,56 +35,75 @@ export const Profile = () => {
   };
 
   return (
-    <VStack spacing={6} mx={5} alignItems="flex-start">
-      <Box w="100%">
-        <Flex mb={5} alignItems="flex-end">
-          <Image
-            src={me?.avatar}
-            ref={imageRef}
-            w={"120px"}
-            h={"120px"}
-            border="4px solid"
-            borderColor="white"
-            mr={4}
-          />
-          <Text
-            onClick={handleFileClick}
-            as="u"
-            fontSize="sm"
-            cursor="pointer"
-            color="gray.700"
+    <>
+      {me?.email_verification_token && <VerifyEmail />}
+      <VStack spacing={6} mx={{ lg: 5 }} alignItems="flex-start">
+        <Box w="100%">
+          <Flex mb={5} alignItems="flex-end">
+            <Image
+              src={me?.avatar}
+              ref={imageRef}
+              w={{ base: "90px", sm: "100px", md: "120px" }}
+              h={{ base: "90px", sm: "100px", md: "120px" }}
+              border="4px solid"
+              borderColor="white"
+              rounded={{ base: "full", md: "none" }}
+              mr={4}
+            />
+            <Text
+              onClick={handleFileClick}
+              as="u"
+              fontSize="sm"
+              cursor="pointer"
+              color="gray.700"
+            >
+              Change Avatar
+            </Text>
+            <input
+              type="file"
+              ref={fileRef}
+              onChange={(event) =>
+                handleFileChange(profileFormik, event, imageRef)
+              }
+              accept="image/*"
+              hidden
+            />
+          </Flex>
+          <Box
+            w="100%"
+            boxShadow="md"
+            bgColor="white"
+            p={{ base: 6, sm: 8, md: 10 }}
           >
-            Change Avatar
-          </Text>
-          <input
-            type="file"
-            ref={fileRef}
-            onChange={(event) =>
-              handleFileChange(profileFormik, event, imageRef)
-            }
-            accept="image/*"
-            hidden
-          />
-        </Flex>
-        <Box w="100%" boxShadow="md" bgColor="white" p={10}>
+            <Form
+              controls={profileControls}
+              onSubmit={profileFormik.handleSubmit}
+              submitBtnText="Update"
+              classNames={{
+                buttonParent: {
+                  colSpan: { base: 12, md: 6 },
+                  mt: { base: 2, md: 8 },
+                },
+              }}
+              networkOperation="update.user"
+            />
+          </Box>
+        </Box>
+        <Box
+          w="100%"
+          boxShadow="md"
+          bgColor="white"
+          p={{ base: 6, sm: 8, md: 10 }}
+        >
           <Form
-            controls={profileControls}
-            onSubmit={profileFormik.handleSubmit}
+            controls={passwordControls}
+            onSubmit={passwordFormik.handleSubmit}
             submitBtnText="Update"
-            classNames={{ buttonParent: { colSpan: 6, mt: 8 } }}
-            networkOperation="update.user"
+            networkOperation="update.user.password"
           />
         </Box>
-      </Box>
-      <Box w="100%" boxShadow="md" bgColor="white" p={10}>
-        <Form
-          controls={passwordControls}
-          onSubmit={passwordFormik.handleSubmit}
-          submitBtnText="Update"
-          networkOperation="update.user.password"
-        />
-      </Box>
-      <ResetEmail isOpen={isOpen} onClose={onClose} />
-    </VStack>
+        <ResetEmail isOpen={isOpen} onClose={onClose} />
+      </VStack>
+    </>
   );
 };

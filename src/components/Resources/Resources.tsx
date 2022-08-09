@@ -39,7 +39,7 @@ export const Resources = () => {
 
   const displayResources = useCallback(() => {
     return defaultService?.resources?.map((resource, index) => (
-      <GridItem key={index} colSpan={6}>
+      <GridItem key={index} colSpan={{ base: 12, md: 6 }}>
         <Resource {...resource} edit={handleEdit} />
       </GridItem>
     ));
@@ -47,7 +47,7 @@ export const Resources = () => {
 
   const displaySkeletons = () =>
     new Array(6).fill("").map((value, index) => (
-      <GridItem key={index} colSpan={6}>
+      <GridItem key={index} colSpan={{ base: 12, md: 6 }}>
         <Skeleton startColor="#f6f8fa" endColor="#d0d7de" height="105px" />
         {value}
       </GridItem>
@@ -56,7 +56,7 @@ export const Resources = () => {
   if (defaultService?.resources?.length === 0) return <ResourceMessage />;
 
   return (
-    <SimpleGrid columns={12} mx={5} spacing={5}>
+    <SimpleGrid columns={12} mx={{ base: 0, lg: 5 }} spacing={5}>
       {displayResources()}
       {!defaultService?.resources && displaySkeletons()}
       {defaultService.resources && (

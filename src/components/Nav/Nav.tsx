@@ -17,7 +17,8 @@ import { TAppAction, TService, useUpdateUser } from "../../store";
 import { EditService } from "..";
 
 export const Nav = () => {
-  const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const [{ me, browserWidth }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const defaultService = useMemo(() => {
     return (me?.services as TService[]).find(
       (service) => service._id === (me?.default_service as string)
@@ -104,7 +105,7 @@ export const Nav = () => {
       alignItems="center"
       justify="space-between"
       py={6}
-      px={20}
+      px={{ base: 8, sm: 12, lg: 20 }}
     >
       <Box
         pos="relative"
@@ -130,10 +131,12 @@ export const Nav = () => {
           boxSize="40px"
           name={me?.first_name + " " + me?.last_name}
         />
-        <VStack spacing={0} align="flex-start" ml={1}>
-          <Text fontSize="sm">{me?.first_name + " " + me?.last_name}</Text>
-          <Text fontSize="sm">{me?.email}</Text>
-        </VStack>
+        {(browserWidth ?? window.innerWidth) > 480 && (
+          <VStack spacing={0} align="flex-start" ml={1}>
+            <Text fontSize="sm">{me?.first_name + " " + me?.last_name}</Text>
+            <Text fontSize="sm">{me?.email}</Text>
+          </VStack>
+        )}
         <CaretDown boxSize="14px" color="gray.600" pos="relative" top="2px" />
       </HStack>
       <EditService isOpen={isOpen} onClose={onClose} />

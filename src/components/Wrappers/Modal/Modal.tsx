@@ -24,7 +24,7 @@ export const Modal: FC<TModal> = ({
       isCentered={isCentered}
     >
       <ModalOverlay />
-      <ModalContent pb={4} borderRadius={"sm"}>
+      <ModalContent pb={4} borderRadius={"sm"} w={["90%", "100%"]}>
         <ModalHeader fontSize="md">{title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>{children}</ModalBody>

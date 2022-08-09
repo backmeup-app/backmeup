@@ -29,7 +29,7 @@ export const ResourceMessage = () => {
           boxSize={20}
           src="https://res.cloudinary.com/olamileke/image/upload/v1651325548/backmeup/startup-rocket_zrhku3.svg"
         />
-        <Heading fontSize="2xl">
+        <Heading fontSize="2xl" textTransform="capitalize">
           No resources exist for {capitalize(defaultService.name)}
         </Heading>
         <Text fontSize={"md"} textAlign="center" lineHeight="tall">

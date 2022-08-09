@@ -71,7 +71,7 @@ export const useProfileControls = () => {
         properties: {
           name: "first_name",
           label: <FormLabel>First name</FormLabel>,
-          styleProps: { colSpan: 6, mb: 4, isRequired: true },
+          styleProps: { colSpan: { base: 12, md: 6 }, mb: 4, isRequired: true },
           errorMessage:
             formik.touched?.first_name && formik.errors?.first_name ? (
               <FormErrorMessage>{formik.errors.first_name}</FormErrorMessage>
@@ -88,7 +88,7 @@ export const useProfileControls = () => {
         properties: {
           name: "last_name",
           label: <FormLabel>Last name</FormLabel>,
-          styleProps: { colSpan: 6, mb: 4, isRequired: true },
+          styleProps: { colSpan: { base: 12, md: 6 }, mb: 4, isRequired: true },
           errorMessage:
             formik.touched?.last_name && formik.errors?.last_name ? (
               <FormErrorMessage>{formik.errors.last_name}</FormErrorMessage>
@@ -116,7 +116,7 @@ export const useProfileControls = () => {
               />
             </FormLabel>
           ),
-          styleProps: { colSpan: 6, mb: 4 },
+          styleProps: { colSpan: { base: 12, md: 6 }, mb: 4 },
           errorMessage:
             formik.touched?.email && formik.errors?.email ? (
               <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
@@ -152,7 +152,7 @@ export const usePasswordControls = () => {
           name: "password",
           type: show.password ? "text" : "password",
           label: <FormLabel>Password</FormLabel>,
-          styleProps: { colSpan: 6, mb: 4, isRequired: true },
+          styleProps: { colSpan: { base: 12, md: 6 }, mb: 4, isRequired: true },
           rightElement: formik?.touched?.password &&
             formik.values?.password.length > 0 && {
               children: show.password ? (
@@ -196,7 +196,7 @@ export const usePasswordControls = () => {
           name: "password_confirmation",
           type: show.password_confirmation ? "text" : "password",
           label: <FormLabel>Password Confirmation</FormLabel>,
-          styleProps: { colSpan: 6, mb: 4, isRequired: true },
+          styleProps: { colSpan: { base: 12, md: 6 }, mb: 4, isRequired: true },
           rightElement: formik?.touched?.password_confirmation &&
             formik.values?.password_confirmation.length > 0 && {
               children: show.password_confirmation ? (
