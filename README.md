@@ -11,4 +11,4 @@ I have several production telegram bots written in Python that require data stor
 
 So I made the decision to use file storage to enable the quick fetching of information and generally speed up operations. Despite this, I still wanted to have the security of having the application's data stored in an external database. So I decided to build BackMeUp, with which I can set the bots up to automatically back their data at periodic intervals.
 
-The backend of this application is written in Typescript with Nest JS and can be found here [here](https://github.com/olamileke/backmeup-be "here").
+The backend of this application is written in Typescript with Nest JS and can be found [here](https://github.com/backmeup-app/zilch "here").
