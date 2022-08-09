@@ -33,16 +33,17 @@ export const ServiceNotifications = () => {
         key={index}
         px={6}
         w="100%"
-        justifyContent="space-between"
-        alignItems="center"
+        direction={{ base: "column-reverse", md: "row" }}
+        justifyContent={{ md: "space-between" }}
+        alignItems={{ base: "flex-start", md: "center" }}
       >
         <Box>
-          <Text fontSize="md" mb={2}>
+          <Text fontSize="md" mb={{ base: 1, md: 2 }}>
             {channel.name}
           </Text>
-          <Text fontSize="15px">{channel.value}</Text>
+          <Text fontSize={{ base: "16px", md: "15px" }}>{channel.value}</Text>
         </Box>
-        <Switch isChecked={true} colorScheme="green" />
+        <Switch isChecked={true} colorScheme="green" mb={{ base: 3, md: 0 }} />
       </Flex>
     ));
 
@@ -54,8 +55,9 @@ export const ServiceNotifications = () => {
           key={index}
           px={6}
           w="100%"
-          justifyContent="space-between"
-          alignItems="center"
+          direction={{ base: "column-reverse", md: "row" }}
+          justifyContent={{ md: "space-between" }}
+          alignItems={{ base: "flex-start", md: "center" }}
         >
           <Text fontSize="15.7px">{name}</Text>
           <Switch
@@ -66,6 +68,7 @@ export const ServiceNotifications = () => {
                 value: !isChecked,
               });
             }}
+            mb={{ base: 3, md: 0 }}
             colorScheme="green"
           />
         </Flex>
@@ -86,7 +89,7 @@ export const ServiceNotifications = () => {
         <Box {...headerStyleProps}>
           <Text textAlign="left">Alerts</Text>
         </Box>
-        <VStack spacing={8} py={8}>
+        <VStack spacing={{ base: 6, md: 8 }} py={8}>
           {displayEvents()}
         </VStack>
       </Box>

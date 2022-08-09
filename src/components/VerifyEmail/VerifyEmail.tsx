@@ -9,8 +9,9 @@ export const VerifyEmail = () => {
 
   return (
     <Box
-      py={5}
-      mx={5}
+      py={{ base: 4, lg: 5 }}
+      px={{ base: 5, lg: 0 }}
+      mx={{ lg: 5 }}
       mb={6}
       boxSizing="border-box"
       bg="rgba(247, 219, 167, 0.7)"

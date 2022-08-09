@@ -42,6 +42,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   useEffect(() => {
+    dispatch({ type: "SET_BROWSER_WIDTH", payload: window.innerWidth });
     window.addEventListener("resize", () => {
       dispatch({ type: "SET_BROWSER_WIDTH", payload: window.innerWidth });
     });

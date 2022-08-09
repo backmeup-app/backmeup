@@ -37,16 +37,17 @@ export const Profile = () => {
   return (
     <>
       {me?.email_verification_token && <VerifyEmail />}
-      <VStack spacing={6} mx={5} alignItems="flex-start">
+      <VStack spacing={6} mx={{ lg: 5 }} alignItems="flex-start">
         <Box w="100%">
           <Flex mb={5} alignItems="flex-end">
             <Image
               src={me?.avatar}
               ref={imageRef}
-              w={"120px"}
-              h={"120px"}
+              w={{ base: "100px", md: "120px" }}
+              h={{ base: "100px", md: "120px" }}
               border="4px solid"
               borderColor="white"
+              rounded={{ base: "full", md: "none" }}
               mr={4}
             />
             <Text
@@ -68,17 +69,32 @@ export const Profile = () => {
               hidden
             />
           </Flex>
-          <Box w="100%" boxShadow="md" bgColor="white" p={10}>
+          <Box
+            w="100%"
+            boxShadow="md"
+            bgColor="white"
+            p={{ base: 6, sm: 8, md: 10 }}
+          >
             <Form
               controls={profileControls}
               onSubmit={profileFormik.handleSubmit}
               submitBtnText="Update"
-              classNames={{ buttonParent: { colSpan: 6, mt: 8 } }}
+              classNames={{
+                buttonParent: {
+                  colSpan: { base: 12, md: 6 },
+                  mt: { base: 2, md: 8 },
+                },
+              }}
               networkOperation="update.user"
             />
           </Box>
         </Box>
-        <Box w="100%" boxShadow="md" bgColor="white" p={10}>
+        <Box
+          w="100%"
+          boxShadow="md"
+          bgColor="white"
+          p={{ base: 6, sm: 8, md: 10 }}
+        >
           <Form
             controls={passwordControls}
             onSubmit={passwordFormik.handleSubmit}

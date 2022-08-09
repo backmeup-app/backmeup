@@ -70,17 +70,23 @@ export const Ip: FC<TIpAddress> = ({ uuid, value }) => {
       align={{ md: "center" }}
     >
       <VStack alignItems="flex-start" spacing={2}>
-        <Text fontSize="15px" fontWeight={600}>
+        <Text fontSize={{ base: "md", md: "15px" }} fontWeight={600}>
           {value}
         </Text>
-        <Text>last used 25/04/2022</Text>
+        <Text>{isResponsive ? "L" : "l"}ast used 25/04/2022</Text>
       </VStack>
-      <TrashIcon
-        fontSize="lg"
-        cursor="pointer"
-        color="gray.800"
-        onClick={onOpen}
-      />
+      {isResponsive ? (
+        <Text mt={2} onClick={onOpen} fontSize="15px">
+          Delete
+        </Text>
+      ) : (
+        <TrashIcon
+          fontSize="lg"
+          cursor="pointer"
+          color="gray.800"
+          onClick={onOpen}
+        />
+      )}
       <Modal
         title={
           <Flex alignItems="center">
