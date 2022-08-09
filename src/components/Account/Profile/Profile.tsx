@@ -43,8 +43,8 @@ export const Profile = () => {
             <Image
               src={me?.avatar}
               ref={imageRef}
-              w={{ base: "100px", md: "120px" }}
-              h={{ base: "100px", md: "120px" }}
+              w={{ base: "90px", sm: "100px", md: "120px" }}
+              h={{ base: "90px", sm: "100px", md: "120px" }}
               border="4px solid"
               borderColor="white"
               rounded={{ base: "full", md: "none" }}
