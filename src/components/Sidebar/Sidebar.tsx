@@ -1,13 +1,15 @@
 import { useContext, useState, useCallback, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
+import { FC } from "react";
 import { AppContext } from "../../contexts";
 import { Accordion } from "..";
 import { TAccordion } from "../Wrappers/Accordion/types";
 import { useDefaultServiceProps } from "./tabs";
 import { TService } from "../../store";
+import { TSidebar } from "./types";
 
-export const Sidebar = () => {
+export const Sidebar: FC<TSidebar> = ({ toggle }) => {
   const [{ me, networkOperation }] = useContext(AppContext);
   const getDefaultServiceProps = useDefaultServiceProps();
   const location = useLocation();
@@ -23,11 +25,18 @@ export const Sidebar = () => {
     const activeService = getDefaultServiceProps(
       me?.services?.find(
         ({ _id }) => _id.toString() === (me?.default_service as string)
-      ) as TService
+      ) as TService,
+      toggle
     );
-    const account = getDefaultServiceProps();
+    const account = getDefaultServiceProps(undefined, toggle);
     setTabs({ activeService, account });
-  }, [me?.services, me?.default_service, location.pathname, networkOperation]);
+  }, [
+    me?.services,
+    me?.default_service,
+    location.pathname,
+    toggle,
+    networkOperation,
+  ]);
 
   const displayTabs = useCallback(() => {
     let accordionItems: any = Object.values(tabs);
