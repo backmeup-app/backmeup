@@ -1,6 +1,6 @@
 import { useContext, useState, useCallback, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { FC } from "react";
 import { AppContext } from "../../contexts";
 import { Accordion } from "..";
@@ -46,8 +46,24 @@ export const Sidebar: FC<TSidebar> = ({ toggle }) => {
   }, [tabs]);
 
   return (
-    <Box w="100%" minH="100vh" bg="charlestonGreen" color="white" pt="40%">
+    <Box
+      w="100%"
+      pos="relative"
+      minH="100vh"
+      bg="charlestonGreen"
+      color="white"
+      pt="40%"
+    >
       {displayTabs()}
+      <Text
+        pos="absolute"
+        fontFamily="oswald"
+        textDecoration={{ lg: "underline" }}
+        left={5}
+        bottom={10}
+      >
+        BACKMEUP
+      </Text>
     </Box>
   );
 };
