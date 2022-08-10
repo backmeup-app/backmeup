@@ -10,7 +10,7 @@ import { capitalize } from "../../utilities";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 export const Admin = () => {
-  const [{ me, loading: contextLoading, networkOperation }] =
+  const [{ me, browserWidth, loading: contextLoading, networkOperation }] =
     useContext(AppContext);
   const getUser = useGetUser();
   const renderPages = useRenderPages();
@@ -24,7 +24,7 @@ export const Admin = () => {
   ];
   const isLoading =
     contextLoading && operations.includes(networkOperation ?? "");
-  const [showSidebar, setShowSidebar] = useState(true);
+  const [showSidebar, setShowSidebar] = useState(false);
   const HamburgerIcon = chakra(GiHamburgerMenu);
 
   useEffect(() => {
@@ -37,7 +37,10 @@ export const Admin = () => {
 
   if (!me.default_service) return <Message />;
 
-  const toggleSidebar = () => setShowSidebar(!showSidebar);
+  const toggleSidebar = () => {
+    if (browserWidth && browserWidth > 1024) return;
+    setShowSidebar(!showSidebar);
+  };
 
   return (
     <Box>
@@ -54,9 +57,10 @@ export const Admin = () => {
           }}
           w={{ base: "65%", sm: "40%", lg: "14.3%" }}
           transition="left 0.5s ease-in"
+          onClick={(e) => e.stopPropagation()}
           zIndex={999}
         >
-          <Sidebar />
+          <Sidebar toggle={toggleSidebar} />
         </Box>
         <Box
           ml={{ base: "0", lg: "14.3%" }}
@@ -77,10 +81,10 @@ export const Admin = () => {
       </Flex>
       <Box
         pos="fixed"
-        left={10}
+        left={{ base: 5, sm: 7, md: 10 }}
         bottom={10}
-        w="60px"
-        h="60px"
+        w="62px"
+        h="62px"
         d={{ base: "flex", lg: "none" }}
         justifyContent="center"
         alignItems="center"
@@ -89,11 +93,24 @@ export const Admin = () => {
         cursor="pointer"
         onClick={toggleSidebar}
       >
-        <HamburgerIcon color="white" fontSize="xl" />
+        <HamburgerIcon color="white" fontSize="lg" />
       </Box>
       {isLoading && (
         <Spinner size="lg" pos="fixed" right={"52px"} bottom={10} />
       )}
+      <Box
+        pos="fixed"
+        display={{ lg: "none" }}
+        top="0"
+        left="0"
+        height="100vh"
+        width="100vw"
+        bg={"rgba(0,0,0,0.06)"}
+        opacity={showSidebar ? 1 : 0}
+        zIndex={showSidebar ? 99 : -999}
+        transition="opacity 0.5s ease-in"
+        onClick={toggleSidebar}
+      />
     </Box>
   );
 };

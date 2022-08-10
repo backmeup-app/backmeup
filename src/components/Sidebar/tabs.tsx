@@ -46,7 +46,7 @@ const isTabParentActive = (pathname: string, isService?: boolean) => {
 
 export const useDefaultServiceProps = () => {
   const location = useLocation();
-  return (service?: TService) => {
+  return (service?: TService, toggleSidebar?: () => void) => {
     const isParentActive = isTabParentActive(
       location.pathname,
       Boolean(service)
@@ -90,6 +90,9 @@ export const useDefaultServiceProps = () => {
                   w={"100%"}
                   _hover={{
                     underline: "none",
+                  }}
+                  onClick={() => {
+                    toggleSidebar?.();
                   }}
                   transition="all 0.3s ease-in"
                   {...activeProps}

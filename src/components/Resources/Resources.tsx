@@ -62,7 +62,7 @@ export const Resources = () => {
       {defaultService.resources && (
         <Box
           pos="fixed"
-          right={10}
+          right={{ base: 5, sm: 7, md: 10 }}
           bottom={isLoading ? 20 : 10}
           w="60px"
           h="60px"
@@ -75,7 +75,7 @@ export const Resources = () => {
           onClick={onOpen}
           transition="bottom 0.2s ease-in"
         >
-          <PlusIcon color="white" fontSize="xl" />
+          <PlusIcon color="white" fontSize={{ base: "2xl", lg: "xl" }} />
         </Box>
       )}
       <EditResource isOpen={isOpen} onClose={handleModalClose} uuid={uuid} />
