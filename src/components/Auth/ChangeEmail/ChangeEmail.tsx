@@ -28,7 +28,14 @@ export const ChangeEmail = () => {
       justifyContent="center"
       bg="rgba(247, 219, 167, 0.5)"
     >
-      <Box w="450px" bg="white" boxShadow="md" pos="relative" top="-10vh" p={6}>
+      <Box
+        w={{ base: "90vw", sm: "450px" }}
+        bg="white"
+        boxShadow="md"
+        pos="relative"
+        top="-10vh"
+        p={6}
+      >
         <Helmet>
           <title>Change Your Email Address | Backmeup</title>
         </Helmet>

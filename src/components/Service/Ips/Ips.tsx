@@ -2,7 +2,6 @@ import { useContext, Dispatch, useMemo } from "react";
 import { Box, Flex, Text, Image, chakra, VStack } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { AiOutlinePlus } from "react-icons/ai";
-import { capitalize } from "../../../utilities";
 import { AppContext, TAppState } from "../../../contexts";
 import { TAppAction, TService } from "../../../store";
 import { EditIp } from "..";
@@ -36,7 +35,12 @@ export const Ips = () => {
         src="https://res.cloudinary.com/olamileke/image/upload/v1655041065/backmeup/pixeltrue-icons-seo-growth-1_air921.png"
       />
       <Box>
-        <Text fontSize="15px" w="60%" textAlign="center" lineHeight="7">
+        <Text
+          fontSize="15px"
+          w={{ base: "85%", sm: "60%" }}
+          textAlign="center"
+          lineHeight="7"
+        >
           Add an extra layer of security by making sure that only requests from
           whitelisted IP Addresses are able to backup your resources
         </Text>

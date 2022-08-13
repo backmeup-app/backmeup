@@ -1,7 +1,6 @@
-import { useContext, useState, useCallback, useEffect } from "react";
+import { FC, useContext, useState, useCallback, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Box, Text } from "@chakra-ui/react";
-import { FC } from "react";
 import { AppContext } from "../../contexts";
 import { Accordion } from "..";
 import { TAccordion } from "../Wrappers/Accordion/types";
@@ -55,13 +54,7 @@ export const Sidebar: FC<TSidebar> = ({ toggle }) => {
       pt="40%"
     >
       {displayTabs()}
-      <Text
-        pos="absolute"
-        fontFamily="oswald"
-        textDecoration={{ lg: "underline" }}
-        left={5}
-        bottom={10}
-      >
+      <Text pos="absolute" fontFamily="oswald" left={5} bottom={10}>
         BACKMEUP
       </Text>
     </Box>
