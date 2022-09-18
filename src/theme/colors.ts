@@ -25,4 +25,5 @@ export const colors = {
   },
   navajoWhite: "#F7DBA7",
   charlestonGreen: "#1E2D2F",
+  ivory: "#FFFAFA",
 };
