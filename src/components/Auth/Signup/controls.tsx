@@ -18,7 +18,7 @@ export const useSignupControls = () => {
         name: "name",
         type: "text",
         label: <FormLabel mb={2}>Name</FormLabel>,
-        styleProps: { colSpan: 12, mb: 5, isRequired: true },
+        styleProps: { colSpan: 12, mb: 5 },
         errorMessage:
           formik.touched?.name && formik.errors?.name ? (
             <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
@@ -28,29 +28,13 @@ export const useSignupControls = () => {
         value: formik.values?.name,
       },
     },
-    // {
-    //   type: "text",
-    //   properties: {
-    //     name: "last_name",
-    //     type: "text",
-    //     label: <FormLabel mb={2}>Last name</FormLabel>,
-    //     styleProps: { colSpan: 12, mb: 5, isRequired: true },
-    //     errorMessage:
-    //       formik.touched?.last_name && formik.errors?.last_name ? (
-    //         <FormErrorMessage>{formik.errors.last_name}</FormErrorMessage>
-    //       ) : undefined,
-    //     onBlur: formik.handleBlur,
-    //     onChange: formik.handleChange,
-    //     value: formik.values?.last_name,
-    //   },
-    // },
     {
       type: "text",
       properties: {
         name: "email",
         type: "email",
-        label: <FormLabel mb={2}>Email Address</FormLabel>,
-        styleProps: { colSpan: 12, mb: 5, isRequired: true },
+        label: <FormLabel mb={2}>Email</FormLabel>,
+        styleProps: { colSpan: 12, mb: 5 },
         errorMessage:
           formik.touched?.email && formik.errors?.email ? (
             <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
@@ -66,7 +50,7 @@ export const useSignupControls = () => {
         name: "password",
         type: "password",
         label: <FormLabel mb={2}>Password</FormLabel>,
-        styleProps: { colSpan: 12, mb: 5, isRequired: true },
+        styleProps: { colSpan: 12, mb: 5 },
         errorMessage:
           formik.touched?.password && formik.errors?.password ? (
             <FormErrorMessage>{formik.errors.password}</FormErrorMessage>

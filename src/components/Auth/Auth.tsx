@@ -15,12 +15,9 @@ export const Auth = () => {
     >
       <Image
         src="https://res.cloudinary.com/olamileke/image/upload/v1663418501/backmeup/assets/logos/logo_transparent_ligpzi.png"
-        width="40"
-        height="50px"
+        width="64"
+        height="100px"
         objectFit="cover"
-        pos="absolute"
-        top={10}
-        left={10}
       />
       <Switch>
         <Route path="/session/new">
