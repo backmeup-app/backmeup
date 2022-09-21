@@ -9,7 +9,7 @@ export const Auth = () => {
     <Box overflowX="hidden" minH="100vh">
       <Flex
         w="100vw"
-        py={20}
+        h="91vh"
         justify="center"
         align="center"
         bg="ivory"

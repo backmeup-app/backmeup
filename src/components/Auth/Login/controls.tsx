@@ -1,33 +1,17 @@
 import { FormLabel, FormErrorMessage } from "@chakra-ui/react";
 import { TFormControl } from "../..";
-import { signupSchema } from "../../../utilities";
+import { loginSchema } from "../../../utilities";
 
 export const useFormConfig = () => {
   return () => ({
-    validationSchema: signupSchema,
-    initialValues: { name: "", last_name: "", email: "", password: "" },
+    validationSchema: loginSchema,
+    initialValues: { email: "", password: "" },
     onSubmit: () => {},
   });
 };
 
-export const useSignupControls = () => {
+export const useLoginControls = () => {
   return (formik: any): TFormControl[] => [
-    {
-      type: "text",
-      properties: {
-        name: "name",
-        type: "text",
-        label: <FormLabel mb={2}>Name</FormLabel>,
-        styleProps: { colSpan: 12, mb: 4 },
-        errorMessage:
-          formik.touched?.name && formik.errors?.name ? (
-            <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
-          ) : undefined,
-        onBlur: formik.handleBlur,
-        onChange: formik.handleChange,
-        value: formik.values?.name,
-      },
-    },
     {
       type: "text",
       properties: {
@@ -41,7 +25,9 @@ export const useSignupControls = () => {
         styleProps: { colSpan: 12, mb: 4 },
         errorMessage:
           formik.touched?.email && formik.errors?.email ? (
-            <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+            <FormErrorMessage fontSize="13.5px">
+              {formik.errors.email}
+            </FormErrorMessage>
           ) : undefined,
         onBlur: formik.handleBlur,
         onChange: formik.handleChange,
@@ -57,7 +43,9 @@ export const useSignupControls = () => {
         styleProps: { colSpan: 12, mb: 4 },
         errorMessage:
           formik.touched?.password && formik.errors?.password ? (
-            <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+            <FormErrorMessage fontSize="13.5px">
+              {formik.errors.password}
+            </FormErrorMessage>
           ) : undefined,
         onBlur: formik.handleBlur,
         onChange: formik.handleChange,

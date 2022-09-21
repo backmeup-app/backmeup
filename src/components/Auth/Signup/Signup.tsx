@@ -16,8 +16,8 @@ export const Signup = () => {
         bg="white"
         boxShadow="0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%)"
         px={12}
-        pt={9}
-        pb={8}
+        pt={8}
+        pb={7}
         mb={5}
         borderRadius="4px"
         w="550px"
@@ -30,8 +30,8 @@ export const Signup = () => {
           onSubmit={formik.handleSubmit}
           submitBtnText="Signup"
         />
-        <Text mt={6} fontSize="15.5px" textAlign="center">
-          Signup via Google
+        <Text mt={6} fontSize="15.5px" textAlign="center" cursor="pointer">
+          Signup with Google
         </Text>
       </Box>
       <Text fontSize="15.5px" color="gray.700" ml={1}>
