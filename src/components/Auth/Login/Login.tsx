@@ -11,18 +11,22 @@ export const Login = () => {
   const controls = getLoginControls(formik);
 
   return (
-    <Box>
+    <Box w={{ base: "90%", sm: "550px" }}>
       <Box
         bg="white"
         boxShadow="0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%)"
-        px={12}
+        px={{ base: 8, sm: 12 }}
         pt={8}
         pb={7}
         mb={5}
         borderRadius="4px"
-        w="550px"
       >
-        <Text fontSize="xl" mb="7" fontWeight="bold" color="gray.700">
+        <Text
+          fontSize={{ base: "lg", sm: "xl" }}
+          mb="7"
+          fontWeight="bold"
+          color="gray.700"
+        >
           Sign in to your account
         </Text>
         <Form

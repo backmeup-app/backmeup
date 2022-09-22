@@ -8,20 +8,22 @@ export const Auth = () => {
   return (
     <Box overflowX="hidden" minH="100vh">
       <Flex
-        w="100vw"
-        h="91vh"
+        w={{ base: "100vw", md: "102vw" }}
+        direction={{ base: "column", md: "row" }}
+        minH={{ base: "96.5vh", sm: "91vh" }}
         justify="center"
         align="center"
         bg="ivory"
         pos="relative"
+        left={{ md: "-2vw" }}
       >
         <Image
           src="https://res.cloudinary.com/olamileke/image/upload/v1663418501/backmeup/assets/logos/logo_transparent_ligpzi.png"
-          width="17rem"
-          height="100px"
+          width={{ base: "14rem", sm: "17rem" }}
+          height={{ base: "80px", sm: "100px" }}
           objectFit="cover"
           pos="relative"
-          top="-3vh"
+          top={{ md: "-3vh" }}
         />
         <Switch>
           <Route path="/session/new">
