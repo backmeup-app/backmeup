@@ -3,12 +3,29 @@ import { FormLabel, FormErrorMessage, IconButton } from "@chakra-ui/react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { TFormControl } from "../..";
 import { signupSchema } from "../../../utilities";
+import { TSignupVariables } from "../../../store/actions/auth/types";
+import { useSignup } from "../../../store";
 
 export const useFormConfig = () => {
+  const signup = useSignup();
+
   return () => ({
     validationSchema: signupSchema,
-    initialValues: { name: "", last_name: "", email: "", password: "" },
-    onSubmit: () => {},
+    initialValues: { name: "", email: "", password: "" },
+    onSubmit: async (
+      variables: Pick<TSignupVariables, "email" | "password"> & { name: string }
+    ) => {
+      const names = variables.name.split(" ");
+      const first_name = names[0];
+      const last_name = names.length === 1 ? "" : names.slice(1).join(" ");
+
+      await signup({
+        email: variables.email,
+        password: variables.password,
+        first_name,
+        last_name,
+      });
+    },
   });
 };
 

@@ -1,10 +1,15 @@
+import { useContext, Dispatch } from "react";
 import { Box, Text, Link as ChakraLink } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { Form } from "../..";
 import { useFormConfig, useSignupControls } from "./controls";
+import { AppContext, TAppState } from "../../../contexts";
+import { TAppAction } from "../../../store";
 
 export const Signup = () => {
+  const [{ networkOperation }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const getFormConfig = useFormConfig();
   const formik = useFormik(getFormConfig());
   const getControls = useSignupControls();
@@ -32,7 +37,10 @@ export const Signup = () => {
         <Form
           controls={controls}
           onSubmit={formik.handleSubmit}
-          submitBtnText="Signup"
+          networkOperation="user.signup"
+          submitBtnText={
+            networkOperation === "user.signup" ? "Signing you up" : "Signup"
+          }
         />
         <Text mt={6} fontSize="15.5px" textAlign="center" cursor="pointer">
           Signup with Google
