@@ -41,7 +41,7 @@ export const App = () => (
           <Route path="/email/:action/:token">
             <ResetEmail />
           </Route>
-          <GuestGuardedRoute path="/session/new">
+          <GuestGuardedRoute path="/session">
             <Auth />
           </GuestGuardedRoute>
           <GuestGuardedRoute path="/accounts/new">

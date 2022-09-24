@@ -1,18 +1,29 @@
+import { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { Flex, Image, Box } from "@chakra-ui/react";
 import { Login } from "./Login";
 import { Signup } from "./Signup";
-import { Footer } from "../";
+import { Footer, Loader } from "../";
+import { useVerifyGoogleAuth } from "../../store";
 
 export const Auth = () => {
+  const verifyGoogleAuth = useVerifyGoogleAuth();
+  const code = new URLSearchParams(window.location.search).get("code");
+
+  useEffect(() => {
+    if (code) verifyGoogleAuth(code);
+  }, []);
+
   const redirectGoogleAuth = () => {
     const apiUrl = String(
       process.env.REACT_APP_BACKMEUP_API ??
         window.__env__.REACT_APP_BACKMEUP_API
     );
-    const googleAuthUrl = apiUrl + "/accounts";
+    const googleAuthUrl = apiUrl + "/accounts/google";
     window.location.href = googleAuthUrl;
   };
+
+  if (code) return <Loader />;
 
   return (
     <Box overflowX="hidden" minH="100vh">
