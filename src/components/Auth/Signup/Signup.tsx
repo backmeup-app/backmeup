@@ -1,4 +1,4 @@
-import { useContext, Dispatch } from "react";
+import { FC, useContext, Dispatch } from "react";
 import { Box, Text, Link as ChakraLink } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
@@ -6,8 +6,9 @@ import { Form } from "../..";
 import { useFormConfig, useSignupControls } from "./controls";
 import { AppContext, TAppState } from "../../../contexts";
 import { TAppAction } from "../../../store";
+import { TSignup } from ".";
 
-export const Signup = () => {
+export const Signup: FC<TSignup> = ({ handleGoogleSignin }) => {
   const [{ networkOperation }] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const getFormConfig = useFormConfig();
@@ -42,7 +43,13 @@ export const Signup = () => {
             networkOperation === "user.signup" ? "Signing you up" : "Signup"
           }
         />
-        <Text mt={6} fontSize="15.5px" textAlign="center" cursor="pointer">
+        <Text
+          mt={6}
+          fontSize="15.5px"
+          textAlign="center"
+          cursor="pointer"
+          onClick={handleGoogleSignin}
+        >
           Signup with Google
         </Text>
       </Box>

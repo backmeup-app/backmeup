@@ -1,10 +1,12 @@
+import { FC } from "react";
 import { Box, Text, Link as ChakraLink } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { useFormConfig, useLoginControls } from "./controls";
 import { Form } from "../..";
+import { TLogin } from ".";
 
-export const Login = () => {
+export const Login: FC<TLogin> = ({ handleGoogleSignin }) => {
   const getFormConfig = useFormConfig();
   const getLoginControls = useLoginControls();
   const formik = useFormik(getFormConfig());
@@ -34,7 +36,13 @@ export const Login = () => {
           onSubmit={formik.handleSubmit}
           submitBtnText="Login"
         />
-        <Text mt={6} fontSize="15.5px" textAlign="center" cursor="pointer">
+        <Text
+          mt={6}
+          fontSize="15.5px"
+          textAlign="center"
+          cursor="pointer"
+          onClick={handleGoogleSignin}
+        >
           Login with Google
         </Text>
       </Box>

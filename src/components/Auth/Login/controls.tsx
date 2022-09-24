@@ -6,7 +6,7 @@ import { loginSchema } from "../../../utilities";
 
 export const useFormConfig = () => {
   return () => ({
-    // validationSchema: loginSchema,
+    validationSchema: loginSchema,
     initialValues: { email: "", password: "" },
     validateOnChange: false,
     onSubmit: () => {},

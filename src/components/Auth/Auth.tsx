@@ -5,6 +5,15 @@ import { Signup } from "./Signup";
 import { Footer } from "../";
 
 export const Auth = () => {
+  const redirectGoogleAuth = () => {
+    const apiUrl = String(
+      process.env.REACT_APP_BACKMEUP_API ??
+        window.__env__.REACT_APP_BACKMEUP_API
+    );
+    const googleAuthUrl = apiUrl + "/accounts";
+    window.location.href = googleAuthUrl;
+  };
+
   return (
     <Box overflowX="hidden" minH="100vh">
       <Flex
@@ -27,10 +36,10 @@ export const Auth = () => {
         />
         <Switch>
           <Route path="/session/new">
-            <Login />
+            <Login handleGoogleSignin={redirectGoogleAuth} />
           </Route>
           <Route path="/accounts/new">
-            <Signup />
+            <Signup handleGoogleSignin={redirectGoogleAuth} />
           </Route>
         </Switch>
       </Flex>

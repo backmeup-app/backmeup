@@ -29,7 +29,7 @@ const GuestGuardedRoute: FC<RouteProps> = ({ path, exact, children }) => {
       {children}
     </Route>
   ) : (
-    <Redirect to="/resources" />
+    <Redirect to="/" />
   );
 };
 
