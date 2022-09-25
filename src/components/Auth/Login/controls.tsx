@@ -30,6 +30,11 @@ export const useLoginControls = () => {
       formik.setFieldValue(field, event.target.value);
     };
 
+    const handleBlur = (field: string) => {
+      if (!formik.touched?.[field] && formik.values[field].trim().length > 0)
+        formik.setFieldTouched(field, true);
+    };
+
     return [
       {
         type: "text",
@@ -49,7 +54,9 @@ export const useLoginControls = () => {
                 {formik.errors.email}
               </FormErrorMessage>
             ) : undefined,
-          onBlur: formik.handleBlur,
+          onBlur: () => {
+            handleBlur("email");
+          },
           onChange: (event) => {
             handleChange("email", event);
           },
@@ -95,7 +102,9 @@ export const useLoginControls = () => {
                 {formik.errors.password}
               </FormErrorMessage>
             ) : undefined,
-          onBlur: formik.handleBlur,
+          onBlur: () => {
+            handleBlur("password");
+          },
           onChange: (event) => {
             handleChange("password", event);
           },

@@ -40,13 +40,18 @@ export const useSignupControls = () => {
       formik.setFieldValue(field, event.target.value);
     };
 
+    const handleBlur = (field: string) => {
+      if (!formik.touched?.[field] && formik.values[field].trim().length > 0)
+        formik.setFieldTouched(field, true);
+    };
+
     return [
       {
         type: "text",
         properties: {
           name: "name",
           type: "text",
-          // autoFocus: true,
+          autoFocus: true,
           label: <FormLabel mb={2}>Name</FormLabel>,
           styleProps: { colSpan: 12, mb: 4 },
           errorMessage:
@@ -55,7 +60,9 @@ export const useSignupControls = () => {
                 {formik.errors.name}
               </FormErrorMessage>
             ) : undefined,
-          onBlur: formik.handleBlur,
+          onBlur: () => {
+            handleBlur("name");
+          },
           onChange: (event) => {
             handleChange("name", event);
           },
@@ -79,7 +86,9 @@ export const useSignupControls = () => {
                 {formik.errors.email}
               </FormErrorMessage>
             ) : undefined,
-          onBlur: formik.handleBlur,
+          onBlur: () => {
+            handleBlur("email");
+          },
           onChange: (event) => {
             handleChange("email", event);
           },
@@ -125,7 +134,9 @@ export const useSignupControls = () => {
                 {formik.errors.password}
               </FormErrorMessage>
             ) : undefined,
-          onBlur: formik.handleBlur,
+          onBlur: () => {
+            handleBlur("password");
+          },
           onChange: (event) => {
             handleChange("password", event);
           },
