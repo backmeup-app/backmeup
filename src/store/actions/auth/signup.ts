@@ -5,6 +5,8 @@ import { AppContext, TAppState } from "../../../contexts";
 import { client } from "../client";
 import Cookies from "universal-cookie";
 import { TSignupResponse, TSignupVariables } from "./types";
+import { errorHandler, TError } from "../../../utilities";
+import { AxiosError } from "axios";
 
 export const useSignup = () => {
   const [, dispatch] =
@@ -23,7 +25,6 @@ export const useSignup = () => {
       const tokenExpiry = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000);
       cookies.set("token", token, { expires: tokenExpiry });
       dispatch({ type: "SET_USER", payload: user });
-      dispatch({ type: "SET_NETWORK_OPERATION", payload: "" });
       dispatch({
         type: "SET_NOTIFICATION",
         payload: {
@@ -32,6 +33,9 @@ export const useSignup = () => {
         },
       });
       history.push("/resources");
-    } catch (error) {}
+    } catch (error) {
+      errorHandler(error as AxiosError<TError>, dispatch);
+    }
+    dispatch({ type: "SET_NETWORK_OPERATION", payload: "" });
   };
 };

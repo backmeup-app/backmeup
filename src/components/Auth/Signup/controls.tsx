@@ -3,8 +3,7 @@ import { FormLabel, FormErrorMessage, IconButton } from "@chakra-ui/react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { TFormControl } from "../..";
 import { signupSchema } from "../../../utilities";
-import { TSignupVariables } from "../../../store/actions/auth/types";
-import { useSignup } from "../../../store";
+import { useSignup, TSignupVariables } from "../../../store";
 
 export const useFormConfig = () => {
   const signup = useSignup();
@@ -47,12 +46,14 @@ export const useSignupControls = () => {
         properties: {
           name: "name",
           type: "text",
-          autoFocus: true,
+          // autoFocus: true,
           label: <FormLabel mb={2}>Name</FormLabel>,
           styleProps: { colSpan: 12, mb: 4 },
           errorMessage:
             formik.touched?.name && formik.errors?.name ? (
-              <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
+              <FormErrorMessage fontSize="13.5px">
+                {formik.errors.name}
+              </FormErrorMessage>
             ) : undefined,
           onBlur: formik.handleBlur,
           onChange: (event) => {
@@ -74,7 +75,9 @@ export const useSignupControls = () => {
           styleProps: { colSpan: 12, mb: 4 },
           errorMessage:
             formik.touched?.email && formik.errors?.email ? (
-              <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+              <FormErrorMessage fontSize="13.5px">
+                {formik.errors.email}
+              </FormErrorMessage>
             ) : undefined,
           onBlur: formik.handleBlur,
           onChange: (event) => {
@@ -118,7 +121,9 @@ export const useSignupControls = () => {
             },
           errorMessage:
             formik.touched?.password && formik.errors?.password ? (
-              <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+              <FormErrorMessage fontSize="13.5px">
+                {formik.errors.password}
+              </FormErrorMessage>
             ) : undefined,
           onBlur: formik.handleBlur,
           onChange: (event) => {

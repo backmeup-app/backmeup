@@ -13,6 +13,10 @@ export type TSignupResponse = TCommonApiResponse & {
   token: string;
 };
 
+export type TLoginVariables = Pick<TSignupVariables, "email" | "password">;
+
+export type TLoginResponse = TSignupResponse;
+
 export type TVerifyGoogleAuth = TSignupResponse;
 
 export type TResetEmailVariables = {

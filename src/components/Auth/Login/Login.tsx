@@ -1,12 +1,16 @@
-import { FC } from "react";
+import { FC, useContext, Dispatch } from "react";
 import { Box, Text, Link as ChakraLink } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { useFormConfig, useLoginControls } from "./controls";
 import { Form } from "../..";
 import { TLogin } from ".";
+import { AppContext, TAppState } from "../../../contexts";
+import { TAppAction } from "../../../store";
 
 export const Login: FC<TLogin> = ({ handleGoogleSignin }) => {
+  const [{ networkOperation }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const getFormConfig = useFormConfig();
   const getLoginControls = useLoginControls();
   const formik = useFormik(getFormConfig());
@@ -34,7 +38,10 @@ export const Login: FC<TLogin> = ({ handleGoogleSignin }) => {
         <Form
           controls={controls}
           onSubmit={formik.handleSubmit}
-          submitBtnText="Login"
+          networkOperation="user.login"
+          submitBtnText={
+            networkOperation === "user.login" ? "Logging you in" : "Login"
+          }
         />
         <Text
           mt={6}
