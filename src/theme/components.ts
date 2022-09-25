@@ -25,7 +25,7 @@ export const components: { [key: string]: ComponentStyleConfig } = {
       outline: {
         field: {
           _focus: {
-            boxShadow: "none",
+            // boxShadow: "none",
           },
         },
       },
@@ -83,8 +83,9 @@ export const components: { [key: string]: ComponentStyleConfig } = {
       primary: {
         background: "charlestonGreen",
         color: "white",
-        boxShadow: " 0px 9px 0px -5px navajoWhite",
+        boxShadow: "0px 9px 0px -5px navajoWhite",
         opacity: 1,
+        // borderRadius: 4,
 
         _hover: {
           background: "gray.700",

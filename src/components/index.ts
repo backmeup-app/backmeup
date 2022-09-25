@@ -1,5 +1,6 @@
 export * from "./Account";
 export * from "./Auth";
+export * from "./Footer";
 export * from "./Form";
 export * from "./Loader";
 export * from "./Nav";

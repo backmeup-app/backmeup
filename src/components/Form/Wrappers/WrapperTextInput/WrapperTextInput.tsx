@@ -20,7 +20,14 @@ export const WrapperTextInput: FC<TWrapperTextInput> = ({
       <Input
         {...props}
         isInvalid={props.isInvalid}
-        focusBorderColor={props.isInvalid ? "red.500" : "gray.500"}
+        focusBorderColor={"#D2D7E5"}
+        errorBorderColor="red.300"
+        css={{
+          "&:focus": {
+            borderWidth: "2px",
+          },
+        }}
+        borderRadius="4px"
       />
       {rightElement && <InputRightElement {...rightElement} />}
     </InputGroup>
