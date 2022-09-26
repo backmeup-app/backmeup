@@ -25,6 +25,7 @@ export const EditService: FC<TEditService> = ({ onClose, isOpen }) => {
       <Form
         controls={controls}
         onSubmit={formik.handleSubmit}
+        networkOperation="create.service"
         submitBtnText={
           (isLoading ? "Creating" : "Create") + " " + formik.values.name
         }

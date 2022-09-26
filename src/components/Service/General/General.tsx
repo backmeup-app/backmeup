@@ -10,7 +10,7 @@ import { capitalize } from "../../../utilities";
 export const General = () => {
   const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const defaultService = useMemo(() => {
-    return (me?.services as TService[]).find(
+    return ((me?.services as TService[]) ?? []).find(
       (service) => service._id === (me?.default_service as string)
     ) as TService;
   }, [me?.default_service]);

@@ -10,10 +10,10 @@ export const ResourceMessage = () => {
   const [{ me }] = useContext(AppContext);
 
   const defaultService: TService = useMemo(() => {
-    return me?.services?.find(
+    return (me?.services ?? []).find(
       (service) => service._id.toString() === (me?.default_service as string)
     ) as TService;
-  }, [me?.default_service, me?.services]);
+  }, []);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -30,7 +30,8 @@ export const ResourceMessage = () => {
           src="https://res.cloudinary.com/olamileke/image/upload/v1651325548/backmeup/startup-rocket_zrhku3.svg"
         />
         <Heading fontSize="2xl" textTransform="capitalize">
-          No resources exist for {capitalize(defaultService.name)}
+          No resources exist for{" "}
+          {capitalize(defaultService ? defaultService.name : "")}
         </Heading>
         <Text fontSize={"md"} textAlign="center" lineHeight="tall">
           Create your first resource by clicking the button below.

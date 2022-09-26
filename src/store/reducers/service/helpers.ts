@@ -1,5 +1,4 @@
 import { TAppState } from "../../../contexts";
-import { TService } from "../../models";
 import { TServiceAction } from "./types";
 
 export const updateService = (
@@ -7,7 +6,7 @@ export const updateService = (
   payload: TServiceAction["payload"]
 ) => {
   const { me } = state;
-  const services = me?.services as TService[];
+  const services = me?.services ?? [];
   const idx = services.findIndex((service) => service.uuid === payload.uuid);
 
   if (idx === -1) return state;

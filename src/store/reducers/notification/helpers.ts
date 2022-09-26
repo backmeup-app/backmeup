@@ -1,4 +1,3 @@
-import { TService } from "../..";
 import { TAppState } from "../../../contexts";
 import { TNotificationAction } from "./types";
 
@@ -7,7 +6,7 @@ export const updateNotification = (
   payload: TNotificationAction["payload"]
 ) => {
   const { me } = state;
-  const services = me?.services as TService[];
+  const services = me?.services ?? [];
   const idx = services.findIndex(
     (service) => service._id.toString() === (me?.default_service as string)
   );

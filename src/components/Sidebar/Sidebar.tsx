@@ -55,7 +55,7 @@ export const Sidebar: FC<TSidebar> = ({ toggle }) => {
     >
       {displayTabs()}
       <Text pos="absolute" fontFamily="oswald" left={5} bottom={10}>
-        BACKMEUP
+        DOME
       </Text>
     </Box>
   );

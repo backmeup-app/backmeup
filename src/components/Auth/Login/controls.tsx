@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { FormLabel, FormErrorMessage, IconButton } from "@chakra-ui/react";
+import {
+  FormLabel,
+  FormErrorMessage,
+  Text,
+  IconButton,
+} from "@chakra-ui/react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { TFormControl } from "../..";
 import { loginSchema } from "../../../utilities";
@@ -68,7 +73,12 @@ export const useLoginControls = () => {
         properties: {
           name: "password",
           type: showPassword ? "text" : "password",
-          label: <FormLabel mb={2}>Password</FormLabel>,
+          label: (
+            <FormLabel mb={2} d="flex" justifyContent="space-between">
+              <Text>Password</Text>
+              <Text cursor="pointer">Forgot ?</Text>
+            </FormLabel>
+          ),
           styleProps: { colSpan: 12, mb: 4 },
           rightElement: formik?.touched?.password &&
             formik.values?.password.length > 0 && {

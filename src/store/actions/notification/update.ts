@@ -12,7 +12,7 @@ export const useUpdateNotifications = () => {
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
 
   return async (variables: TUpdateNotificationsVariables) => {
-    const defaultService = (me?.services as TService[]).find(
+    const defaultService = ((me?.services as TService[]) ?? []).find(
       (service) => service._id === (me?.default_service as string)
     ) as TService;
     const url = `/services/${defaultService.uuid}/notifications`;

@@ -23,7 +23,7 @@ export const useSignup = () => {
         data: { user, token },
       } = await client().post<TSignupResponse>("/me", { ...variables });
       const tokenExpiry = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000);
-      cookies.set("token", token, { expires: tokenExpiry });
+      cookies.set("token", token, { path: "/", expires: tokenExpiry });
       dispatch({ type: "SET_USER", payload: user });
       dispatch({
         type: "SET_NOTIFICATION",

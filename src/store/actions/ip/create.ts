@@ -9,7 +9,7 @@ export const useCreateIpAddress = () => {
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
 
   return async (variables: TCreateIpAddressVariables, onClose?: () => void) => {
-    const defaultService = (me?.services as TService[]).find(
+    const defaultService = ((me?.services as TService[]) ?? []).find(
       (service) => service._id === (me?.default_service as string)
     ) as TService;
 

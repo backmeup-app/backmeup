@@ -7,7 +7,7 @@ export const createApiKey = (
   payload: TApiKeyAction["payload"]
 ) => {
   const { me } = state;
-  const services = me?.services as TService[];
+  const services = me?.services ?? [];
   const idx = services.findIndex(
     (service) => service._id.toString() === (me?.default_service as string)
   );
@@ -32,7 +32,7 @@ export const deleteApiKey = (
   payload: TApiKeyAction["payload"]
 ) => {
   const { me } = state;
-  const services = me?.services as TService[];
+  const services = me?.services ?? [];
   const idx = services.findIndex(
     (service) => service._id.toString() === (me?.default_service as string)
   );

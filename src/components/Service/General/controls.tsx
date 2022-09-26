@@ -13,7 +13,7 @@ import { editServiceSchema } from "../../../utilities";
 export const useFormConfig = () => {
   const [{ me }, dispatch] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
-  const services = me?.services as TService[];
+  const services = me?.services ?? [];
   const defaultService = services.find(
     (service) => service._id === (me?.default_service as string)
   ) as TService;

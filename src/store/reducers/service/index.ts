@@ -15,9 +15,10 @@ export const serviceReducer = (state: TAppState, action: TServiceAction) => {
             (state?.me?.services ?? []).length > 0
               ? state?.me?.default_service
               : action.payload._id,
-          services: state.me
-            ? [...state.me.services, action.payload]
-            : [action.payload],
+          services:
+            state?.me?.services && state?.me?.services.length > 0
+              ? [...state.me.services, action.payload]
+              : [action.payload],
         },
       };
     case "UPDATE_SERVICE":
