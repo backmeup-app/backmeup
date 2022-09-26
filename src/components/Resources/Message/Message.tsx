@@ -24,19 +24,26 @@ export const ResourceMessage = () => {
       align="center"
       justify="center"
     >
-      <VStack spacing={5} w="50%" pos="relative" top="-5%">
+      <VStack spacing={5} w="50%" pos="relative" top="-6.5%">
         <Image
-          boxSize={20}
-          src="https://res.cloudinary.com/olamileke/image/upload/v1651325548/backmeup/startup-rocket_zrhku3.svg"
+          boxSize={32}
+          src="https://res.cloudinary.com/olamileke/image/upload/v1664228275/backmeup/assets/states/sammy-1_vbrguh.png"
+          objectFit="contain"
+          pos="relative"
+          top="30px"
         />
-        <Heading fontSize="2xl" textTransform="capitalize">
+        <Heading
+          fontFamily="openSans"
+          fontSize="1.35rem"
+          textTransform="capitalize"
+        >
           No resources exist for{" "}
           {capitalize(defaultService ? defaultService.name : "")}
         </Heading>
         <Text fontSize={"md"} textAlign="center" lineHeight="tall">
           Create your first resource by clicking the button below.
         </Text>
-        <Button variant="primary" size="sm" onClick={onOpen}>
+        <Button variant="primary" onClick={onOpen}>
           Create Resource
         </Button>
       </VStack>

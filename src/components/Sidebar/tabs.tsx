@@ -28,12 +28,12 @@ const manageUserTabs = [
     isActive: (pathname: string) => pathname === "/profile",
   },
   {
-    name: "Notifications",
-    isActive: (pathname: string) => pathname === "/notifications",
+    name: "Settings",
+    isActive: (pathname: string) => pathname === "/user-settings",
   },
   {
-    name: "Billing",
-    isActive: (pathname: string) => pathname === "/billing",
+    name: "Notifications",
+    isActive: (pathname: string) => pathname === "/notifications",
   },
 ];
 

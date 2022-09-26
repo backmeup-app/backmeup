@@ -123,6 +123,7 @@ export const Nav = () => {
             size="sm"
             borderRadius="none"
             bg="navajowhite"
+            color="charlestonGreen"
             name={defaultService?.name}
           />
           <Text>{defaultService?.name}</Text>

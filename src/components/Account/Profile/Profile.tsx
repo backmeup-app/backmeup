@@ -42,6 +42,7 @@ export const Profile = () => {
           <Flex mb={5} alignItems="flex-end">
             <Image
               src={me?.avatar}
+              alt={me?.first_name ?? "" + " " + me?.last_name}
               ref={imageRef}
               w={{ base: "90px", sm: "100px", md: "120px" }}
               h={{ base: "90px", sm: "100px", md: "120px" }}

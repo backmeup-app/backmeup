@@ -51,6 +51,7 @@ export const useCreateApiKeyControls = () => {
         type: "text",
         properties: {
           name: "name",
+          autoFocus: true,
           label: <FormLabel>Name</FormLabel>,
           styleProps: { colSpan: 12, mb: 4, isRequired: true },
           errorMessage: formik.errors?.name ? (
