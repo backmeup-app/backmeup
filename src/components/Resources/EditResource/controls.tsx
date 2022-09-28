@@ -44,6 +44,7 @@ export const useEditResourceControls = () => {
           name: "name",
           label: <FormLabel>Name</FormLabel>,
           styleProps: { colSpan: 12, mb: 4, isRequired: true },
+          autoFocus: true,
           errorMessage:
             formik.touched?.name && formik.errors?.name ? (
               <FormErrorMessage>{formik.errors.name}</FormErrorMessage>

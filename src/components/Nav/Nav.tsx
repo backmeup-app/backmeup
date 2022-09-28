@@ -135,6 +135,8 @@ export const Nav = () => {
         <Avatar
           src={me?.avatar}
           boxSize="40px"
+          bg="navajowhite"
+          color="charlestonGreen"
           name={me?.first_name + " " + me?.last_name}
         />
         {(browserWidth ?? window.innerWidth) > 480 && (

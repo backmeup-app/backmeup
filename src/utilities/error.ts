@@ -25,6 +25,11 @@ export const errorHandler = (
     default:
     //
   }
+
+  dispatch({
+    type: "SET_NOTIFICATION",
+    payload: { status: "error", text: "Try again later!" },
+  });
 };
 
 const handleUserError = (errorCode: string, dispatch: Dispatch<TAppAction>) => {
@@ -39,6 +44,9 @@ const handleUserError = (errorCode: string, dispatch: Dispatch<TAppAction>) => {
       break;
     case "user-003":
       response.payload.text = "User with email exists already";
+      break;
+    case "user-004":
+      response.payload.text = "Incorrect verification token";
       break;
     default:
       response.payload.text = "We couldn't complete that request!";
