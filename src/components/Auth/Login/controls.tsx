@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { useState, useContext, Dispatch } from "react";
 import {
   FormLabel,
   FormErrorMessage,
   Text,
+  Box,
   IconButton,
 } from "@chakra-ui/react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { TFormControl } from "../..";
 import { loginSchema } from "../../../utilities";
-import { useLogin } from "../../../store";
+import {
+  TAppAction,
+  useLogin,
+  useUpdateUserPasswordInitial,
+} from "../../../store";
 import { TLoginVariables } from "../../../store";
+import { AppContext, TAppState } from "../../../contexts";
 
 export const useFormConfig = () => {
   const login = useLogin();
@@ -24,7 +30,10 @@ export const useFormConfig = () => {
 };
 
 export const useLoginControls = () => {
+  const [, dispatch] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const [showPassword, setShowPassword] = useState(false);
+  const updateUserPasswordInitial = useUpdateUserPasswordInitial();
 
   return (formik: any): TFormControl[] => {
     const handleChange = (
@@ -38,6 +47,22 @@ export const useLoginControls = () => {
     const handleBlur = (field: string) => {
       if (!formik.touched?.[field] && formik.values[field].trim().length > 0)
         formik.setFieldTouched(field, true);
+    };
+
+    const handleForgotPassword = async () => {
+      if (formik.values?.email.length === 0)
+        return dispatch({
+          type: "SET_NOTIFICATION",
+          payload: { status: "error", text: "Enter a valid email address" },
+        });
+
+      if (formik.errors?.email)
+        return dispatch({
+          type: "SET_NOTIFICATION",
+          payload: { status: "error", text: "Invalid email address" },
+        });
+
+      await updateUserPasswordInitial({ email: formik.values?.email ?? "" });
     };
 
     return [
@@ -74,10 +99,14 @@ export const useLoginControls = () => {
           name: "password",
           type: showPassword ? "text" : "password",
           label: (
-            <FormLabel mb={2} d="flex" justifyContent="space-between">
-              <Text>Password</Text>
-              <Text cursor="pointer">Forgot ?</Text>
-            </FormLabel>
+            <Box mb={2} d="flex" justifyContent="space-between">
+              <FormLabel>
+                <Text>Password</Text>
+              </FormLabel>
+              <Text cursor="pointer" onClick={handleForgotPassword}>
+                Forgot ?
+              </Text>
+            </Box>
           ),
           styleProps: { colSpan: 12, mb: 4 },
           rightElement: formik?.touched?.password &&

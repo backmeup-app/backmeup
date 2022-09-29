@@ -38,7 +38,7 @@ export const Login: FC<TLogin> = ({ handleGoogleSignin }) => {
         <Form
           controls={controls}
           onSubmit={formik.handleSubmit}
-          networkOperation="user.login"
+          networkOperation={networkOperation}
           submitBtnText={
             networkOperation === "user.login" ? "Logging you in" : "Login"
           }

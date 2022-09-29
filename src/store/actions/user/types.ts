@@ -7,6 +7,10 @@ export type TUpdateUserVariables = Partial<
   avatar?: File;
 };
 
+export type TUpdateUserPasswordInitialVariables = {
+  email: string;
+};
+
 export type TUpdateUserPasswordVariables = {
   password: string;
 };
