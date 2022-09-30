@@ -28,7 +28,10 @@ export const errorHandler = (
 
   dispatch({
     type: "SET_NOTIFICATION",
-    payload: { status: "error", text: "Try again later!" },
+    payload: {
+      status: "error",
+      text: "Something went wrong with that request. Try again later!",
+    },
   });
 };
 

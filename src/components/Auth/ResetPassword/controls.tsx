@@ -5,7 +5,7 @@ import { TFormControl } from "../..";
 import {
   handleInputBlur,
   handleInputChange,
-  updateUserPasswordSchema,
+  resetUserPasswordSchema,
 } from "../../../utilities";
 import { useResetUserPassword } from "../../../store";
 import { TUpdateUserPasswordVariables } from "../../../store/actions/user/types";
@@ -14,10 +14,9 @@ export const useFormConfig = () => {
   const resetUserPassword = useResetUserPassword();
 
   return () => ({
-    validationSchema: updateUserPasswordSchema,
+    validationSchema: resetUserPasswordSchema,
     initialValues: { password: "" },
     onSubmit: async (variables: TUpdateUserPasswordVariables) => {
-      alert("leke");
       await resetUserPassword({ ...variables });
     },
   });

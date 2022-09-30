@@ -125,7 +125,7 @@ export const useResetUserPassword = () => {
     dispatch({ type: "SET_NETWORK_OPERATION", payload: "reset.user.password" });
 
     try {
-      await client().post(`/me/password/reset/${token}`, { ...variables });
+      await client().put(`/me/password/change/${token}`, { ...variables });
       dispatch({
         type: "SET_NOTIFICATION",
         payload: { status: "success", text: "Password reset successfully" },
