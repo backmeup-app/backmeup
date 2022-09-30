@@ -3,7 +3,7 @@ import { useContext, Dispatch } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { TAppAction } from "../..";
 import { AppContext, TAppState } from "../../../contexts";
-import { errorHandler, TError } from "../../../utilities";
+import { useErrorHandler, TError } from "../../../utilities";
 import { client } from "../client";
 import { TUpdateUserResponse } from "./types";
 
@@ -12,6 +12,7 @@ export const useVerifyUser = () => {
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const history = useHistory();
   const { token } = useParams<{ token: string }>();
+  const errorHandler = useErrorHandler();
 
   return async () => {
     try {
@@ -29,7 +30,7 @@ export const useVerifyUser = () => {
       });
     } catch (error) {
       console.log("sksks");
-      errorHandler(error as AxiosError<TError>, dispatch);
+      errorHandler(error as AxiosError<TError>);
     }
 
     history.push("/");

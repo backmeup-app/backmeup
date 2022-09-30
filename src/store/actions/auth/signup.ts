@@ -5,13 +5,14 @@ import { AppContext, TAppState } from "../../../contexts";
 import { client } from "../client";
 import Cookies from "universal-cookie";
 import { TSignupResponse, TSignupVariables } from "./types";
-import { errorHandler, TError } from "../../../utilities";
+import { useErrorHandler, TError } from "../../../utilities";
 import { AxiosError } from "axios";
 
 export const useSignup = () => {
   const [, dispatch] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const history = useHistory();
+  const errorHandler = useErrorHandler();
 
   return async (variables: TSignupVariables) => {
     dispatch({ type: "SET_LOADING", payload: true });
@@ -34,7 +35,7 @@ export const useSignup = () => {
       });
       history.push("/resources");
     } catch (error) {
-      errorHandler(error as AxiosError<TError>, dispatch);
+      errorHandler(error as AxiosError<TError>);
     }
     dispatch({ type: "SET_NETWORK_OPERATION", payload: "" });
   };

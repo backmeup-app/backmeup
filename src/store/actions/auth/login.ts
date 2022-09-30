@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { TAppAction } from "../..";
 import { AppContext, TAppState } from "../../../contexts";
-import { errorHandler, TError } from "../../../utilities";
+import { useErrorHandler, TError } from "../../../utilities";
 import { client } from "../client";
 import { TLoginResponse, TLoginVariables, TVerifyGoogleAuth } from "./types";
 
@@ -13,6 +13,7 @@ export const useLogin = () => {
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const cookies = new Cookies();
   const history = useHistory();
+  const errorHandler = useErrorHandler();
 
   return async (variables: TLoginVariables) => {
     dispatch({ type: "SET_LOADING", payload: true });
@@ -31,7 +32,7 @@ export const useLogin = () => {
       });
       history.push("/resources");
     } catch (error) {
-      errorHandler(error as AxiosError<TError>, dispatch);
+      errorHandler(error as AxiosError<TError>);
       history.push("/session/new");
     }
     dispatch({ type: "SET_NETWORK_OPERATION", payload: "" });
@@ -44,6 +45,7 @@ export const useVerifyGoogleAuth = () => {
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const cookies = new Cookies();
   const history = useHistory();
+  const errorHandler = useErrorHandler();
 
   return async (code: string) => {
     dispatch({ type: "SET_LOADING", payload: true });
@@ -61,7 +63,7 @@ export const useVerifyGoogleAuth = () => {
       });
       history.push("/resources");
     } catch (error) {
-      console.log(error);
+      errorHandler(error as AxiosError<TError>);
       history.push("/session/new");
     }
     dispatch({ type: "SET_LOADING", payload: false });

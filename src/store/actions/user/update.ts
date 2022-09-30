@@ -3,7 +3,7 @@ import { useContext, Dispatch } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { TAppAction } from "../..";
 import { AppContext, TAppState } from "../../../contexts";
-import { errorHandler, TError } from "../../../utilities";
+import { useErrorHandler, TError } from "../../../utilities";
 import { client } from "../client";
 import {
   TResetUserPasswordInitialVariables,
@@ -55,6 +55,7 @@ export const useUpdateUser = () => {
 export const useUpdateUserPassword = () => {
   const [, dispatch] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const errorHandler = useErrorHandler();
 
   return async (variables: TUpdateUserPasswordVariables) => {
     dispatch({ type: "SET_LOADING", payload: true });
@@ -70,7 +71,7 @@ export const useUpdateUserPassword = () => {
         payload: { status: "success", text: "Password updated successfully" },
       });
     } catch (error) {
-      errorHandler(error as AxiosError<TError>, dispatch);
+      errorHandler(error as AxiosError<TError>);
     }
 
     dispatch({ type: "SET_LOADING", payload: false });
@@ -84,6 +85,7 @@ export const useUpdateUserPassword = () => {
 export const useResetUserPasswordInitial = () => {
   const [, dispatch] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const errorHandler = useErrorHandler();
 
   return async (
     variables: TResetUserPasswordInitialVariables,
@@ -106,7 +108,7 @@ export const useResetUserPasswordInitial = () => {
       });
       callback?.();
     } catch (error) {
-      errorHandler(error as AxiosError<TError>, dispatch);
+      errorHandler(error as AxiosError<TError>);
     }
 
     dispatch({ type: "SET_LOADING", payload: false });
@@ -119,6 +121,7 @@ export const useResetUserPassword = () => {
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const history = useHistory();
   const { token } = useParams<{ token: string }>();
+  const errorHandler = useErrorHandler();
 
   return async (variables: TUpdateUserPasswordVariables) => {
     dispatch({ type: "SET_LOADING", payload: true });
@@ -132,7 +135,7 @@ export const useResetUserPassword = () => {
       });
       history.push("/session/new");
     } catch (error) {
-      errorHandler(error as AxiosError<TError>, dispatch);
+      errorHandler(error as AxiosError<TError>);
     }
 
     dispatch({ type: "SET_LOADING", payload: false });

@@ -61,8 +61,7 @@ export const Notification = () => {
     >
       {displayStatus()}
       <Text ml={4} fontSize="15px" color="white">
-        {notification?.text ??
-          "We have sent a password reset link to olamileke.f@gmail.com"}
+        {notification?.text ?? ""}
       </Text>
     </Flex>
   );
