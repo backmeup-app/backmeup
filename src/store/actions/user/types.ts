@@ -7,7 +7,7 @@ export type TUpdateUserVariables = Partial<
   avatar?: File;
 };
 
-export type TUpdateUserPasswordInitialVariables = {
+export type TResetUserPasswordInitialVariables = {
   email: string;
 };
 

@@ -8,11 +8,15 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { TFormControl } from "../..";
-import { loginSchema } from "../../../utilities";
+import {
+  handleInputBlur,
+  handleInputChange,
+  loginSchema,
+} from "../../../utilities";
 import {
   TAppAction,
   useLogin,
-  useUpdateUserPasswordInitial,
+  useResetUserPasswordInitial,
 } from "../../../store";
 import { TLoginVariables } from "../../../store";
 import { AppContext, TAppState } from "../../../contexts";
@@ -33,22 +37,9 @@ export const useLoginControls = () => {
   const [, dispatch] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const [showPassword, setShowPassword] = useState(false);
-  const updateUserPasswordInitial = useUpdateUserPasswordInitial();
+  const resetUserPasswordInitial = useResetUserPasswordInitial();
 
   return (formik: any): TFormControl[] => {
-    const handleChange = (
-      field: string,
-      event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-      if (!formik.touched?.[field]) formik.touched[field] = true;
-      formik.setFieldValue(field, event.target.value);
-    };
-
-    const handleBlur = (field: string) => {
-      if (!formik.touched?.[field] && formik.values[field].trim().length > 0)
-        formik.setFieldTouched(field, true);
-    };
-
     const handleForgotPassword = async () => {
       if (formik.values?.email.length === 0)
         return dispatch({
@@ -62,7 +53,13 @@ export const useLoginControls = () => {
           payload: { status: "error", text: "Invalid email address" },
         });
 
-      await updateUserPasswordInitial({ email: formik.values?.email ?? "" });
+      await resetUserPasswordInitial(
+        { email: formik.values?.email ?? "" },
+        () => {
+          formik.setFieldValue("email", "");
+          formik.setFieldTouched("email", false);
+        }
+      );
     };
 
     return [
@@ -85,10 +82,10 @@ export const useLoginControls = () => {
               </FormErrorMessage>
             ) : undefined,
           onBlur: () => {
-            handleBlur("email");
+            handleInputBlur(formik, "email");
           },
           onChange: (event) => {
-            handleChange("email", event);
+            handleInputChange(formik, "email", event);
           },
           value: formik.values?.email,
         },
@@ -142,10 +139,10 @@ export const useLoginControls = () => {
               </FormErrorMessage>
             ) : undefined,
           onBlur: () => {
-            handleBlur("password");
+            handleInputBlur(formik, "password");
           },
           onChange: (event) => {
-            handleChange("password", event);
+            handleInputChange(formik, "password", event);
           },
           value: formik.values?.password,
         },

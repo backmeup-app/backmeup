@@ -1,11 +1,12 @@
 import { AxiosError } from "axios";
 import { useContext, Dispatch } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import { TAppAction } from "../..";
 import { AppContext, TAppState } from "../../../contexts";
 import { errorHandler, TError } from "../../../utilities";
 import { client } from "../client";
 import {
-  TUpdateUserPasswordInitialVariables,
+  TResetUserPasswordInitialVariables,
   TUpdateUserPasswordVariables,
   TUpdateUserResponse,
   TUpdateUserVariables,
@@ -51,35 +52,6 @@ export const useUpdateUser = () => {
   };
 };
 
-export const useUpdateUserPasswordInitial = () => {
-  const [, dispatch] =
-    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
-
-  return async (variables: TUpdateUserPasswordInitialVariables) => {
-    try {
-      dispatch({ type: "SET_LOADING", payload: true });
-      dispatch({
-        type: "SET_NETWORK_OPERATION",
-        payload: "update.user.password.initial",
-      });
-
-      await client().post("/me/password/reset", { ...variables });
-      dispatch({
-        type: "SET_NOTIFICATION",
-        payload: {
-          status: "success",
-          text: `A password reset link has been sent to ${variables.email}`,
-        },
-      });
-    } catch (error) {
-      errorHandler(error as AxiosError<TError>, dispatch);
-    }
-
-    dispatch({ type: "SET_LOADING", payload: false });
-    dispatch({ type: "SET_NETWORK_OPERATION", payload: "" });
-  };
-};
-
 export const useUpdateUserPassword = () => {
   const [, dispatch] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
@@ -97,12 +69,73 @@ export const useUpdateUserPassword = () => {
         type: "SET_NOTIFICATION",
         payload: { status: "success", text: "Password updated successfully" },
       });
-    } catch (error) {}
+    } catch (error) {
+      errorHandler(error as AxiosError<TError>, dispatch);
+    }
 
     dispatch({ type: "SET_LOADING", payload: false });
     dispatch({
       type: "SET_NETWORK_OPERATION",
       payload: "",
     });
+  };
+};
+
+export const useResetUserPasswordInitial = () => {
+  const [, dispatch] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+
+  return async (
+    variables: TResetUserPasswordInitialVariables,
+    callback?: () => void
+  ) => {
+    try {
+      dispatch({ type: "SET_LOADING", payload: true });
+      dispatch({
+        type: "SET_NETWORK_OPERATION",
+        payload: "reset.user.password.initial",
+      });
+
+      await client().post("/me/password/reset", { ...variables });
+      dispatch({
+        type: "SET_NOTIFICATION",
+        payload: {
+          status: "success",
+          text: `A password reset link has been sent to ${variables.email}`,
+        },
+      });
+      callback?.();
+    } catch (error) {
+      errorHandler(error as AxiosError<TError>, dispatch);
+    }
+
+    dispatch({ type: "SET_LOADING", payload: false });
+    dispatch({ type: "SET_NETWORK_OPERATION", payload: "" });
+  };
+};
+
+export const useResetUserPassword = () => {
+  const [, dispatch] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const history = useHistory();
+  const { token } = useParams<{ token: string }>();
+
+  return async (variables: TUpdateUserPasswordVariables) => {
+    dispatch({ type: "SET_LOADING", payload: true });
+    dispatch({ type: "SET_NETWORK_OPERATION", payload: "reset.user.password" });
+
+    try {
+      await client().post(`/me/password/reset/${token}`, { ...variables });
+      dispatch({
+        type: "SET_NOTIFICATION",
+        payload: { status: "success", text: "Password reset successfully" },
+      });
+      history.push("/session/new");
+    } catch (error) {
+      errorHandler(error as AxiosError<TError>, dispatch);
+    }
+
+    dispatch({ type: "SET_LOADING", payload: false });
+    dispatch({ type: "SET_NETWORK_OPERATION", payload: "" });
   };
 };

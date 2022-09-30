@@ -46,7 +46,10 @@ const handleUserError = (errorCode: string, dispatch: Dispatch<TAppAction>) => {
       response.payload.text = "User with email exists already";
       break;
     case "user-004":
-      response.payload.text = "Incorrect verification token";
+      response.payload.text = "We could not verify your email";
+      break;
+    case "user-005":
+      response.payload.text = "There was a problem resetting your password";
       break;
     default:
       response.payload.text = "We couldn't complete that request!";
