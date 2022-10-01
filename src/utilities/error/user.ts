@@ -19,8 +19,8 @@ export const useHandleUserError = () => {
         break;
       case "user-002":
         response.payload.text = window.document.URL.includes("google")
-          ? "Login via Google is not enabled for this user"
-          : "Login via Email/Password is not enabled for this user";
+          ? "Google authentication is not enabled for this user"
+          : "Incorrect email or password";
         break;
       case "user-003":
         response.payload.text = "User with email exists already";
