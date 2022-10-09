@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useLocation, Switch } from "react-router-dom";
+import { useLocation, Switch, Route, Redirect } from "react-router-dom";
 import { Box, Flex, Spinner, chakra } from "@chakra-ui/react";
 import { Helmet } from "react-helmet";
 import { AppContext } from "../../contexts";
@@ -70,6 +70,9 @@ export const Admin = () => {
         >
           <Nav />
           <Box py={10} px={{ base: 8, sm: 12, lg: 16 }}>
+            <Route path="/">
+              <Redirect to="/resources" />
+            </Route>
             <Switch>{renderPages()}</Switch>
           </Box>
         </Box>

@@ -18,14 +18,15 @@ export const Resources = () => {
     contextLoading && operations.includes(networkOperation ?? "");
 
   const defaultService: TService = useMemo(() => {
-    return me?.services?.find(
+    return (me?.services ?? []).find(
       (service) => service._id.toString() === (me?.default_service as string)
     ) as TService;
   }, [me?.default_service, me?.services]);
 
   useEffect(() => {
-    if (!defaultService?.resources) getResources(defaultService.uuid);
-  }, [defaultService]);
+    if (defaultService && !defaultService?.resources)
+      getResources(defaultService?.uuid);
+  }, [defaultService?.uuid]);
 
   const handleEdit = (uuid: string) => {
     setUuid(uuid);
@@ -38,7 +39,7 @@ export const Resources = () => {
   };
 
   const displayResources = useCallback(() => {
-    return defaultService?.resources?.map((resource, index) => (
+    return (defaultService?.resources ?? []).map((resource, index) => (
       <GridItem key={index} colSpan={{ base: 12, md: 6 }}>
         <Resource {...resource} edit={handleEdit} />
       </GridItem>
@@ -53,7 +54,8 @@ export const Resources = () => {
       </GridItem>
     ));
 
-  if (defaultService?.resources?.length === 0) return <ResourceMessage />;
+  if (!defaultService || defaultService?.resources?.length === 0)
+    return <ResourceMessage />;
 
   return (
     <SimpleGrid columns={12} mx={{ base: 0, lg: 5 }} spacing={5}>

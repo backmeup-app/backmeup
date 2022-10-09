@@ -35,6 +35,15 @@ export const components: { [key: string]: ComponentStyleConfig } = {
     },
   },
   Textarea: {
+    // baseStyle: {
+    //   focusBorderColor: "#D2D7E5",
+    //   errorBorderColor: "red.300",
+
+    //   _focus: {
+    //     borderWidth: "2px",
+    //     borderColor: "#D2D7E5",
+    //   },
+    // },
     sizes: {
       lg: {
         borderRadius: 4,
@@ -105,12 +114,14 @@ export const components: { [key: string]: ComponentStyleConfig } = {
         },
       },
       secondary: {
-        background: "navajoWhite",
-        color: "charlestonGreen",
-        boxShadow: " 0px 9px 0px -5px rgba(0,0,0,0.75)",
+        background: "white",
+        border: "1px solid #1E2D2F",
+        color: "#1E2D2F",
+        textShadow: "0.5px 0.5px navajoWhite",
+        fontWeight: "bold",
 
         _hover: {
-          background: "yellow.500",
+          background: "yellow.300",
         },
       },
       danger: {

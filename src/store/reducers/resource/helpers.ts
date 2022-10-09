@@ -3,7 +3,7 @@ import {
   TResourceAction,
   TSingleResourcePayload,
 } from ".";
-import { TResource, TService } from "../..";
+import { TResource } from "../..";
 import { TAppState } from "../../../contexts";
 
 export const getResources = (
@@ -11,7 +11,7 @@ export const getResources = (
   payload: TResourceAction["payload"]
 ) => {
   const { me } = state;
-  const services = me?.services as TService[];
+  const services = me?.services ?? [];
   const { pagination, resources } = payload as TMultipleResourcePayload;
   const idx = services.findIndex(
     (service) => service.uuid === (payload.service_uuid as string)
@@ -42,7 +42,7 @@ export const createResource = (
   payload: TResourceAction["payload"]
 ) => {
   const { me } = state;
-  const services = me?.services as TService[];
+  const services = me?.services ?? [];
   const { service_uuid, ...createdResource } =
     payload as TSingleResourcePayload;
   const idx = services.findIndex(
@@ -67,7 +67,7 @@ export const updateResource = (
   payload: TResourceAction["payload"]
 ) => {
   const { me } = state;
-  const services = me?.services as TService[];
+  const services = me?.services ?? [];
   const { service_uuid, ...updatedResource } =
     payload as TSingleResourcePayload;
   const idx = services.findIndex(
@@ -101,7 +101,7 @@ export const deleteResource = (
   payload: TResourceAction["payload"]
 ) => {
   const { me } = state;
-  const services = me?.services as TService[];
+  const services = me?.services ?? [];
   const { service_uuid, ...deletedResource } =
     payload as TSingleResourcePayload;
 

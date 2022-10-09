@@ -7,7 +7,7 @@ export const useDeleteResource = () => {
   const [{ me }, dispatch] = useContext(AppContext);
 
   return async (resource_uuid: string) => {
-    const service = (me?.services as TService[]).find(
+    const service = ((me?.services as TService[]) ?? []).find(
       (service) => service._id === (me?.default_service as string)
     );
     const resource = service?.resources?.find(

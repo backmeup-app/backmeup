@@ -12,7 +12,7 @@ export const useUpdateResource = () => {
     onClose?: () => void
   ) => {
     if (loading) return;
-    const service_uuid = me?.services?.find(
+    const service_uuid = (me?.services ?? []).find(
       (service) => service._id === (me?.default_service as string)
     )?.uuid as string;
     const url = `/services/${service_uuid}/resources/${resource_uuid}`;

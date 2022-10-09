@@ -9,7 +9,7 @@ import {
   RouteProps,
 } from "react-router-dom";
 import { Auth, Notification } from "./components";
-import { Admin, ResetEmail } from "./pages";
+import { Admin, ResetEmail, UserVerify } from "./pages";
 import { isAuthenticated } from "./utilities";
 import { AppProvider } from "./contexts";
 
@@ -41,6 +41,12 @@ export const App = () => (
           <Route path="/email/:action/:token">
             <ResetEmail />
           </Route>
+          <Route path="/verify/:token">
+            <UserVerify />
+          </Route>
+          <GuestGuardedRoute path="/password/reset/:token">
+            <Auth />
+          </GuestGuardedRoute>
           <GuestGuardedRoute path="/session">
             <Auth />
           </GuestGuardedRoute>

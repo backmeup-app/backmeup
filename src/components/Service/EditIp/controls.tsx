@@ -30,6 +30,7 @@ export const useEditIpControls = () => {
         type: "text",
         properties: {
           name: "address",
+          autoFocus: true,
           label: <FormLabel>IP Address</FormLabel>,
           styleProps: { colSpan: 12, mb: 4, isRequired: true },
           errorMessage: formik.errors?.address ? (

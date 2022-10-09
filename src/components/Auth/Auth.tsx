@@ -5,6 +5,7 @@ import { Login } from "./Login";
 import { Signup } from "./Signup";
 import { Footer, Loader } from "../";
 import { useVerifyGoogleAuth } from "../../store";
+import { ResetPassword } from "./ResetPassword";
 
 export const Auth = () => {
   const verifyGoogleAuth = useVerifyGoogleAuth();
@@ -46,6 +47,9 @@ export const Auth = () => {
           top={{ md: "-3vh" }}
         />
         <Switch>
+          <Route path="/password/reset/:token">
+            <ResetPassword />
+          </Route>
           <Route path="/session/new">
             <Login handleGoogleSignin={redirectGoogleAuth} />
           </Route>

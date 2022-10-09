@@ -7,7 +7,7 @@ import { TCreateApiKeyVariables, TCreateApiKeyResponse } from ".";
 export const useCreateApiKey = () => {
   const [{ me }, dispatch] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
-  const defaultService = (me?.services as TService[]).find(
+  const defaultService = ((me?.services as TService[]) ?? []).find(
     (service) => service._id === (me?.default_service as string)
   ) as TService;
 

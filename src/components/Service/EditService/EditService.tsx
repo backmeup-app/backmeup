@@ -21,10 +21,11 @@ export const EditService: FC<TEditService> = ({ onClose, isOpen }) => {
   }, [isOpen]);
 
   return (
-    <Modal title="Create Service" isOpen={isOpen} onClose={onClose}>
+    <Modal title="Create a new Service" isOpen={isOpen} onClose={onClose}>
       <Form
         controls={controls}
         onSubmit={formik.handleSubmit}
+        networkOperation="create.service"
         submitBtnText={
           (isLoading ? "Creating" : "Create") + " " + formik.values.name
         }

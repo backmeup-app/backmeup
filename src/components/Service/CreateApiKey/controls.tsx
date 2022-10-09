@@ -9,7 +9,7 @@ export const useFormConfig = () => {
   const [{ me }, dispatch] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const createApiKey = useCreateApiKey();
-  const defaultService = (me?.services as TService[]).find(
+  const defaultService = ((me?.services as TService[]) ?? []).find(
     (service) => service._id === (me?.default_service as string)
   ) as TService;
 
@@ -51,6 +51,7 @@ export const useCreateApiKeyControls = () => {
         type: "text",
         properties: {
           name: "name",
+          autoFocus: true,
           label: <FormLabel>Name</FormLabel>,
           styleProps: { colSpan: 12, mb: 4, isRequired: true },
           errorMessage: formik.errors?.name ? (

@@ -1,4 +1,4 @@
-import { FC, useContext, Dispatch } from "react";
+import { FC, useEffect, useContext, Dispatch } from "react";
 import { Box, Text, Link as ChakraLink } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
@@ -15,6 +15,10 @@ export const Login: FC<TLogin> = ({ handleGoogleSignin }) => {
   const getLoginControls = useLoginControls();
   const formik = useFormik(getFormConfig());
   const controls = getLoginControls(formik);
+
+  useEffect(() => {
+    formik.resetForm();
+  }, []);
 
   return (
     <Box w={{ base: "90%", sm: "550px" }}>
@@ -38,7 +42,7 @@ export const Login: FC<TLogin> = ({ handleGoogleSignin }) => {
         <Form
           controls={controls}
           onSubmit={formik.handleSubmit}
-          networkOperation="user.login"
+          networkOperation={networkOperation}
           submitBtnText={
             networkOperation === "user.login" ? "Logging you in" : "Login"
           }

@@ -25,8 +25,8 @@ export const useCreateService = () => {
         },
       });
       dispatch({
-        type: "SET_USER",
-        payload: { ...(me as TUser), default_service: service._id },
+        type: "UPDATE_USER",
+        payload: { default_service: service._id },
       });
       onClose?.();
     } catch (error) {}

@@ -20,7 +20,7 @@ export const Nav = () => {
   const [{ me, browserWidth }] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const defaultService = useMemo(() => {
-    return (me?.services as TService[]).find(
+    return ((me?.services as TService[]) ?? []).find(
       (service) => service._id === (me?.default_service as string)
     ) as TService;
   }, [me?.services, me?.default_service]);
@@ -106,6 +106,7 @@ export const Nav = () => {
       justify="space-between"
       py={6}
       px={{ base: 8, sm: 12, lg: 20 }}
+      w="100%"
     >
       <Box
         pos="relative"
@@ -113,11 +114,16 @@ export const Nav = () => {
         cursor="pointer"
         alignItems="center"
       >
-        <HStack onClick={toggleServices} spacing={4}>
+        <HStack
+          onClick={toggleServices}
+          spacing={4}
+          visibility={defaultService?.uuid ? "visible" : "hidden"}
+        >
           <Avatar
             size="sm"
             borderRadius="none"
             bg="navajowhite"
+            color="charlestonGreen"
             name={defaultService?.name}
           />
           <Text>{defaultService?.name}</Text>
@@ -129,6 +135,8 @@ export const Nav = () => {
         <Avatar
           src={me?.avatar}
           boxSize="40px"
+          bg="navajowhite"
+          color="charlestonGreen"
           name={me?.first_name + " " + me?.last_name}
         />
         {(browserWidth ?? window.innerWidth) > 480 && (
