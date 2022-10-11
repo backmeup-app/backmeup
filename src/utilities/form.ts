@@ -12,3 +12,5 @@ export const handleInputBlur = (formik: any, field: string) => {
   if (!formik.touched?.[field] && formik.values[field].trim().length > 0)
     formik.setFieldTouched(field, true);
 };
+
+export const resetFormTouched = (formik: any) => {};

@@ -17,7 +17,9 @@ export const Signup: FC<TSignup> = ({ handleGoogleSignin }) => {
   const controls = getControls(formik);
 
   useEffect(() => {
-    formik.resetForm();
+    Object.keys(formik.values).forEach((key) => {
+      formik.setFieldTouched(key, false);
+    });
   }, []);
 
   return (
