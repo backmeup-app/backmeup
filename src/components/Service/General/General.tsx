@@ -31,7 +31,7 @@ export const General = () => {
       <Box
         w="100%"
         bgColor="white"
-        boxShadow="md"
+        boxShadow="sm"
         p={{ base: 6, sm: 8, md: 10 }}
       >
         <Form
@@ -43,7 +43,7 @@ export const General = () => {
       <Flex
         w="100%"
         bgColor="white"
-        boxShadow="md"
+        boxShadow="sm"
         p={{ base: 6, sm: 8, md: 10 }}
         direction={["column", "row"]}
         justify="space-between"

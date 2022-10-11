@@ -51,7 +51,7 @@ export const Notification = () => {
           : "green.400"
       }
       opacity={display ? 1 : 0}
-      boxShadow="md"
+      boxShadow="sm"
       transition="opacity 0.5s ease-in"
       zIndex={display ? 9999 : -9999}
       cursor="pointer"

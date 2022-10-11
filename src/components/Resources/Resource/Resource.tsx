@@ -44,7 +44,7 @@ export const Resource: FC<TResourceComponent> = ({
       w="100%"
       p={5}
       bg="white"
-      boxShadow="md"
+      boxShadow="sm"
       align="flex-start"
       spacing={4}
     >
@@ -66,7 +66,11 @@ export const Resource: FC<TResourceComponent> = ({
       </Flex>
       <Flex alignItems="center" justify="space-between" w="100%">
         <Text textTransform="lowercase">
-          {Boolean(description) ? description : "----"}
+          {description && Boolean(description)
+            ? description.length > 60
+              ? description.slice(0, 57) + "..."
+              : description
+            : "----"}
         </Text>
         <Switch
           colorScheme="green"

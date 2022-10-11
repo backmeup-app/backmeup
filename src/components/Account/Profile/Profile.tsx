@@ -72,7 +72,7 @@ export const Profile = () => {
           </Flex>
           <Box
             w="100%"
-            boxShadow="md"
+            boxShadow="sm"
             bgColor="white"
             p={{ base: 6, sm: 8, md: 10 }}
           >
@@ -92,7 +92,7 @@ export const Profile = () => {
         </Box>
         <Box
           w="100%"
-          boxShadow="md"
+          boxShadow="sm"
           bgColor="white"
           p={{ base: 6, sm: 8, md: 10 }}
         >

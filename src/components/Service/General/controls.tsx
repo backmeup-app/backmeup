@@ -51,6 +51,7 @@ export const useGeneralControls = () => {
       properties: {
         name: "name",
         label: <FormLabel>Name</FormLabel>,
+        autoFocus: true,
         styleProps: { colSpan: 12, mb: 4, isRequired: true },
         errorMessage:
           formik.touched?.name && formik.errors?.name ? (

@@ -27,7 +27,7 @@ export const ResourceMenu: FC<TResourceMenu> = ({
       <MenuList
         minW="fit-content"
         borderRadius="none"
-        boxShadow="md"
+        boxShadow="sm"
         fontSize="15px"
         w="135px"
       >

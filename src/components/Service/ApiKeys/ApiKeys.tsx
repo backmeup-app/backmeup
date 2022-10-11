@@ -28,7 +28,7 @@ export const ApiKeys = () => {
     align: "center",
     justify: "space-between",
     borderBottom: "1px solid",
-    borderBottomColor: "gray.100",
+    borderBottomColor: "rgba(0,0,0,0.06)",
   };
 
   const ZeroApiKeys = () => (
@@ -59,7 +59,7 @@ export const ApiKeys = () => {
     ));
 
   return (
-    <Box bgColor="white" w="100%" boxShadow="md">
+    <Box bgColor="white" w="100%" boxShadow="sm">
       <Flex {...headerStyleProps}>
         <Box d="flex" alignItems="center">
           <Text mr={2}>API keys</Text>

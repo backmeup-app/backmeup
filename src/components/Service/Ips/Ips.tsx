@@ -24,7 +24,7 @@ export const Ips = () => {
     align: "center",
     justify: "space-between",
     borderBottom: "1px solid",
-    borderBottomColor: "gray.100",
+    borderBottomColor: "rgba(0,0,0,0.06)",
   };
 
   const ZeroIps = () => (
@@ -52,7 +52,7 @@ export const Ips = () => {
     (defaultService.ips ?? []).map((ip, index) => <Ip key={index} {...ip} />);
 
   return (
-    <Box bgColor="white" w="100%" boxShadow="md">
+    <Box bgColor="white" w="100%" boxShadow="sm">
       <Flex {...headerStyleProps}>
         <Text>IP Whitelist</Text>
         <Flex align="center" cursor="pointer" onClick={onOpen}>
