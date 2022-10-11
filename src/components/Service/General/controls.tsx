@@ -8,7 +8,11 @@ import {
   TUpdateServiceVariables,
   useUpdateService,
 } from "../../../store";
-import { editServiceSchema } from "../../../utilities";
+import {
+  editServiceSchema,
+  handleInputBlur,
+  handleInputChange,
+} from "../../../utilities";
 
 export const useFormConfig = () => {
   const [{ me }, dispatch] =
@@ -57,8 +61,12 @@ export const useGeneralControls = () => {
           formik.touched?.name && formik.errors?.name ? (
             <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
           ) : undefined,
-        onBlur: formik.handleBlur,
-        onChange: formik.handleChange,
+        onBlur: () => {
+          handleInputBlur(formik, "name");
+        },
+        onChange: (event) => {
+          handleInputChange(formik, "name", event);
+        },
         value: formik.values?.name,
       },
     },
@@ -68,8 +76,12 @@ export const useGeneralControls = () => {
         name: "description",
         label: <FormLabel>Description</FormLabel>,
         styleProps: { colSpan: 12, mb: 4 },
-        onChange: formik.handleChange,
-        onBlur: formik.handleBlur,
+        onBlur: () => {
+          handleInputBlur(formik, "description");
+        },
+        onChange: (event) => {
+          handleInputChange(formik, "description", event);
+        },
         value: formik.values?.description,
       },
     },

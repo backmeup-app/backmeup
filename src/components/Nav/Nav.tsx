@@ -122,8 +122,8 @@ export const Nav = () => {
           <Avatar
             size="sm"
             borderRadius="none"
-            bg="copper"
-            color="white"
+            bg="navajowhite"
+            color="charlestonGreen"
             name={defaultService?.name}
             boxSize="10"
           />

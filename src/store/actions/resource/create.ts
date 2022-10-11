@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { AppContext } from "../../../contexts";
+import { capitalize } from "../../../utilities";
 import { client } from "../client";
 import { TEditResourceResponse, TEditResourceVariables } from "./types";
 
@@ -22,6 +23,7 @@ export const useCreateResource = () => {
     }
 
     dispatch({ type: "SET_LOADING", payload: true });
+    dispatch({ type: "SET_NETWORK_OPERATION", payload: "create.resource" });
 
     try {
       const url = `/services/${service_uuid}/resources`;
@@ -30,7 +32,10 @@ export const useCreateResource = () => {
       } = await client().post<TEditResourceResponse>(url, variables);
       dispatch({
         type: "SET_NOTIFICATION",
-        payload: { status: "success", text: "Resource created successfully" },
+        payload: {
+          status: "success",
+          text: `${capitalize(variables.name ?? "")} created successfully`,
+        },
       });
       dispatch({
         type: "CREATE_RESOURCE",
@@ -40,5 +45,6 @@ export const useCreateResource = () => {
     } catch (error) {}
 
     dispatch({ type: "SET_LOADING", payload: false });
+    dispatch({ type: "SET_NETWORK_OPERATION", payload: "" });
   };
 };

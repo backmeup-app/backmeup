@@ -20,7 +20,18 @@ export const FormControl: FC<TFormControl> = ({ type, properties }) => {
           <WrapperTextInput {...properties} isInvalid={Boolean(errorMessage)} />
         );
       case "textarea":
-        return <Textarea {...properties} />;
+        return (
+          <Textarea
+            {...properties}
+            css={{
+              "&:focus": {
+                borderWidth: "3px",
+                borderColor: "#D2D7E5 !important",
+              },
+            }}
+            borderRadius="4px"
+          />
+        );
       case "switch":
         return (
           <Switch

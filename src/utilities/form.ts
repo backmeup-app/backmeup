@@ -1,7 +1,7 @@
 export const handleInputChange = (
   formik: any,
   field: string,
-  event: React.ChangeEvent<HTMLInputElement>
+  event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 ) => {
   console.log(field);
   if (!formik.touched?.[field]) formik.touched[field] = true;

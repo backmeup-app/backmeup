@@ -8,7 +8,8 @@ import { TAppAction, TService } from "../../../store";
 import { capitalize } from "../../../utilities";
 
 export const General = () => {
-  const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const [{ me, networkOperation }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const defaultService = useMemo(() => {
     return ((me?.services as TService[]) ?? []).find(
       (service) => service._id === (me?.default_service as string)
@@ -38,6 +39,10 @@ export const General = () => {
           controls={controls}
           onSubmit={formik.handleSubmit}
           networkOperation="update.service"
+          submitBtnText={
+            (networkOperation === "update.service" ? "Updating " : "Update ") +
+            formik.values.name
+          }
         />
       </Box>
       <Flex

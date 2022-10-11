@@ -9,7 +9,7 @@ import { capitalize } from "../../../utilities";
 
 export const EditResource: FC<TEditResource> = ({ isOpen, onClose, uuid }) => {
   const getControls = useEditResourceControls();
-  const [{ me }] = useContext(AppContext);
+  const [{ me, loading }] = useContext(AppContext);
   const formikConfig = useFormConfig();
   const formik = useFormik(formikConfig(onClose));
   const controls = getControls(formik);
@@ -48,7 +48,9 @@ export const EditResource: FC<TEditResource> = ({ isOpen, onClose, uuid }) => {
         controls={controls}
         onSubmit={formik.handleSubmit}
         submitBtnText={
-          uuid ? `Update ${capitalize(formik.values.name)}` : "Create"
+          (uuid ? `Updat` : "Creat") +
+          (loading ? "ing " : "e ") +
+          capitalize(formik.values.name)
         }
       />
     </Modal>

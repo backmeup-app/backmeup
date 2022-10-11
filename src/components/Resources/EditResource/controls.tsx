@@ -5,7 +5,11 @@ import {
   useCreateResource,
   useUpdateResource,
 } from "../../../store";
-import { editServiceSchema } from "../../../utilities";
+import {
+  editServiceSchema,
+  handleInputBlur,
+  handleInputChange,
+} from "../../../utilities";
 
 type TEditResource = Pick<TResource, "name" | "description" | "is_active"> & {
   uuid?: string;
@@ -30,13 +34,6 @@ export const useFormConfig = () => {
 
 export const useEditResourceControls = () => {
   return (formik: any): TFormControl[] => {
-    const handleChange = (
-      field: string,
-      event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-      if (!formik.touched?.[field]) formik.touched[field] = true;
-      formik.setFieldValue(field, event.target.value);
-    };
     return [
       {
         type: "text",
@@ -45,13 +42,16 @@ export const useEditResourceControls = () => {
           label: <FormLabel>Name</FormLabel>,
           styleProps: { colSpan: 12, mb: 4, isRequired: true },
           autoFocus: true,
+          textTransform: "capitalize",
           errorMessage:
             formik.touched?.name && formik.errors?.name ? (
               <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
             ) : undefined,
-          onBlur: formik.handleBlur,
+          onBlur: () => {
+            handleInputBlur(formik, "name");
+          },
           onChange: (event) => {
-            handleChange("name", event);
+            handleInputChange(formik, "name", event);
           },
           value: formik.values?.name,
         },
@@ -62,10 +62,12 @@ export const useEditResourceControls = () => {
           name: "description",
           label: <FormLabel>Description</FormLabel>,
           styleProps: { colSpan: 12, mb: 4 },
-          onChange: (event) => {
-            handleChange("description", event);
+          onBlur: () => {
+            handleInputBlur(formik, "description");
           },
-          onBlur: formik.handleBlur,
+          onChange: (event) => {
+            handleInputChange(formik, "description", event);
+          },
           value: formik.values?.description,
         },
       },

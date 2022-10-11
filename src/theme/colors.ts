@@ -25,6 +25,7 @@ export const colors = {
   },
   navajoWhite: "#F7DBA7",
   charlestonGreen: "#1E2D2F",
-  copper: "#C57B57",
+  // copper: "#F2D398",
+  copper: "#B88B4A",
   ivory: "#FFFAFA",
 };
