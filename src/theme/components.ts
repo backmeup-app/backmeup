@@ -170,7 +170,7 @@ export const components: { [key: string]: ComponentStyleConfig } = {
           boxShadow: "none",
         },
         _checked: {
-          background: "copper",
+          background: "copper.700",
         },
       },
     },

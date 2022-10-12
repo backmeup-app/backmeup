@@ -13,4 +13,8 @@ export const handleInputBlur = (formik: any, field: string) => {
     formik.setFieldTouched(field, true);
 };
 
-export const resetFormTouched = (formik: any) => {};
+export const resetFormTouched = (formik: any) => {
+  Object.keys(formik.values).forEach((key) => {
+    formik.setFieldTouched(key, false);
+  });
+};

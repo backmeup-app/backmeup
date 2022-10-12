@@ -5,7 +5,7 @@ import { TResource, TService } from "../../../store";
 import { useFormConfig, useEditResourceControls } from "./controls";
 import { TEditResource } from "./types";
 import { AppContext } from "../../../contexts";
-import { capitalize } from "../../../utilities";
+import { capitalize, resetFormTouched } from "../../../utilities";
 
 export const EditResource: FC<TEditResource> = ({ isOpen, onClose, uuid }) => {
   const getControls = useEditResourceControls();
@@ -24,7 +24,10 @@ export const EditResource: FC<TEditResource> = ({ isOpen, onClose, uuid }) => {
   }, [me?.default_service, me?.services, uuid]);
 
   useEffect(() => {
-    if (!isOpen) formik.resetForm();
+    if (!isOpen) {
+      formik.resetForm();
+      resetFormTouched(formik);
+    }
   }, [isOpen]);
 
   useEffect(() => {

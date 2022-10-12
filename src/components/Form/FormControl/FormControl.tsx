@@ -36,7 +36,7 @@ export const FormControl: FC<TFormControl> = ({ type, properties }) => {
         return (
           <Switch
             {...properties}
-            colorScheme="green"
+            colorScheme="copper"
             isChecked={properties.value}
           />
         );

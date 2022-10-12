@@ -6,6 +6,7 @@ import { useEditServiceControls, useFormConfig } from "./controls";
 import { TEditService } from "./types";
 import { AppContext, TAppState } from "../../../contexts";
 import { TAppAction } from "../../../store";
+import { resetFormTouched } from "../../../utilities";
 
 export const EditService: FC<TEditService> = ({ onClose, isOpen }) => {
   const [{ loading: contextLoading, networkOperation }] =
@@ -17,7 +18,10 @@ export const EditService: FC<TEditService> = ({ onClose, isOpen }) => {
   const isLoading = contextLoading && networkOperation === "create.service";
 
   useEffect(() => {
-    if (!isOpen) formik.resetForm();
+    if (!isOpen) {
+      formik.resetForm();
+      resetFormTouched(formik);
+    }
   }, [isOpen]);
 
   return (

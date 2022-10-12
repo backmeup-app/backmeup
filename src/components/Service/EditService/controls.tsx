@@ -1,6 +1,10 @@
 import { FormLabel, FormErrorMessage } from "@chakra-ui/react";
 import { TCreateServiceVariables } from "../../../store";
-import { editServiceSchema } from "../../../utilities";
+import {
+  editServiceSchema,
+  handleInputBlur,
+  handleInputChange,
+} from "../../../utilities";
 import { TFormControl } from "../../Form";
 import { useCreateService } from "../../../store";
 
@@ -20,13 +24,6 @@ export const useFormConfig = () => {
 
 export const useEditServiceControls = () => {
   return (formik: any): TFormControl[] => {
-    const handleChange = (
-      field: string,
-      event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-      if (!formik.touched?.[field]) formik.touched[field] = true;
-      formik.setFieldValue(field, event.target.value);
-    };
     return [
       {
         type: "text",
@@ -35,13 +32,16 @@ export const useEditServiceControls = () => {
           autoFocus: true,
           label: <FormLabel>Name</FormLabel>,
           styleProps: { colSpan: 12, mb: 4, isRequired: true },
+          textTransform: "capitalize",
           errorMessage:
             formik.touched?.name && formik.errors?.name ? (
               <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
             ) : undefined,
-          onBlur: formik.handleBlur,
+          onBlur: (event) => {
+            handleInputBlur(formik, "name");
+          },
           onChange: (event) => {
-            handleChange("name", event);
+            handleInputChange(formik, "name", event);
           },
           value: formik.values?.name,
         },

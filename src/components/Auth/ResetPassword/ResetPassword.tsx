@@ -1,10 +1,11 @@
-import { useContext, Dispatch } from "react";
+import { useEffect, useContext, Dispatch } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useFormConfig, useResetPasswordControls } from "./controls";
 import { Form } from "../..";
 import { AppContext, TAppState } from "../../../contexts";
 import { TAppAction } from "../../../store";
+import { resetFormTouched } from "../../../utilities";
 
 export const ResetPassword = () => {
   const [{ networkOperation }] =
@@ -13,6 +14,10 @@ export const ResetPassword = () => {
   const getFormConfig = useFormConfig();
   const formik = useFormik(getFormConfig());
   const controls = getControls(formik);
+
+  useEffect(() => {
+    resetFormTouched(formik);
+  }, []);
 
   return (
     <Box w={{ base: "90%", sm: "550px" }}>

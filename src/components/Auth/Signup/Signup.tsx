@@ -7,6 +7,7 @@ import { useFormConfig, useSignupControls } from "./controls";
 import { AppContext, TAppState } from "../../../contexts";
 import { TAppAction } from "../../../store";
 import { TSignup } from ".";
+import { resetFormTouched } from "../../../utilities";
 
 export const Signup: FC<TSignup> = ({ handleGoogleSignin }) => {
   const [{ networkOperation }] =
@@ -17,9 +18,7 @@ export const Signup: FC<TSignup> = ({ handleGoogleSignin }) => {
   const controls = getControls(formik);
 
   useEffect(() => {
-    Object.keys(formik.values).forEach((key) => {
-      formik.setFieldTouched(key, false);
-    });
+    resetFormTouched(formik);
   }, []);
 
   return (
