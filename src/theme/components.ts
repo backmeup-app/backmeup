@@ -1,11 +1,6 @@
 import { ComponentStyleConfig } from "@chakra-ui/theme";
 
 export const components: { [key: string]: ComponentStyleConfig } = {
-  // VStack: {
-  //   baseStyle: {
-  //     justifyContent: "flex-start",
-  //   },
-  // },
   FormLabel: {
     baseStyle: {
       fontFamily: "openSans",
@@ -174,7 +169,13 @@ export const components: { [key: string]: ComponentStyleConfig } = {
         _focus: {
           boxShadow: "none",
         },
+        _checked: {
+          background: "copper.700",
+        },
       },
+    },
+    defaultProps: {
+      colorScheme: "gray",
     },
   },
   Modal: {

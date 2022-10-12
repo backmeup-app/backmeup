@@ -45,7 +45,7 @@ export const Admin = () => {
   return (
     <Box>
       <Helmet>
-        <title>{capitalize(location.pathname)} | Backmeup</title>
+        <title>Dome | {capitalize(location.pathname)}</title>
       </Helmet>
       <Flex bg="white">
         <Box

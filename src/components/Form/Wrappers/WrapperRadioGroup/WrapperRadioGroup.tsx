@@ -21,7 +21,7 @@ export const WrapperRadioGroup: FC<TWrapperRadioGroup> = ({
       name={name}
       onChange={onChange}
       value={value}
-      colorScheme="green"
+      colorScheme="copper"
     >
       <Stack direction={{ base: "column", sm: direction }} spacing={4}>
         {displayOptions()}

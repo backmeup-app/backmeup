@@ -17,7 +17,7 @@ export const ServiceNotifications = () => {
     px: 6,
     w: "100%",
     borderBottom: "1px solid",
-    borderBottomColor: "gray.100",
+    borderBottomColor: "rgba(0,0,0,0.06)",
   };
 
   const channels = [
@@ -77,7 +77,7 @@ export const ServiceNotifications = () => {
 
   return (
     <VStack spacing={6}>
-      <Box bg="white" shadow="md" w="100%">
+      <Box bg="white" shadow="sm" w="100%">
         <Box {...headerStyleProps}>
           <Text textAlign="left">Channels</Text>
         </Box>
@@ -85,7 +85,7 @@ export const ServiceNotifications = () => {
           {displayChannels()}
         </VStack>
       </Box>
-      <Box bg="white" shadow="md" w="100%">
+      <Box bg="white" shadow="sm" w="100%">
         <Box {...headerStyleProps}>
           <Text textAlign="left">Alerts</Text>
         </Box>

@@ -5,11 +5,11 @@ import { TResource, TService } from "../../../store";
 import { useFormConfig, useEditResourceControls } from "./controls";
 import { TEditResource } from "./types";
 import { AppContext } from "../../../contexts";
-import { capitalize } from "../../../utilities";
+import { capitalize, resetFormTouched } from "../../../utilities";
 
 export const EditResource: FC<TEditResource> = ({ isOpen, onClose, uuid }) => {
   const getControls = useEditResourceControls();
-  const [{ me }] = useContext(AppContext);
+  const [{ me, loading }] = useContext(AppContext);
   const formikConfig = useFormConfig();
   const formik = useFormik(formikConfig(onClose));
   const controls = getControls(formik);
@@ -24,7 +24,10 @@ export const EditResource: FC<TEditResource> = ({ isOpen, onClose, uuid }) => {
   }, [me?.default_service, me?.services, uuid]);
 
   useEffect(() => {
-    if (!isOpen) formik.resetForm();
+    if (!isOpen) {
+      formik.resetForm();
+      resetFormTouched(formik);
+    }
   }, [isOpen]);
 
   useEffect(() => {
@@ -48,7 +51,9 @@ export const EditResource: FC<TEditResource> = ({ isOpen, onClose, uuid }) => {
         controls={controls}
         onSubmit={formik.handleSubmit}
         submitBtnText={
-          uuid ? `Update ${capitalize(formik.values.name)}` : "Create"
+          (uuid ? `Updat` : "Creat") +
+          (loading ? "ing " : "e ") +
+          capitalize(formik.values.name)
         }
       />
     </Modal>

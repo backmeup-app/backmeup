@@ -7,6 +7,7 @@ import { Form } from "../..";
 import { TLogin } from ".";
 import { AppContext, TAppState } from "../../../contexts";
 import { TAppAction } from "../../../store";
+import { resetFormTouched } from "../../../utilities";
 
 export const Login: FC<TLogin> = ({ handleGoogleSignin }) => {
   const [{ networkOperation }] =
@@ -17,7 +18,7 @@ export const Login: FC<TLogin> = ({ handleGoogleSignin }) => {
   const controls = getLoginControls(formik);
 
   useEffect(() => {
-    formik.resetForm();
+    resetFormTouched(formik);
   }, []);
 
   return (

@@ -49,7 +49,7 @@ export const EmailChanged = () => {
         alignItems="center"
         w="420px"
         bg="white"
-        boxShadow="md"
+        boxShadow="sm"
         pos="relative"
         top="-10vh"
         p={6}

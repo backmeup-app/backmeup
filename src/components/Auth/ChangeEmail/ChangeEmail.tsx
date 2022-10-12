@@ -31,7 +31,7 @@ export const ChangeEmail = () => {
       <Box
         w={{ base: "90vw", sm: "450px" }}
         bg="white"
-        boxShadow="md"
+        boxShadow="sm"
         pos="relative"
         top="-10vh"
         p={6}

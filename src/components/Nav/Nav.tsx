@@ -44,7 +44,7 @@ export const Nav = () => {
       w="220px"
       top="150%"
       bg="white"
-      boxShadow="md"
+      boxShadow="sm"
       fontSize="15px"
       spacing={3}
       opacity={showServices ? 1 : 0}
@@ -101,7 +101,7 @@ export const Nav = () => {
   return (
     <Flex
       bg="white"
-      boxShadow="md"
+      boxShadow="sm"
       alignItems="center"
       justify="space-between"
       py={6}
@@ -125,6 +125,7 @@ export const Nav = () => {
             bg="navajowhite"
             color="charlestonGreen"
             name={defaultService?.name}
+            boxSize="10"
           />
           <Text>{defaultService?.name}</Text>
           <ArrowDown mt="2px" fontSize="xl" />

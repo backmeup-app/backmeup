@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AppContext } from "../../../contexts";
+import { capitalize } from "../../../utilities";
 import { client } from "../client";
 import { TEditResourceResponse, TEditResourceVariables } from "./types";
 
@@ -35,7 +36,10 @@ export const useUpdateResource = () => {
       });
       dispatch({
         type: "SET_NOTIFICATION",
-        payload: { status: "success", text: "Resource updated successfully" },
+        payload: {
+          status: "success",
+          text: `${capitalize(variables.name ?? "")} updated successfully`,
+        },
       });
       onClose?.();
     } catch (error) {}

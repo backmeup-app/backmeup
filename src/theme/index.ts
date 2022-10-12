@@ -4,6 +4,7 @@ import { colors } from "./colors";
 import { components } from "./components";
 import { styles } from "./styles";
 import { sizes } from "./sizes";
+import { shadows } from "./shadows";
 import { typography } from "./typography";
 
 export const theme = extendTheme({
@@ -12,5 +13,6 @@ export const theme = extendTheme({
   colors,
   components,
   sizes,
+  shadows,
   ...typography,
 });

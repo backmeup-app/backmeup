@@ -23,7 +23,10 @@ export const useUpdateService = () => {
       dispatch({ type: "UPDATE_SERVICE", payload: service });
       dispatch({
         type: "SET_NOTIFICATION",
-        payload: { text: "Service updated successfully", status: "success" },
+        payload: {
+          text: `${variables.name} updated successfully`,
+          status: "success",
+        },
       });
     } catch (error) {}
     dispatch({ type: "SET_LOADING", payload: false });
