@@ -1,11 +1,18 @@
 import { useContext, Dispatch, useMemo } from "react";
-import { Box, VStack, Image, Flex, Text, chakra } from "@chakra-ui/react";
+import {
+  Box,
+  VStack,
+  Image,
+  Flex,
+  Text,
+  chakra,
+  Switch,
+} from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { AppContext, TAppState } from "../../../contexts";
 import { TAppAction, TService } from "../../../store";
 import { capitalize } from "../../../utilities";
 import { AiOutlinePlus } from "react-icons/ai";
-import { FiKey } from "react-icons/fi";
 import { CreateApiKey } from "..";
 import { ApiKey } from "./ApiKey";
 
@@ -21,7 +28,6 @@ export const ApiKeys = () => {
   const isApiKeys =
     defaultService.api_keys && defaultService.api_keys.length > 0;
   const PlusIcon = chakra(AiOutlinePlus);
-  const KeyIcon = chakra(FiKey);
   const headerStyleProps = {
     py: 4,
     px: 6,
@@ -62,8 +68,8 @@ export const ApiKeys = () => {
     <Box bgColor="white" w="100%" boxShadow="sm">
       <Flex {...headerStyleProps}>
         <Box d="flex" alignItems="center">
-          <Text mr={2}>API keys</Text>
-          <KeyIcon />
+          <Switch isChecked={true} />
+          <Text ml={2}>Authentication</Text>
         </Box>
         <Flex align="center" cursor="pointer" onClick={onOpen}>
           <Text fontSize="sm">Add API Key</Text>

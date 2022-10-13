@@ -42,11 +42,12 @@ export const Nav = () => {
       pos="absolute"
       left={0}
       w="220px"
-      top="150%"
+      top="155%"
       bg="white"
       boxShadow="sm"
       fontSize="15px"
       spacing={3}
+      borderRadius={"2spx"}
       opacity={showServices ? 1 : 0}
       zIndex={showServices ? 5 : -9999}
       transition="all 5s ease-in"
@@ -73,7 +74,7 @@ export const Nav = () => {
           >
             <CheckIcon
               mr={3}
-              color="green.600"
+              color="copper.300"
               visibility={isDefaultService ? "visible" : "hidden"}
             />
             <Text>{service?.name}</Text>
@@ -132,19 +133,19 @@ export const Nav = () => {
         </HStack>
         <Services />
       </Box>
-      <HStack align="center" spacing={3}>
+      <HStack align="center" spacing={3} cursor="pointer">
         <Avatar
+          size="sm"
           src={me?.avatar}
-          boxSize="40px"
+          boxSize={10}
           bg="navajowhite"
           color="charlestonGreen"
           name={me?.first_name + " " + me?.last_name}
         />
         {(browserWidth ?? window.innerWidth) > 480 && (
-          <VStack spacing={0} align="flex-start" ml={1}>
-            <Text fontSize="sm">{me?.first_name + " " + me?.last_name}</Text>
-            <Text fontSize="sm">{me?.email}</Text>
-          </VStack>
+          <Text fontSize="15px" ml={1}>
+            {me?.first_name + " " + me?.last_name}
+          </Text>
         )}
         <CaretDown boxSize="14px" color="gray.600" pos="relative" top="2px" />
       </HStack>

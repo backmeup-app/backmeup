@@ -1,10 +1,14 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useContext, Dispatch } from "react";
 import { Form, Modal } from "../..";
 import { useFormik } from "formik";
 import { TEditIp } from "./types";
 import { useEditIpControls, useFormConfig } from "./controls";
+import { AppContext, TAppState } from "../../../contexts";
+import { TAppAction } from "../../../store";
 
 export const EditIp: FC<TEditIp> = ({ isOpen, onClose }) => {
+  const [{ networkOperation }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const getFormConfig = useFormConfig();
   const formik = useFormik(getFormConfig(onClose));
   const getControls = useEditIpControls();
@@ -19,7 +23,10 @@ export const EditIp: FC<TEditIp> = ({ isOpen, onClose }) => {
       <Form
         controls={controls}
         onSubmit={formik.handleSubmit}
-        submitBtnText="Add"
+        submitBtnText={
+          (networkOperation === "create.ip.address" ? "Adding " : "Add ") +
+          formik.values.address
+        }
         networkOperation="create.ip.address"
       />
     </Modal>

@@ -1,7 +1,11 @@
 import { FormLabel, FormErrorMessage } from "@chakra-ui/react";
 import { TFormControl } from "../..";
 import { useCreateIpAddress } from "../../../store";
-import { createIpSchema } from "../../../utilities";
+import {
+  createIpSchema,
+  handleInputBlur,
+  handleInputChange,
+} from "../../../utilities";
 
 export const useFormConfig = () => {
   const createIpAddress = useCreateIpAddress();
@@ -17,32 +21,25 @@ export const useFormConfig = () => {
 };
 
 export const useEditIpControls = () => {
-  return (formik: any): TFormControl[] => {
-    const handleChange = (
-      field: string,
-      event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-      if (!formik.touched?.[field]) formik.touched[field] = true;
-      formik.setFieldValue(field, event.target.value);
-    };
-    return [
-      {
-        type: "text",
-        properties: {
-          name: "address",
-          autoFocus: true,
-          label: <FormLabel>IP Address</FormLabel>,
-          styleProps: { colSpan: 12, mb: 4, isRequired: true },
-          errorMessage: formik.errors?.address ? (
-            <FormErrorMessage>{formik.errors.address}</FormErrorMessage>
-          ) : undefined,
-          onBlur: formik.handleBlur,
-          onChange: (event) => {
-            handleChange("address", event);
-          },
-          value: formik.values?.address,
+  return (formik: any): TFormControl[] => [
+    {
+      type: "text",
+      properties: {
+        name: "address",
+        autoFocus: true,
+        label: <FormLabel>IP Address</FormLabel>,
+        styleProps: { colSpan: 12, mb: 4, isRequired: true },
+        errorMessage: formik.errors?.address ? (
+          <FormErrorMessage>{formik.errors.address}</FormErrorMessage>
+        ) : undefined,
+        onBlur: (event) => {
+          handleInputBlur(formik, "address");
         },
+        onChange: (event) => {
+          handleInputChange(formik, "address", event);
+        },
+        value: formik.values?.address,
       },
-    ];
-  };
+    },
+  ];
 };

@@ -1,5 +1,13 @@
 import { useContext, Dispatch, useMemo } from "react";
-import { Box, Flex, Text, Image, chakra, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Text,
+  Image,
+  chakra,
+  VStack,
+  Switch,
+} from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { AiOutlinePlus } from "react-icons/ai";
 import { AppContext, TAppState } from "../../../contexts";
@@ -54,8 +62,11 @@ export const Ips = () => {
   return (
     <Box bgColor="white" w="100%" boxShadow="sm">
       <Flex {...headerStyleProps}>
-        <Text>IP Whitelist</Text>
-        <Flex align="center" cursor="pointer" onClick={onOpen}>
+        <Box d="flex">
+          <Switch isChecked={true} mr={2} />
+          <Text>IP Whitelisting</Text>
+        </Box>
+        <Flex align="center" cursor="not-allowed" onClick={onOpen}>
           <Text fontSize="sm">Add IP Address</Text>
           <PlusIcon ml={2} />
         </Flex>

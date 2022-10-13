@@ -79,9 +79,7 @@ export const ApiKey: FC<TApiKeyComponent> = ({
         align="flex-start"
         w={{ base: "100%", md: "80%" }}
       >
-        <Text fontWeight={600} fontSize={{ base: "md", md: "sm" }}>
-          {name}
-        </Text>
+        <Text fontSize={{ base: "md", md: "sm" }}>{name}</Text>
         <Box w="100%">
           <Text mb={{ base: 2.5, sm: 0 }}>
             {visible ? value : "********************" + value.slice(22)}
