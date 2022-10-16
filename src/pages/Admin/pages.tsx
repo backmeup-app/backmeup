@@ -21,7 +21,7 @@ const pages = [
     component: <Settings />,
   },
   {
-    path: "/profile",
+    path: "/account",
     component: <Profile />,
   },
   {

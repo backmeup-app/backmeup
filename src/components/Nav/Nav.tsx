@@ -1,20 +1,11 @@
 import { useContext, useState, useRef, Dispatch, useMemo } from "react";
-import {
-  Flex,
-  Text,
-  VStack,
-  HStack,
-  Avatar,
-  Box,
-  chakra,
-} from "@chakra-ui/react";
-import { useOutsideClick, useDisclosure } from "@chakra-ui/hooks";
+import { Flex, Text, HStack, Avatar, Box, chakra } from "@chakra-ui/react";
+import { useOutsideClick } from "@chakra-ui/hooks";
 import { AiOutlineDown } from "react-icons/ai";
-import { BsCheckCircle } from "react-icons/bs";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { AppContext, TAppState } from "../../contexts";
-import { TAppAction, TService, useUpdateUser } from "../../store";
-import { EditService } from "..";
+import { TAppAction, TService } from "../../store";
+import { Options, Services } from "./components";
 
 export const Nav = () => {
   const [{ me, browserWidth }] =
@@ -25,77 +16,15 @@ export const Nav = () => {
     ) as TService;
   }, [me?.services, me?.default_service]);
   const [showServices, setShowServices] = useState(false);
-  const { onOpen, onClose, isOpen } = useDisclosure();
+  const [showOptions, setShowOptions] = useState(false);
   const servicesRef = useRef<HTMLDivElement | null>(null);
   const CaretDown = chakra(AiOutlineDown);
   const ArrowDown = chakra(IoMdArrowDropdown);
-  const CheckIcon = chakra(BsCheckCircle);
-  const updateUser = useUpdateUser();
 
   useOutsideClick({
     ref: servicesRef,
     handler: () => setShowServices(false),
   });
-
-  const Services = () => (
-    <VStack
-      pos="absolute"
-      left={0}
-      w="220px"
-      top="155%"
-      bg="white"
-      boxShadow="sm"
-      fontSize="15px"
-      spacing={3}
-      borderRadius={"2spx"}
-      opacity={showServices ? 1 : 0}
-      zIndex={showServices ? 5 : -9999}
-      transition="all 5s ease-in"
-      py={3}
-    >
-      <Flex px={4} justifyContent="flex-start" w="100%">
-        <Text>Your services</Text>
-      </Flex>
-      {me?.services?.map((service, index) => {
-        const isDefaultService = service._id === me?.default_service;
-        return (
-          <Flex
-            key={index}
-            px={4}
-            alignItems="center"
-            justifyContent="flex-start"
-            w="100%"
-            onClick={
-              !isDefaultService
-                ? async () =>
-                    await updateUser({ default_service: service.uuid })
-                : () => {}
-            }
-          >
-            <CheckIcon
-              mr={3}
-              color="copper.300"
-              visibility={isDefaultService ? "visible" : "hidden"}
-            />
-            <Text>{service?.name}</Text>
-          </Flex>
-        );
-      })}
-      <Flex
-        onClick={() => {
-          onOpen();
-          setShowServices(false);
-        }}
-        px={4}
-        alignItems="center"
-        justifyContent="flex-start"
-        w="100%"
-      >
-        <CheckIcon mr={3} visibility="hidden" />
-        <Text>Create Service</Text>
-      </Flex>
-    </VStack>
-  );
 
   const toggleServices = () => setShowServices(!showServices);
 
@@ -131,9 +60,12 @@ export const Nav = () => {
           <Text>{defaultService?.name}</Text>
           <ArrowDown mt="2px" fontSize="xl" />
         </HStack>
-        <Services />
+        <Services
+          showServices={showServices}
+          setShowServices={setShowServices}
+        />
       </Box>
-      <HStack align="center" spacing={3} cursor="pointer">
+      <HStack align="center" spacing={3} cursor="pointer" pos="relative">
         <Avatar
           size="sm"
           src={me?.avatar}
@@ -148,8 +80,8 @@ export const Nav = () => {
           </Text>
         )}
         <CaretDown boxSize="14px" color="gray.600" pos="relative" top="2px" />
+        <Options />
       </HStack>
-      <EditService isOpen={isOpen} onClose={onClose} />
     </Flex>
   );
 };

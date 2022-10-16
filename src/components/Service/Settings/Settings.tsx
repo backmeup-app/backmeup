@@ -22,8 +22,8 @@ export const Settings = () => {
               setActiveTab(index);
             }}
             color="charlestonGreen"
-            opacity={isActive ? 1 : 0.75}
-            fontWeight={isActive ? "bold" : "normal"}
+            opacity={isActive ? 1 : 0.8}
+            fontWeight={isActive ? 500 : "normal"}
             borderBottom="3px solid"
             borderBottomColor={isActive ? "navajoWhite" : "transparent"}
             py={2}

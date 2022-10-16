@@ -45,7 +45,7 @@ export const Ips = () => {
       <Box>
         <Text
           fontSize="15px"
-          w={{ base: "85%", sm: "60%" }}
+          w={{ base: "100%", sm: "100%" }}
           textAlign="center"
           lineHeight="7"
         >

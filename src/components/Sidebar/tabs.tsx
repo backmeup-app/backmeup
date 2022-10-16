@@ -1,110 +1,60 @@
-import {
-  AccordionButton,
-  AccordionIcon,
-  AccordionPanel,
-  Flex,
-  Text,
-  VStack,
-  Link as ChakraLink,
-} from "@chakra-ui/react";
-import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { TService } from "../../store";
+import { useLocation, Link } from "react-router-dom";
+import { chakra, Link as ChakraLink, Flex, VStack } from "@chakra-ui/react";
+import { BsIntersect, BsFolder } from "react-icons/bs";
+import { GoSettings } from "react-icons/go";
+import { VscAccount } from "react-icons/vsc";
 
-const manageServiceTabs = [
+const tabs = [
   {
     name: "Resources",
-    isActive: (pathname: string) => pathname.startsWith("/resources"),
+    Icon: chakra(BsFolder),
+    isActive: (pathname: string) => pathname === "/resources",
   },
   {
     name: "Settings",
+    Icon: chakra(GoSettings),
     isActive: (pathname: string) => pathname === "/settings",
   },
-];
-
-const manageUserTabs = [
   {
-    name: "Profile",
-    isActive: (pathname: string) => pathname === "/profile",
+    name: "Integrations",
+    Icon: chakra(BsIntersect),
+    isActive: (pathname: string) => pathname === "/integrations",
   },
   {
-    name: "Settings",
-    isActive: (pathname: string) => pathname === "/user-settings",
-  },
-  {
-    name: "Notifications",
-    isActive: (pathname: string) => pathname === "/notifications",
+    name: "Account",
+    Icon: chakra(VscAccount),
+    isActive: (pathname: string) => pathname === "/account",
   },
 ];
 
-const isTabParentActive = (pathname: string, isService?: boolean) => {
-  const results = (isService ? manageServiceTabs : manageUserTabs).map(
-    ({ isActive }) => isActive(pathname)
-  );
-  return results.includes(true);
-};
-
-export const useDefaultServiceProps = () => {
+export const useDisplayTabs = () => {
   const location = useLocation();
-  return (service?: TService, toggleSidebar?: () => void) => {
-    const isParentActive = isTabParentActive(
-      location.pathname,
-      Boolean(service)
-    );
-    const transition = "all 0.3s ease-in";
-    const color = isParentActive ? "navajowhite" : "white";
-    const heading = (
-      <AccordionButton px={5} py={3}>
-        <Flex justify="space-between" align="center" w="100%">
-          <Text
-            fontFamily="oswald"
-            fontSize="md"
-            transition={transition}
-            color={color}
-            textTransform="uppercase"
+
+  return () => (
+    <VStack spacing={10} align="flex-start" pl={5}>
+      {tabs.map(({ name, Icon, isActive: isActiveFunc }, index) => {
+        const isActive = isActiveFunc(location.pathname);
+        return (
+          <Flex
+            key={index}
+            align="center"
+            color={isActive ? "navajowhite" : "#FBFBFB"}
+            fontSize="15.5px"
+            transition="all 0.3s ease-in"
           >
-            {service ? service.name : "Account"}
-          </Text>
-          <AccordionIcon transition={transition} color={color} />
-        </Flex>
-      </AccordionButton>
-    );
-    const content = (
-      <AccordionPanel>
-        <VStack spacing={2} align="flex-start">
-          {(service ? manageServiceTabs : manageUserTabs).map(
-            ({ name, isActive }, index) => {
-              const activeProps = isActive(location.pathname)
-                ? {
-                    color: "navajoWhite",
-                  }
-                : {};
-              return (
-                <ChakraLink
-                  as={Link}
-                  key={index}
-                  fontSize="0.92rem"
-                  to={`/${name.toLowerCase().replace(/ /g, "-")}`}
-                  py={3}
-                  px={5}
-                  w={"100%"}
-                  _hover={{
-                    underline: "none",
-                  }}
-                  onClick={() => {
-                    toggleSidebar?.();
-                  }}
-                  transition="all 0.3s ease-in"
-                  {...activeProps}
-                >
-                  {name}
-                </ChakraLink>
-              );
-            }
-          )}
-        </VStack>
-      </AccordionPanel>
-    );
-    return [{ heading, content }];
-  };
+            <Icon fontSize="16.5px" mr={3} />
+            <ChakraLink
+              as={Link}
+              to={name.toLowerCase()}
+              _hover={{
+                underline: "none",
+              }}
+            >
+              {name}
+            </ChakraLink>
+          </Flex>
+        );
+      })}
+    </VStack>
+  );
 };

@@ -1,9 +1,5 @@
 import { FC } from "react";
-import {
-  Accordion as ChakraAccordion,
-  AccordionItem,
-  AccordionItemProps,
-} from "@chakra-ui/react";
+import { Accordion as ChakraAccordion, AccordionItem } from "@chakra-ui/react";
 import { TAccordion } from "./types";
 
 export const Accordion: FC<TAccordion> = ({ items, ...props }) => {
@@ -15,5 +11,9 @@ export const Accordion: FC<TAccordion> = ({ items, ...props }) => {
       </AccordionItem>
     ));
 
-  return <ChakraAccordion {...props}>{displayItems()}</ChakraAccordion>;
+  return (
+    <ChakraAccordion allowToggle {...props}>
+      {displayItems()}
+    </ChakraAccordion>
+  );
 };
