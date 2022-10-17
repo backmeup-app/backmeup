@@ -3,7 +3,11 @@ import { FormLabel, FormErrorMessage } from "@chakra-ui/react";
 import { TFormControl } from "../..";
 import { AppContext, TAppState } from "../../../contexts";
 import { TAppAction, TService, useCreateApiKey } from "../../../store";
-import { createApiKeySchema } from "../../../utilities";
+import {
+  createApiKeySchema,
+  handleInputBlur,
+  handleInputChange,
+} from "../../../utilities";
 
 export const useFormConfig = () => {
   const [{ me }, dispatch] =
@@ -39,13 +43,6 @@ export const useFormConfig = () => {
 
 export const useCreateApiKeyControls = () => {
   return (formik: any): TFormControl[] => {
-    const handleChange = (
-      field: string,
-      event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-      if (!formik.touched?.[field]) formik.touched[field] = true;
-      formik.setFieldValue(field, event.target.value);
-    };
     return [
       {
         type: "text",
@@ -57,9 +54,11 @@ export const useCreateApiKeyControls = () => {
           errorMessage: formik.errors?.name ? (
             <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
           ) : undefined,
-          onBlur: formik.handleBlur,
+          onBlur: (event) => {
+            handleInputBlur(formik, "name");
+          },
           onChange: (event) => {
-            handleChange("name", event);
+            handleInputChange(formik, "name", event);
           },
           value: formik.values?.name,
         },

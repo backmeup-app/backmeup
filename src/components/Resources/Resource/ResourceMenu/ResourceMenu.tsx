@@ -31,28 +31,28 @@ export const ResourceMenu: FC<TResourceMenu> = ({
         fontSize="15px"
         w="135px"
       >
-        <MenuItem py={2} onClick={handleEdit} _hover={{ bg: "transparent" }}>
-          <Text textAlign="center" w="100%">
-            Edit resource
+        <MenuItem py={1} onClick={handleEdit} _hover={{ bg: "transparent" }}>
+          <Text fontSize="14px" textAlign="center" w="100%">
+            Edit Resource
           </Text>
         </MenuItem>
-        <MenuItem py={2} onClick={handleViewUrl} _hover={{ bg: "transparent" }}>
-          <Text textAlign="center" w="100%">
+        <MenuItem py={1} onClick={handleViewUrl} _hover={{ bg: "transparent" }}>
+          <Text fontSize="14px" textAlign="center" w="100%">
             View URL
           </Text>
         </MenuItem>
         <MenuItem
-          py={2}
+          py={1}
           onClick={handleViewBackups}
           _hover={{ bg: "transparent" }}
         >
-          <Text textAlign="center" w="100%">
+          <Text fontSize="14px" textAlign="center" w="100%">
             View Backups
           </Text>
         </MenuItem>
         <MenuDivider />
-        <MenuItem onClick={handleDelete} _hover={{ bg: "transparent" }}>
-          <Text textAlign="center" color="#FF0000" w="100%">
+        <MenuItem py={0} onClick={handleDelete} _hover={{ bg: "transparent" }}>
+          <Text fontSize="14px" textAlign="center" color="#FF0000" w="100%">
             Delete
           </Text>
         </MenuItem>

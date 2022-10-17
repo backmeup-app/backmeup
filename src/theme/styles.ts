@@ -4,6 +4,9 @@ const global = {
     color: "gray.900",
     fontFamily: "openSans",
   },
+  a: {
+    textDecoration: "none",
+  },
 };
 
 export const styles = {

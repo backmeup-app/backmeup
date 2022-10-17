@@ -43,7 +43,7 @@ export const ServiceNotifications = () => {
           </Text>
           <Text fontSize={{ base: "16px", md: "15px" }}>{channel.value}</Text>
         </Box>
-        <Switch isChecked={true} colorScheme="green" mb={{ base: 3, md: 0 }} />
+        <Switch isChecked={true} isDisabled={true} mb={{ base: 3, md: 0 }} />
       </Flex>
     ));
 

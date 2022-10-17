@@ -1,58 +1,62 @@
-import { Box, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
+import { useState, useContext, useCallback, Dispatch } from "react";
+import { SimpleGrid, GridItem, Stack, Box, Text } from "@chakra-ui/react";
 import { General, Security, ServiceNotifications } from "..";
+import { AppContext, TAppState } from "../../../contexts";
+import { TAppAction } from "../../../store";
 
 export const Settings = () => {
-  const selectedTabStyles = {
-    color: "charlestonGreen",
-    borderBottomWidth: "3px",
-    borderBottomStyle: "solid",
-    borderBottomColor: "navajoWhite",
-  };
+  const [{ browserWidth }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const [activeTab, setActiveTab] = useState(0);
+  const tabs = [<General />, <Security />, <ServiceNotifications />];
+
+  const displayTabs = useCallback(
+    () =>
+      ["General", "Security", "Notifications"].map((tab, index) => {
+        const isActive = activeTab === index;
+        return (
+          <Text
+            key={index}
+            cursor="pointer"
+            onClick={() => {
+              setActiveTab(index);
+            }}
+            color="charlestonGreen"
+            opacity={isActive ? 1 : 0.8}
+            fontWeight={isActive ? 500 : "normal"}
+            borderBottom="3px solid"
+            borderBottomColor={isActive ? "navajoWhite" : "transparent"}
+            py={2}
+            width="fit-content"
+            transition="all 0.3s ease-in"
+          >
+            {tab}
+          </Text>
+        );
+      }),
+    [activeTab]
+  );
+
+  const displayContent = useCallback(() => tabs[activeTab], [activeTab]);
+
   return (
-    <Box mx={{ base: 0, lg: 12 }}>
-      <Tabs variant="unstyled" align="center">
-        <TabList
-          mb={[2, 4]}
-          flexDirection={["column", "row"]}
-          alignItems={["center", "unset"]}
+    <SimpleGrid columns={12}>
+      <GridItem colSpan={{ base: 12, md: 2 }}>
+        <Stack
+          direction={{ base: "row", md: "column" }}
+          spacing={5}
+          py={2}
+          pl={{ base: 0, lg: 5 }}
+          align="flex-start"
+          justify={{ base: "center", md: "flex-start" }}
+          mb={{ base: 8, md: 0 }}
         >
-          <Tab
-            _selected={{ ...selectedTabStyles }}
-            width={["fit-content", "unset"]}
-            mb={[2, 0]}
-            fontFamily="openSans"
-          >
-            GENERAL
-          </Tab>
-          <Tab
-            _selected={{ ...selectedTabStyles }}
-            width={["fit-content", "unset"]}
-            mb={[2, 0]}
-            fontFamily="openSans"
-          >
-            SECURITY
-          </Tab>
-          <Tab
-            _selected={{ ...selectedTabStyles }}
-            width={["fit-content", "unset"]}
-            mb={[2, 0]}
-            fontFamily="openSans"
-          >
-            NOTIFICATIONS
-          </Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel px={0} pt={[0, 4]}>
-            <General />
-          </TabPanel>
-          <TabPanel px={0} pt={[0, 4]}>
-            <Security />
-          </TabPanel>
-          <TabPanel px={0} pt={[0, 4]}>
-            <ServiceNotifications />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
-    </Box>
+          {displayTabs()}
+        </Stack>
+      </GridItem>
+      <GridItem colSpan={{ base: 12, md: 10 }} pl={{ base: 0, lg: 10 }}>
+        {displayContent()}
+      </GridItem>
+    </SimpleGrid>
   );
 };

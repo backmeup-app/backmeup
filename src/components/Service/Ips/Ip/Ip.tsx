@@ -70,9 +70,7 @@ export const Ip: FC<TIpAddress> = ({ uuid, value }) => {
       align={{ md: "center" }}
     >
       <VStack alignItems="flex-start" spacing={2}>
-        <Text fontSize={{ base: "md", md: "15px" }} fontWeight={600}>
-          {value}
-        </Text>
+        <Text fontSize={{ base: "md", md: "15px" }}>{value}</Text>
         <Text>{isResponsive ? "L" : "l"}ast used 25/04/2022</Text>
       </VStack>
       {isResponsive ? (
