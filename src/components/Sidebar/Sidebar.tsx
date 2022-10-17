@@ -13,7 +13,7 @@ export const Sidebar: FC<TSidebar> = ({ toggle }) => {
       minH="100vh"
       bg="charlestonGreen"
       color="white"
-      pt="40%"
+      pt="55%"
     >
       {displayTabs()}
       <Text pos="absolute" fontFamily="oswald" left={5} bottom={10}>

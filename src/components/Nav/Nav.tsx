@@ -1,32 +1,14 @@
-import { useContext, useState, useRef, Dispatch, useMemo } from "react";
-import { Flex, Text, HStack, Avatar, Box, chakra } from "@chakra-ui/react";
-import { useOutsideClick } from "@chakra-ui/hooks";
+import { useContext, Dispatch } from "react";
+import { Flex, Text, HStack, Avatar, chakra } from "@chakra-ui/react";
 import { AiOutlineDown } from "react-icons/ai";
-import { IoMdArrowDropdown } from "react-icons/io";
 import { AppContext, TAppState } from "../../contexts";
-import { TAppAction, TService } from "../../store";
-import { Options, Services } from "./components";
+import { TAppAction } from "../../store";
+import { User, ServiceSelector } from "./components";
 
 export const Nav = () => {
   const [{ me, browserWidth }] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
-  const defaultService = useMemo(() => {
-    return ((me?.services as TService[]) ?? []).find(
-      (service) => service._id === (me?.default_service as string)
-    ) as TService;
-  }, [me?.services, me?.default_service]);
-  const [showServices, setShowServices] = useState(false);
-  const [showOptions, setShowOptions] = useState(false);
-  const servicesRef = useRef<HTMLDivElement | null>(null);
   const CaretDown = chakra(AiOutlineDown);
-  const ArrowDown = chakra(IoMdArrowDropdown);
-
-  useOutsideClick({
-    ref: servicesRef,
-    handler: () => setShowServices(false),
-  });
-
-  const toggleServices = () => setShowServices(!showServices);
 
   return (
     <Flex
@@ -38,33 +20,7 @@ export const Nav = () => {
       px={{ base: 8, sm: 12, lg: 20 }}
       w="100%"
     >
-      <Box
-        pos="relative"
-        ref={servicesRef}
-        cursor="pointer"
-        alignItems="center"
-      >
-        <HStack
-          onClick={toggleServices}
-          spacing={4}
-          visibility={defaultService?.uuid ? "visible" : "hidden"}
-        >
-          <Avatar
-            size="sm"
-            borderRadius="none"
-            bg="navajowhite"
-            color="charlestonGreen"
-            name={defaultService?.name}
-            boxSize="10"
-          />
-          <Text>{defaultService?.name}</Text>
-          <ArrowDown mt="2px" fontSize="xl" />
-        </HStack>
-        <Services
-          showServices={showServices}
-          setShowServices={setShowServices}
-        />
-      </Box>
+      <ServiceSelector />
       <HStack align="center" spacing={3} cursor="pointer" pos="relative">
         <Avatar
           size="sm"
@@ -80,7 +36,7 @@ export const Nav = () => {
           </Text>
         )}
         <CaretDown boxSize="14px" color="gray.600" pos="relative" top="2px" />
-        <Options />
+        <User />
       </HStack>
     </Flex>
   );

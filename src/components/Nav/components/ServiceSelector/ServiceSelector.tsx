@@ -1,18 +1,44 @@
-import { FC, useContext, Dispatch } from "react";
-import { VStack, Flex, Text, chakra, useDisclosure } from "@chakra-ui/react";
+import { useContext, useState, useRef, useMemo, Dispatch } from "react";
+import {
+  VStack,
+  Flex,
+  Avatar,
+  HStack,
+  Box,
+  Text,
+  chakra,
+  useDisclosure,
+  useOutsideClick,
+} from "@chakra-ui/react";
 import { BsCheckCircle } from "react-icons/bs";
-import { TServices } from "./types";
-import { TAppAction, useUpdateUser } from "../../../../store";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { TAppAction, TService, useUpdateUser } from "../../../../store";
 import { AppContext, TAppState } from "../../../../contexts";
 import { EditService } from "../../..";
 
-export const Services: FC<TServices> = ({ showServices, setShowServices }) => {
+export const ServiceSelector = () => {
   const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const servicesRef = useRef<HTMLDivElement | null>(null);
+  const [showServices, setShowServices] = useState(false);
   const updateUser = useUpdateUser();
   const CheckIcon = chakra(BsCheckCircle);
+  const ArrowDown = chakra(IoMdArrowDropdown);
 
-  return (
+  const defaultService = useMemo(() => {
+    return ((me?.services as TService[]) ?? []).find(
+      (service) => service._id === (me?.default_service as string)
+    ) as TService;
+  }, [me?.services, me?.default_service]);
+
+  useOutsideClick({
+    ref: servicesRef,
+    handler: () => setShowServices(false),
+  });
+
+  const toggleServices = () => setShowServices(!showServices);
+
+  const ListServices = () => (
     <VStack
       pos="absolute"
       left={0}
@@ -71,5 +97,27 @@ export const Services: FC<TServices> = ({ showServices, setShowServices }) => {
       </Flex>
       <EditService isOpen={isOpen} onClose={onClose} />
     </VStack>
+  );
+
+  return (
+    <Box pos="relative" ref={servicesRef} cursor="pointer" alignItems="center">
+      <HStack
+        onClick={toggleServices}
+        spacing={4}
+        visibility={defaultService?.uuid ? "visible" : "hidden"}
+      >
+        <Avatar
+          size="sm"
+          borderRadius="none"
+          bg="navajowhite"
+          color="charlestonGreen"
+          name={defaultService?.name}
+          boxSize="10"
+        />
+        <Text>{defaultService?.name}</Text>
+        <ArrowDown mt="2px" fontSize="xl" />
+      </HStack>
+      <ListServices />
+    </Box>
   );
 };

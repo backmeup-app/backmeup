@@ -31,7 +31,7 @@ export const useDisplayTabs = () => {
   const location = useLocation();
 
   return () => (
-    <VStack spacing={10} align="flex-start" pl={5}>
+    <VStack spacing={12} align="flex-start" pl={5}>
       {tabs.map(({ name, Icon, isActive: isActiveFunc }, index) => {
         const isActive = isActiveFunc(location.pathname);
         return (
