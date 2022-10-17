@@ -9,14 +9,17 @@ import {
   useOutsideClick,
 } from "@chakra-ui/react";
 import { AiOutlineDown } from "react-icons/ai";
+import { HiOutlineMail } from "react-icons/hi";
 import { AppContext, TAppState } from "../../../../contexts";
-import { TAppAction } from "../../../../store";
+import { TAppAction, useLogout } from "../../../../store";
 
 export const User = () => {
   const [{ me, browserWidth }] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const logout = useLogout();
   const [showOptions, setShowOptions] = useState(false);
   const optionsRef = useRef<HTMLDivElement | null>(null);
+  const EmailIcon = chakra(HiOutlineMail);
   const CaretDown = chakra(AiOutlineDown);
 
   useOutsideClick({
@@ -46,38 +49,45 @@ export const User = () => {
         px={4}
         py={3}
       >
-        <Text fontSize="14px">{me?.first_name + " " + me?.last_name}</Text>
-        <Text fontSize="12.5px">{me?.email}</Text>
+        <Text fontSize="14px" fontWeight={500}>
+          {me?.first_name + " " + me?.last_name}
+        </Text>
+        <Box d="flex" alignItems="center">
+          <EmailIcon mr="6px" color="gray.700" />{" "}
+          <Text fontSize="12.5px">{me?.email}</Text>
+        </Box>
       </VStack>
-      <Box px={4} py={3} fontSize="14px">
+      <Box px={4} py={3} fontSize="14px" fontWeight={500} onClick={logout}>
         Logout
       </Box>
     </Box>
   );
 
   return (
-    <HStack
-      ref={optionsRef}
-      align="center"
-      spacing={3}
-      cursor="pointer"
-      pos="relative"
-    >
-      <Avatar
-        size="sm"
-        src={me?.avatar}
-        boxSize={10}
-        bg="navajowhite"
-        color="charlestonGreen"
-        name={me?.first_name + " " + me?.last_name}
-      />
-      {(browserWidth ?? window.innerWidth) > 480 && (
-        <Text fontSize="15px" ml={1}>
-          {me?.first_name + " " + me?.last_name}
-        </Text>
-      )}
-      <CaretDown boxSize="14px" color="gray.600" pos="relative" top="2px" />
-      <Options />
-    </HStack>
+    <Box ref={optionsRef}>
+      <HStack
+        onClick={toggleOptions}
+        align="center"
+        spacing={3}
+        cursor="pointer"
+        pos="relative"
+      >
+        <Avatar
+          size="sm"
+          src={me?.avatar}
+          boxSize={10}
+          bg="navajowhite"
+          color="charlestonGreen"
+          name={me?.first_name + " " + me?.last_name}
+        />
+        {(browserWidth ?? window.innerWidth) > 480 && (
+          <Text fontSize="15px" ml={1}>
+            {me?.first_name + " " + me?.last_name}
+          </Text>
+        )}
+        <CaretDown boxSize="14px" color="gray.600" pos="relative" top="2px" />
+        <Options />
+      </HStack>
+    </Box>
   );
 };

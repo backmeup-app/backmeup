@@ -21,23 +21,7 @@ export const Nav = () => {
       w="100%"
     >
       <ServiceSelector />
-      <HStack align="center" spacing={3} cursor="pointer" pos="relative">
-        <Avatar
-          size="sm"
-          src={me?.avatar}
-          boxSize={10}
-          bg="navajowhite"
-          color="charlestonGreen"
-          name={me?.first_name + " " + me?.last_name}
-        />
-        {(browserWidth ?? window.innerWidth) > 480 && (
-          <Text fontSize="15px" ml={1}>
-            {me?.first_name + " " + me?.last_name}
-          </Text>
-        )}
-        <CaretDown boxSize="14px" color="gray.600" pos="relative" top="2px" />
-        <User />
-      </HStack>
+      <User />
     </Flex>
   );
 };
