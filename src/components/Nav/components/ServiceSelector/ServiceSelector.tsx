@@ -75,7 +75,7 @@ export const ServiceSelector = () => {
           >
             <CheckIcon
               mr={3}
-              color="copper.300"
+              color="darkgoldenrod"
               visibility={isDefaultService ? "visible" : "hidden"}
             />
             <Text>{service?.name}</Text>

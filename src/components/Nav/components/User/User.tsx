@@ -32,8 +32,9 @@ export const User = () => {
   const Options = () => (
     <Box
       pos="absolute"
-      left="-6px"
-      w="100%"
+      left={{ sm: "-6px" }}
+      right={{ base: "0%", sm: "unset" }}
+      w={{ base: "200px", sm: "100%" }}
       top="160%"
       bg="white"
       boxShadow="sm"
@@ -53,7 +54,7 @@ export const User = () => {
           {me?.first_name + " " + me?.last_name}
         </Text>
         <Box d="flex" alignItems="center">
-          <EmailIcon mr="6px" color="gray.700" />{" "}
+          <EmailIcon mr="6px" color="rgba(0,0,0,0.7)" />{" "}
           <Text fontSize="12.5px">{me?.email}</Text>
         </Box>
       </VStack>

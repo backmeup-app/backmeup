@@ -1,7 +1,8 @@
 import { useLocation, Link } from "react-router-dom";
 import { chakra, Link as ChakraLink, Flex, VStack } from "@chakra-ui/react";
-import { BsIntersect, BsFolder } from "react-icons/bs";
+import { BsFolder } from "react-icons/bs";
 import { GoSettings } from "react-icons/go";
+import { ImInfinite } from "react-icons/im";
 import { VscAccount } from "react-icons/vsc";
 
 const tabs = [
@@ -17,7 +18,7 @@ const tabs = [
   },
   {
     name: "Integrations",
-    Icon: chakra(BsIntersect),
+    Icon: chakra(ImInfinite),
     isActive: (pathname: string) => pathname === "/integrations",
   },
   {
