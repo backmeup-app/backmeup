@@ -17,6 +17,7 @@ export type TResourceAction = {
     | "UPDATE_RESOURCE"
     | "DELETE_RESOURCE"
     | "GET_RESOURCES"
+    | "GET_RESOURCE"
     | "DELETE_RESOURCE";
   payload: TSingleResourcePayload | TMultipleResourcePayload;
 };

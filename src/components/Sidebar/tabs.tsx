@@ -9,7 +9,7 @@ const tabs = [
   {
     name: "Resources",
     Icon: chakra(BsFolder),
-    isActive: (pathname: string) => pathname === "/resources",
+    isActive: (pathname: string) => pathname.includes("resources"),
   },
   {
     name: "Settings",
@@ -46,7 +46,7 @@ export const useDisplayTabs = () => {
             <Icon fontSize="16.5px" mr={3} />
             <ChakraLink
               as={Link}
-              to={name.toLowerCase()}
+              to={`/${name.toLowerCase()}`}
               _hover={{
                 underline: "none",
               }}

@@ -70,10 +70,12 @@ export const Admin = () => {
         >
           <Nav />
           <Box py={10} px={{ base: 8, sm: 12, lg: 16 }}>
-            <Route path="/">
-              <Redirect to="/resources" />
-            </Route>
-            <Switch>{renderPages()}</Switch>
+            <Switch>
+              {renderPages()}
+              <Route path="/">
+                <Redirect to="/resources" />
+              </Route>
+            </Switch>
           </Box>
         </Box>
       </Flex>

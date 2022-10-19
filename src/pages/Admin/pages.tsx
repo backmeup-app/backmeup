@@ -5,12 +5,17 @@ import {
   Settings,
   Profile,
   Notifications,
+  Backups,
 } from "../../components";
 
 const pages = [
   {
     path: "/overview",
     component: <Overview />,
+  },
+  {
+    path: "/resources/:resource_uuid/backups",
+    component: <Backups />,
   },
   {
     path: "/resources",
@@ -35,7 +40,7 @@ export const useRenderPages = () => {
     return (
       <>
         {pages.map(({ path, component }, index) => (
-          <Route key={index} path={path}>
+          <Route key={index} path={path} exact={true}>
             {component}
           </Route>
         ))}

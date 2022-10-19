@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useHistory } from "react-router-dom";
 import { VStack, Flex, Text, Heading, Switch } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { useUpdateResource, useDeleteResource } from "../../../store";
@@ -24,6 +25,7 @@ export const Resource: FC<TResourceComponent> = ({
     onOpen: onOpenUrl,
     onClose: onCloseUrl,
   } = useDisclosure();
+  const history = useHistory();
   const updateResource = useUpdateResource();
   const deleteResource = useDeleteResource();
 
@@ -60,7 +62,9 @@ export const Resource: FC<TResourceComponent> = ({
         <ResourceMenu
           handleEdit={handleEdit}
           handleViewUrl={onOpenUrl}
-          handleViewBackups={() => {}}
+          handleViewBackups={() => {
+            history.push(`/resources/${uuid}/backups`);
+          }}
           handleDelete={onOpenDelete}
         />
       </Flex>

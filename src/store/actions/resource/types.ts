@@ -7,6 +7,10 @@ export type TGetResources = TCommonApiResponse & {
   pagination: TPagination;
 };
 
+export type TGetResourceResponse = TCommonApiResponse & {
+  resource: TResource;
+};
+
 export type TEditResourceVariables = Partial<
   Pick<TResource, "name" | "description" | "is_active">
 >;
