@@ -27,12 +27,12 @@ export const useGetBackups = () => {
     dispatch({ type: "SET_LOADING", payload: true });
     dispatch({ type: "SET_NETWORK_OPERATION", payload: "get.backups" });
 
-    let url = `/resources/${resource.uuid}`;
+    let url = `/resources/${resource.uuid}/backups`;
     resource.backups = resource.backups as TBackup[];
     url =
       resource?.backups?.length > 0
         ? url + `?after_uuid=${resource.backups[resource.backups.length - 1]}`
-        : "";
+        : url;
 
     try {
       const {
