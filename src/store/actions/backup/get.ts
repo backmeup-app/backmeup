@@ -8,13 +8,15 @@ import { client } from "../client";
 import { TGetBackupsResponse } from "./types";
 
 export const useGetBackups = () => {
-  const [{ me }, dispatch] =
+  const [{ me, loading }, dispatch] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const { resource_uuid } = useParams<{ resource_uuid: string }>();
   const history = useHistory();
   const errorHandler = useErrorHandler();
 
   return async () => {
+    if (loading) return;
+
     const defaultService = me?.services?.find(
       (service) => service._id.toString() === me?.default_service?.toString()
     );
@@ -31,7 +33,8 @@ export const useGetBackups = () => {
     resource.backups = resource.backups as TBackup[];
     url =
       resource?.backups?.length > 0
-        ? url + `?after_uuid=${resource.backups[resource.backups.length - 1]}`
+        ? url +
+          `?after_uuid=${resource.backups[resource.backups.length - 1].uuid}`
         : url;
 
     try {

@@ -1,4 +1,4 @@
-import { useContext, Dispatch, useEffect, useCallback } from "react";
+import { useContext, Dispatch, useEffect, useMemo, useCallback } from "react";
 import { SimpleGrid, GridItem, Skeleton } from "@chakra-ui/react";
 import { useHistory, useParams } from "react-router-dom";
 import { AppContext, TAppState } from "../../contexts";
@@ -11,7 +11,8 @@ import {
 import { Backup } from "./Backup";
 
 export const Backups = () => {
-  const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const [{ me, onScroll }, dispatch] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const history = useHistory();
   const { resource_uuid } = useParams<{ resource_uuid: string }>();
   const service = me?.services?.find(
@@ -20,16 +21,18 @@ export const Backups = () => {
   const resource = service?.resources?.find(
     (resource) => resource?.uuid === resource_uuid
   );
+  const initialServiceId = useMemo(() => me?.default_service, []);
   const getResource = useGetResource();
   const getBackups = useGetBackups();
 
   useEffect(() => {
-    if (me?.default_service !== service._id.toString())
-      history.push("/resources");
-  }, [me?.default_service]);
+    if (!onScroll) dispatch({ type: "SET_ON_SCROLL", payload: getBackups });
+
+    if (initialServiceId !== service._id.toString()) history.push("/resources");
+  }, [service._id]);
 
   useEffect(() => {
-    if (!resource) {
+    if (!resource && initialServiceId === service._id.toString()) {
       getResource();
       return;
     }

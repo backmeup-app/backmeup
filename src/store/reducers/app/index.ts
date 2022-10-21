@@ -13,6 +13,8 @@ export const appReducer = (state: TAppState, action: TAppReducerAction) => {
       return { ...state, networkOperation: action.payload };
     case "SET_BROWSER_WIDTH":
       return { ...state, browserWidth: action.payload };
+    case "SET_ON_SCROLL":
+      return { ...state, onScroll: action.payload };
     default:
       return state;
   }

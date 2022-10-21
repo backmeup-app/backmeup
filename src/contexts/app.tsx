@@ -19,6 +19,7 @@ export type TAppState = {
   notification?: TAppNotification;
   networkOperation?: string;
   browserWidth?: number;
+  onScroll?: () => void;
 };
 
 export type TPagination = {

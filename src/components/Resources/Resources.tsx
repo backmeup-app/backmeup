@@ -23,9 +23,17 @@ export const Resources = () => {
     ) as TService;
   }, [me?.default_service, me?.services]);
 
+  const hasResources = !defaultService?.resources
+    ? false
+    : defaultService?.resources?.length > 1
+    ? true
+    : !Boolean(
+        defaultService?.resources?.length === 1 &&
+          defaultService?.resources[0].isSingle
+      );
+
   useEffect(() => {
-    if (defaultService && !defaultService?.resources)
-      getResources(defaultService?.uuid);
+    if (!hasResources) getResources(defaultService?.uuid);
   }, [defaultService?.uuid]);
 
   const handleEdit = (uuid: string) => {
@@ -59,9 +67,8 @@ export const Resources = () => {
 
   return (
     <SimpleGrid columns={12} mx={{ base: 0, lg: 5 }} spacing={5}>
-      {displayResources()}
-      {!defaultService?.resources && displaySkeletons()}
-      {defaultService.resources && (
+      {hasResources ? displayResources() : displaySkeletons()}
+      {hasResources && (
         <Box
           pos="fixed"
           right={{ base: 5, sm: 7, md: 10 }}
