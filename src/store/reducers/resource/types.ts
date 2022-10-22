@@ -1,5 +1,4 @@
 import { TResource } from "../..";
-import { TPagination } from "../../../contexts";
 
 export type TOptionalResourceAction = {
   service_uuid?: string;

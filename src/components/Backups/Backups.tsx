@@ -36,7 +36,7 @@ export const Backups = () => {
   const ArrowRight = chakra(IoIosArrowForward);
 
   useEffect(() => {
-    if (!onScroll) dispatch({ type: "SET_ON_SCROLL", payload: getBackups });
+    dispatch({ type: "SET_ON_SCROLL", payload: getBackups });
 
     if (initialServiceId !== service._id.toString()) history.push("/resources");
 

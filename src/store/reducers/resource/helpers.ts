@@ -19,7 +19,7 @@ export const getResources = (
 
   if (idx === -1) return state;
   const service = services[idx];
-  service.resources = ((service.resources as TResource[]) ?? []).concat(
+  service.resources = (parseResources(service?.resources) ?? []).concat(
     resources
   );
   service.hasMoreResources = hasMoreResources;
@@ -32,6 +32,14 @@ export const getResources = (
       services,
     },
   };
+};
+
+const parseResources = (resources?: TResource[]) => {
+  if (!resources) return [];
+
+  if (resources.length === 1 && resources[0]?.isSingle) return [];
+
+  return resources;
 };
 
 export const getResource = (

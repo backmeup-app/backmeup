@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import { useContext, Dispatch } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { TAppAction, TResource, TService } from "../..";
 import { AppContext, TAppState } from "../../../contexts";
 import { TError, useErrorHandler } from "../../../utilities";
@@ -15,12 +15,16 @@ export const useGetResources = () => {
     const service = me?.services?.find(
       (service) => service._id === me?.default_service
     ) as TService;
+
+    if (!getResources(service)) return;
+
     dispatch({ type: "SET_LOADING", payload: true });
 
     let url = `/services/${service.uuid}/resources`;
     service.resources = service.resources as TResource[];
     url =
-      service?.resources?.length > 0
+      service?.resources?.length > 0 &&
+      !(service?.resources?.length === 1 && service?.resources[0]?.isSingle)
         ? url +
           `?after_uuid=${service.resources[service.resources.length - 1].uuid}`
         : url;
@@ -39,6 +43,17 @@ export const useGetResources = () => {
     }
     dispatch({ type: "SET_LOADING", payload: false });
   };
+};
+
+const getResources = (service: TService) => {
+  if (!service?.resources) return true;
+
+  if (service.resources.length === 1 && service.resources[0]?.isSingle)
+    return true;
+
+  return service?.hasMoreResources === undefined
+    ? true
+    : service?.hasMoreResources;
 };
 
 export const useGetResource = () => {

@@ -48,8 +48,8 @@ export const Admin = () => {
     if (!scrollRef?.current) return;
     const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
     const currentHeight = Math.round(scrollTop + clientHeight);
-    if (scrollHeight - currentHeight < 7) {
-      onScroll?.();
+    if (scrollHeight - currentHeight < 50) {
+      !contextLoading && onScroll?.();
     }
   };
 

@@ -7,8 +7,10 @@ import { AppContext } from "../../contexts";
 import { TService, useGetResources } from "../../store";
 
 export const Resources = () => {
-  const [{ me, loading: contextLoading, networkOperation }] =
-    useContext(AppContext);
+  const [
+    { me, loading: contextLoading, onScroll, networkOperation },
+    dispatch,
+  ] = useContext(AppContext);
   const [uuid, setUuid] = useState<string>();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const getResources = useGetResources();
@@ -33,7 +35,13 @@ export const Resources = () => {
       );
 
   useEffect(() => {
+    dispatch({ type: "SET_ON_SCROLL", payload: getResources });
+
     if (!hasResources) getResources();
+
+    return () => {
+      dispatch({ type: "SET_ON_SCROLL", payload: undefined });
+    };
   }, [defaultService?.uuid]);
 
   const handleEdit = (uuid: string) => {
@@ -55,7 +63,7 @@ export const Resources = () => {
   }, [defaultService]);
 
   const displaySkeletons = () =>
-    new Array(6).fill("").map((value, index) => (
+    new Array(12).fill("").map((value, index) => (
       <GridItem key={index} colSpan={{ base: 12, md: 6 }}>
         <Skeleton startColor="#f6f8fa" endColor="#d0d7de" height="105px" />
         {value}
