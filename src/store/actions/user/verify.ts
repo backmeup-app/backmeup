@@ -29,7 +29,6 @@ export const useVerifyUser = () => {
         },
       });
     } catch (error) {
-      console.log("sksks");
       errorHandler(error as AxiosError<TError>);
     }
 

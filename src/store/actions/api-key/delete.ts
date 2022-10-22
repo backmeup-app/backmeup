@@ -1,7 +1,9 @@
+import { AxiosError } from "axios";
 import { useContext, Dispatch } from "react";
 import { TDeleteApiKeyVariables } from ".";
 import { TApiKey, TAppAction, TService } from "../..";
 import { AppContext, TAppState } from "../../../contexts";
+import { TError, useErrorHandler } from "../../../utilities";
 import { client } from "../client";
 
 export const useDeleteApiKey = () => {
@@ -10,6 +12,7 @@ export const useDeleteApiKey = () => {
   const defaultService = (me?.services as TService[]).find(
     (service) => service._id === (me?.default_service as string)
   ) as TService;
+  const errorHandler = useErrorHandler();
 
   return async (variables: TDeleteApiKeyVariables) => {
     dispatch({ type: "SET_LOADING", payload: true });
@@ -29,7 +32,9 @@ export const useDeleteApiKey = () => {
           text: `${apiKey.name} deleted successfully`,
         },
       });
-    } catch (error) {}
+    } catch (error) {
+      errorHandler(error as AxiosError<TError>);
+    }
 
     dispatch({ type: "SET_LOADING", payload: false });
     dispatch({ type: "SET_NETWORK_OPERATION", payload: "" });

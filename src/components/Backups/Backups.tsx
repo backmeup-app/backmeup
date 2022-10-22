@@ -39,6 +39,10 @@ export const Backups = () => {
     if (!onScroll) dispatch({ type: "SET_ON_SCROLL", payload: getBackups });
 
     if (initialServiceId !== service._id.toString()) history.push("/resources");
+
+    return () => {
+      dispatch({ type: "SET_ON_SCROLL", payload: undefined });
+    };
   }, [service._id]);
 
   useEffect(() => {
@@ -71,10 +75,16 @@ export const Backups = () => {
   );
 
   return (
-    <SimpleGrid columns={12} mx={{ base: 0, lg: 5 }} spacing={5}>
+    <SimpleGrid
+      pos="relative"
+      top={{ base: "-8px", md: "0px" }}
+      columns={12}
+      mx={{ base: 0, lg: 5 }}
+      spacing={5}
+    >
       <GridItem colSpan={12}>
         {resource?.backups && resource?.backups.length > 0 && (
-          <HStack spacing={3} marginBottom={2}>
+          <HStack spacing={3} marginBottom={{ base: 1, md: 2 }}>
             <Text
               cursor="pointer"
               onClick={() => {

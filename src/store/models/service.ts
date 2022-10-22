@@ -9,6 +9,7 @@ export type TService = {
   backup_duration: "1w" | "1m" | "3m";
   created_at: string;
   updated_at: string;
+  hasMoreResources?: boolean;
   api_keys: TApiKey[];
   ips: TIpAddress[];
   notifications: TNotification;

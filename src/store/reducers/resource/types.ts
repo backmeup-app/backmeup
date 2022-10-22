@@ -7,8 +7,8 @@ export type TOptionalResourceAction = {
 
 export type TSingleResourcePayload = TOptionalResourceAction & TResource;
 export type TMultipleResourcePayload = TOptionalResourceAction & {
-  pagination: TPagination;
   resources: TResource[];
+  hasMoreResources: boolean;
 };
 
 export type TResourceAction = {

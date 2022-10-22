@@ -33,7 +33,7 @@ export const Resources = () => {
       );
 
   useEffect(() => {
-    if (!hasResources) getResources(defaultService?.uuid);
+    if (!hasResources) getResources();
   }, [defaultService?.uuid]);
 
   const handleEdit = (uuid: string) => {

@@ -14,7 +14,7 @@ export const Backup: FC<TBackup & { resource_name: string }> = ({
   const backupName = hash + "//" + resource_name;
 
   return (
-    <GridItem colSpan={6} boxShadow="sm" bg="white" p={4}>
+    <GridItem colSpan={{ base: 12, md: 6 }} boxShadow="sm" bg="white" p={4}>
       <VStack spacing={4} align="flex-start" w="100%">
         <Flex justify="space-between" align="center" w="100%">
           <Text fontWeight={500}>{hash}</Text>

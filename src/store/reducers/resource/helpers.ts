@@ -12,20 +12,17 @@ export const getResources = (
 ) => {
   const { me } = state;
   const services = me?.services ?? [];
-  const { pagination, resources } = payload as TMultipleResourcePayload;
+  const { hasMoreResources, resources } = payload as TMultipleResourcePayload;
   const idx = services.findIndex(
     (service) => service.uuid === (payload.service_uuid as string)
   );
 
   if (idx === -1) return state;
   const service = services[idx];
-  if (pagination.currentPage > 1)
-    service.resources = ((service.resources as TResource[]) ?? []).concat(
-      resources
-    );
-  else service.resources = resources;
-
-  service.resourcePagination = pagination;
+  service.resources = ((service.resources as TResource[]) ?? []).concat(
+    resources
+  );
+  service.hasMoreResources = hasMoreResources;
   services[idx] = service;
 
   return {

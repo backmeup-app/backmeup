@@ -1,7 +1,9 @@
+import { AxiosError } from "axios";
 import { useContext, Dispatch } from "react";
 import { TEditServiceResponse, TUpdateServiceVariables } from ".";
 import { TAppAction, TService } from "../..";
 import { AppContext, TAppState } from "../../../contexts";
+import { TError, useErrorHandler } from "../../../utilities";
 import { client } from "../client";
 
 export const useUpdateService = () => {
@@ -10,6 +12,7 @@ export const useUpdateService = () => {
   const defaultService = ((me?.services as TService[]) ?? []).find(
     (service) => service._id === (me?.default_service as string)
   ) as TService;
+  const errorHandler = useErrorHandler();
 
   return async (variables: TUpdateServiceVariables) => {
     dispatch({ type: "SET_LOADING", payload: true });
@@ -28,7 +31,10 @@ export const useUpdateService = () => {
           status: "success",
         },
       });
-    } catch (error) {}
+    } catch (error) {
+      errorHandler(error as AxiosError<TError>);
+    }
+
     dispatch({ type: "SET_LOADING", payload: false });
     dispatch({ type: "SET_NETWORK_OPERATION", payload: "" });
   };

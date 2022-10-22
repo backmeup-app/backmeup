@@ -36,23 +36,21 @@ export const Ips = () => {
   };
 
   const ZeroIps = () => (
-    <VStack spacing={0} mt={6} mb={12}>
+    <VStack spacing={8} my={{ base: 8, sm: 10 }}>
       <Image
-        boxSize="120px"
+        boxSize={{ base: "105px", sm: "120px" }}
         objectFit="contain"
         src="https://res.cloudinary.com/olamileke/image/upload/v1666403864/backmeup/assets/states/clip-ray_hb9oxd.png"
       />
-      <Box>
-        <Text
-          fontSize="15px"
-          w={{ base: "100%", sm: "100%" }}
-          textAlign="center"
-          lineHeight="7"
-        >
-          Add an extra layer of security by making sure that only requests from
-          whitelisted IP Addresses are able to backup your resources
-        </Text>
-      </Box>
+      <Text
+        fontSize="15px"
+        w={{ base: "85%", sm: "60%" }}
+        textAlign="center"
+        lineHeight="7"
+      >
+        Add an extra layer of security by making sure that only requests from
+        whitelisted IP Addresses are able to backup your resources
+      </Text>
     </VStack>
   );
 
