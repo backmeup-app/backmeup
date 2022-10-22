@@ -15,7 +15,7 @@ export const useGetBackups = () => {
   const errorHandler = useErrorHandler();
 
   return async () => {
-    if (loading) return;
+    // if (loading) return;
 
     const defaultService = me?.services?.find(
       (service) => service._id.toString() === me?.default_service?.toString()
@@ -25,6 +25,8 @@ export const useGetBackups = () => {
     );
 
     if (!resource) return history.push("/resources");
+
+    if (resource?.backups && !resource.hasMoreBackups) return;
 
     dispatch({ type: "SET_LOADING", payload: true });
     dispatch({ type: "SET_NETWORK_OPERATION", payload: "get.backups" });
@@ -39,11 +41,11 @@ export const useGetBackups = () => {
 
     try {
       const {
-        data: { backups },
+        data: { backups, hasMoreBackups },
       } = await client().get<TGetBackupsResponse>(url);
       dispatch({
         type: "GET_BACKUPS",
-        payload: { backups, resource_uuid: resource.uuid },
+        payload: { backups, hasMoreBackups, resource_uuid: resource.uuid },
       });
     } catch (error) {
       errorHandler(error as AxiosError<TError>);

@@ -9,5 +9,6 @@ export type TResource = {
   is_active: boolean;
   created_at: string;
   updated_at: string;
+  hasMoreBackups?: boolean;
   isSingle?: boolean;
 };

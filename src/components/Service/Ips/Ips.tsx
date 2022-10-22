@@ -38,9 +38,9 @@ export const Ips = () => {
   const ZeroIps = () => (
     <VStack spacing={0} mt={6} mb={12}>
       <Image
-        boxSize="220px"
+        boxSize="120px"
         objectFit="contain"
-        src="https://res.cloudinary.com/olamileke/image/upload/v1655041065/backmeup/pixeltrue-icons-seo-growth-1_air921.png"
+        src="https://res.cloudinary.com/olamileke/image/upload/v1666403864/backmeup/assets/states/clip-ray_hb9oxd.png"
       />
       <Box>
         <Text

@@ -40,9 +40,9 @@ export const ApiKeys = () => {
   const ZeroApiKeys = () => (
     <VStack spacing={8} my={10}>
       <Image
-        boxSize="100px"
+        boxSize="120px"
         objectFit="contain"
-        src="https://res.cloudinary.com/olamileke/image/upload/v1664229010/backmeup/assets/states/bonbon-yellow-key_dwqxpw.png"
+        src="https://res.cloudinary.com/olamileke/image/upload/v1666403233/backmeup/assets/states/burgundy-key-3_skecfr.png"
       />
       <Box>
         <Text

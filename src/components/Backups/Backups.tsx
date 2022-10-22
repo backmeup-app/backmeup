@@ -1,5 +1,12 @@
 import { useContext, Dispatch, useEffect, useMemo, useCallback } from "react";
-import { SimpleGrid, GridItem, Skeleton } from "@chakra-ui/react";
+import {
+  SimpleGrid,
+  GridItem,
+  HStack,
+  Text,
+  Skeleton,
+  chakra,
+} from "@chakra-ui/react";
 import { useHistory, useParams } from "react-router-dom";
 import { AppContext, TAppState } from "../../contexts";
 import {
@@ -8,7 +15,9 @@ import {
   useGetBackups,
   useGetResource,
 } from "../../store";
+import { IoIosArrowForward } from "react-icons/io";
 import { Backup } from "./Backup";
+import { Message } from "./Message";
 
 export const Backups = () => {
   const [{ me, onScroll }, dispatch] =
@@ -24,6 +33,7 @@ export const Backups = () => {
   const initialServiceId = useMemo(() => me?.default_service, []);
   const getResource = useGetResource();
   const getBackups = useGetBackups();
+  const ArrowRight = chakra(IoIosArrowForward);
 
   useEffect(() => {
     if (!onScroll) dispatch({ type: "SET_ON_SCROLL", payload: getBackups });
@@ -41,7 +51,7 @@ export const Backups = () => {
   }, [resource]);
 
   const displaySkeletons = () =>
-    new Array(6).fill("").map((value, index) => (
+    new Array(12).fill("").map((value, index) => (
       <GridItem key={index} colSpan={{ base: 12, md: 6 }}>
         <Skeleton startColor="#f6f8fa" endColor="#d0d7de" height="105px" />
         {value}
@@ -62,7 +72,29 @@ export const Backups = () => {
 
   return (
     <SimpleGrid columns={12} mx={{ base: 0, lg: 5 }} spacing={5}>
-      {!resource?.backups ? displaySkeletons() : displayBackups()}
+      <GridItem colSpan={12}>
+        {resource?.backups && resource?.backups.length > 0 && (
+          <HStack spacing={3} marginBottom={2}>
+            <Text
+              cursor="pointer"
+              onClick={() => {
+                history.push("/resources");
+              }}
+            >
+              Resources
+            </Text>
+            <ArrowRight />
+            <Text textTransform="uppercase">{resource?.name}</Text>
+          </HStack>
+        )}
+      </GridItem>
+      {!resource?.backups ? (
+        displaySkeletons()
+      ) : resource.backups.length === 0 ? (
+        <Message />
+      ) : (
+        displayBackups()
+      )}
     </SimpleGrid>
   );
 };

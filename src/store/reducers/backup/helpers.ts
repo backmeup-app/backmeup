@@ -7,7 +7,8 @@ export const getBackups = (
   payload: TBackupAction["payload"]
 ) => {
   const { me } = state;
-  const { backups, resource_uuid } = payload as TMultipleBackupAction;
+  const { backups, hasMoreBackups, resource_uuid } =
+    payload as TMultipleBackupAction;
 
   const services = me?.services as TService[];
   const index = services.findIndex(
@@ -21,6 +22,7 @@ export const getBackups = (
 
   const resource = (defaultService.resources ?? [])[resourceIndex];
   resource.backups = [...(resource?.backups ?? []), ...backups];
+  resource.hasMoreBackups = hasMoreBackups;
 
   defaultService.resources = defaultService.resources as TResource[];
   defaultService.resources[resourceIndex] = resource;

@@ -6,6 +6,7 @@ export type TOptionalBackupPayload = {
 
 export type TMultipleBackupAction = TOptionalBackupPayload & {
   backups: TBackup[];
+  hasMoreBackups: boolean;
 };
 
 export type TBackupAction = {
