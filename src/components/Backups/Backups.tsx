@@ -8,6 +8,7 @@ import {
   chakra,
 } from "@chakra-ui/react";
 import { useHistory, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import { AppContext, TAppState } from "../../contexts";
 import {
   TAppAction,
@@ -18,6 +19,7 @@ import {
 import { IoIosArrowForward } from "react-icons/io";
 import { Backup } from "./Backup";
 import { Message } from "./Message";
+import { capitalize } from "../../utilities";
 
 export const Backups = () => {
   const [{ me, onScroll }, dispatch] =
@@ -82,6 +84,9 @@ export const Backups = () => {
       mx={{ base: 0, lg: 5 }}
       spacing={5}
     >
+      <Helmet>
+        <title>Dome | {capitalize(resource?.name ?? "")} - Backups</title>
+      </Helmet>
       <GridItem colSpan={12}>
         {resource?.backups && resource?.backups.length > 0 && (
           <HStack spacing={3} marginBottom={{ base: 1, md: 2 }}>

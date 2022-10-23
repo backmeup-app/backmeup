@@ -9,7 +9,9 @@ export type TMultipleBackupAction = TOptionalBackupPayload & {
   hasMoreBackups: boolean;
 };
 
+export type TSingleBackupAction = TOptionalBackupPayload & TBackup;
+
 export type TBackupAction = {
-  type: "GET_BACKUPS";
-  payload: TMultipleBackupAction;
+  type: "GET_BACKUPS" | "DELETE_BACKUP";
+  payload: TSingleBackupAction | TMultipleBackupAction;
 };
