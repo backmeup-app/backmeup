@@ -1,21 +1,12 @@
 import { FC, useState, useContext, Dispatch } from "react";
-import {
-  Flex,
-  VStack,
-  HStack,
-  Text,
-  Box,
-  Button,
-  chakra,
-} from "@chakra-ui/react";
+import { Flex, VStack, HStack, Text, Box, chakra } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { TApiKeyComponent } from "./types";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { BiTrashAlt } from "react-icons/bi";
-import { BsExclamationDiamondFill } from "react-icons/bs";
-import { Modal } from "../../..";
 import { TAppAction, useDeleteApiKey } from "../../../../store";
 import { AppContext, TAppState } from "../../../../contexts";
+import { DeleteConfirmation } from "../../..";
 
 export const ApiKey: FC<TApiKeyComponent> = ({
   name,
@@ -23,14 +14,13 @@ export const ApiKey: FC<TApiKeyComponent> = ({
   value,
   last_used,
 }) => {
-  const [{ browserWidth, loading, networkOperation }] =
+  const [{ browserWidth }] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [visible, setVisible] = useState<boolean>(false);
   const VisibleIcon = chakra(AiOutlineEye);
   const InvisibleIcon = chakra(AiOutlineEyeInvisible);
   const TrashIcon = chakra(BiTrashAlt);
-  const DangerIcon = chakra(BsExclamationDiamondFill);
   const deleteApiKey = useDeleteApiKey();
   const isResponsive = browserWidth && browserWidth < 769;
 
@@ -39,33 +29,8 @@ export const ApiKey: FC<TApiKeyComponent> = ({
   };
 
   const handleDelete = async () => {
-    await deleteApiKey({ uuid });
+    await deleteApiKey({ uuid }, onClose);
   };
-
-  const DeleteConfirmation = () => (
-    <VStack align="flex-start" spacing={4}>
-      <Box lineHeight="7" fontSize="15px">
-        <Text mb={1}>
-          Backup API requests that make use of {name} for authentication will
-          fail to work.
-        </Text>
-        <Text>Are you sure you want to delete it?</Text>
-      </Box>
-      <HStack justify="flex-end" w="100%" spacing={4}>
-        <Button
-          size="sm"
-          variant="danger"
-          isLoading={loading && networkOperation === "delete.api.key"}
-          onClick={handleDelete}
-        >
-          Delete
-        </Button>
-        <Button size="sm" variant="outline" onClick={onClose}>
-          Cancel
-        </Button>
-      </HStack>
-    </VStack>
-  );
 
   return (
     <Flex
@@ -118,18 +83,21 @@ export const ApiKey: FC<TApiKeyComponent> = ({
           <TrashIcon fontSize="lg" cursor="pointer" onClick={onOpen} />
         )}
       </HStack>
-      <Modal
+      <DeleteConfirmation
         isOpen={isOpen}
         onClose={onClose}
-        title={
-          <Flex alignItems="center">
-            <DangerIcon color="red.500" fontSize="xl" mr={3} /> Delete API Key
-          </Flex>
-        }
-        isCentered={false}
+        title="Delete API Key"
+        networkOperation="delete.api.key"
+        handleDelete={handleDelete}
       >
-        <DeleteConfirmation />
-      </Modal>
+        <Box lineHeight="7" fontSize="15px">
+          <Text mb={1}>
+            Backup API requests that make use of {name} for authentication will
+            fail to work.
+          </Text>
+          <Text>Are you sure you want to delete it?</Text>
+        </Box>
+      </DeleteConfirmation>
     </Flex>
   );
 };

@@ -86,10 +86,10 @@ export const Admin = () => {
           <Nav />
           <Box py={10} px={{ base: 8, sm: 12, lg: 16 }}>
             <Switch>
-              {renderPages()}
-              <Route path="/">
+              <Route exact path="/">
                 <Redirect to="/resources" />
               </Route>
+              {renderPages()}
             </Switch>
           </Box>
         </Box>

@@ -10,7 +10,7 @@ export const useDeleteIpAddress = () => {
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const errorHandler = useErrorHandler();
 
-  return async (ip: TIpAddress) => {
+  return async (ip: TIpAddress, onClose?: () => void) => {
     const defaultService = ((me?.services as TService[]) ?? []).find(
       (service) => service._id === (me?.default_service as string)
     ) as TService;
@@ -29,6 +29,7 @@ export const useDeleteIpAddress = () => {
           text: `${ip.value} deleted successfully`,
         },
       });
+      onClose?.();
     } catch (error) {
       errorHandler(error as AxiosError<TError>);
     }

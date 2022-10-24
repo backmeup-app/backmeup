@@ -14,7 +14,7 @@ export const useDeleteApiKey = () => {
   ) as TService;
   const errorHandler = useErrorHandler();
 
-  return async (variables: TDeleteApiKeyVariables) => {
+  return async (variables: TDeleteApiKeyVariables, onClose?: () => void) => {
     dispatch({ type: "SET_LOADING", payload: true });
     dispatch({ type: "SET_NETWORK_OPERATION", payload: "delete.api.key" });
 
@@ -32,6 +32,7 @@ export const useDeleteApiKey = () => {
           text: `${apiKey.name} deleted successfully`,
         },
       });
+      onClose?.();
     } catch (error) {
       errorHandler(error as AxiosError<TError>);
     }

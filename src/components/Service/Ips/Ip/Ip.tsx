@@ -1,13 +1,5 @@
 import { FC, useContext, useMemo, Dispatch } from "react";
-import {
-  Flex,
-  Text,
-  VStack,
-  HStack,
-  Button,
-  Box,
-  chakra,
-} from "@chakra-ui/react";
+import { Flex, Text, VStack, Box, chakra } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import {
   TAppAction,
@@ -16,13 +8,12 @@ import {
   useDeleteIpAddress,
 } from "../../../../store";
 import { BiTrashAlt } from "react-icons/bi";
-import { BsExclamationDiamondFill } from "react-icons/bs";
-import { Modal } from "../../..";
 import { AppContext, TAppState } from "../../../../contexts";
 import { capitalize } from "../../../../utilities";
+import { DeleteConfirmation } from "../../..";
 
 export const Ip: FC<TIpAddress> = ({ uuid, value }) => {
-  const [{ me, browserWidth, loading, networkOperation }] =
+  const [{ me, browserWidth }] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const defaultService = useMemo(() => {
     return ((me?.services as TService[]) ?? []).find(
@@ -31,36 +22,12 @@ export const Ip: FC<TIpAddress> = ({ uuid, value }) => {
   }, [me?.default_service]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const TrashIcon = chakra(BiTrashAlt);
-  const DangerIcon = chakra(BsExclamationDiamondFill);
   const deleteIp = useDeleteIpAddress();
   const isResponsive = browserWidth && browserWidth < 769;
 
-  const DeleteConfirmation = () => (
-    <VStack align="flex-start" spacing={4}>
-      <Box lineHeight="7" fontSize="15px">
-        <Text mb={2}>
-          {value} will cease to be a whitelisted IP Address for{" "}
-          {capitalize(defaultService.name)}.
-        </Text>
-        <Text>Are you sure you wish to proceed?</Text>
-      </Box>
-      <HStack justify="flex-end" w="100%" spacing={4}>
-        <Button
-          size="sm"
-          variant="danger"
-          isLoading={loading && networkOperation === "delete.ip.address"}
-          onClick={() => {
-            deleteIp({ uuid, value });
-          }}
-        >
-          Delete
-        </Button>
-        <Button size="sm" variant="outline" onClick={onClose}>
-          Cancel
-        </Button>
-      </HStack>
-    </VStack>
-  );
+  const handleDelete = async () => {
+    await deleteIp({ uuid, value }, onClose);
+  };
 
   return (
     <Flex
@@ -85,18 +52,21 @@ export const Ip: FC<TIpAddress> = ({ uuid, value }) => {
           onClick={onOpen}
         />
       )}
-      <Modal
-        title={
-          <Flex alignItems="center">
-            <DangerIcon color="red.500" fontSize="xl" mr={3} /> Delete IP
-          </Flex>
-        }
+      <DeleteConfirmation
+        title="Delete IP"
         isOpen={isOpen}
         onClose={onClose}
-        isCentered={false}
+        handleDelete={handleDelete}
+        networkOperation="delete.ip.address"
       >
-        <DeleteConfirmation />
-      </Modal>
+        <Box lineHeight="7" fontSize="15px">
+          <Text mb={2}>
+            {value} will cease to be a whitelisted IP Address for{" "}
+            {capitalize(defaultService.name)}.
+          </Text>
+          <Text>Are you sure you wish to proceed?</Text>
+        </Box>
+      </DeleteConfirmation>
     </Flex>
   );
 };

@@ -1,6 +1,7 @@
 export type TDeleteConfirmation = {
-  name: string;
-  isOpen: boolean;
   handleDelete: () => void;
+  isOpen: boolean;
+  networkOperation?: string;
   onClose: () => void;
+  title: string | JSX.Element;
 };

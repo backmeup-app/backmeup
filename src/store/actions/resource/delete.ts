@@ -9,7 +9,7 @@ export const useDeleteResource = () => {
   const [{ me }, dispatch] = useContext(AppContext);
   const errorHandler = useErrorHandler();
 
-  return async (resource_uuid: string) => {
+  return async (resource_uuid: string, onClose?: () => void) => {
     const service = ((me?.services as TService[]) ?? []).find(
       (service) => service._id === (me?.default_service as string)
     );
@@ -30,6 +30,7 @@ export const useDeleteResource = () => {
         type: "DELETE_RESOURCE",
         payload: { ...resource, service_uuid: service?.uuid as string },
       });
+      onClose?.();
     } catch (error) {
       errorHandler(error as AxiosError<TError>);
     }

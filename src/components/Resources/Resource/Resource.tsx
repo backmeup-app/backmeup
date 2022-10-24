@@ -4,7 +4,7 @@ import { VStack, Flex, Text, Heading, Switch } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { useUpdateResource, useDeleteResource } from "../../../store";
 import { TResourceComponent } from "./types";
-import { DeleteConfirmation } from "./DeleteConfirmation";
+import { DeleteConfirmation } from "../../";
 import { ResourceUrl } from "./ResourceUrl";
 import { ResourceMenu } from "./ResourceMenu";
 
@@ -38,7 +38,7 @@ export const Resource: FC<TResourceComponent> = ({
   };
 
   const handleDelete = async () => {
-    await deleteResource(uuid);
+    await deleteResource(uuid, onCloseDelete);
   };
 
   return (
@@ -89,11 +89,14 @@ export const Resource: FC<TResourceComponent> = ({
         onClose={onCloseUrl}
       />
       <DeleteConfirmation
-        name={name}
         isOpen={isOpenDelete}
         handleDelete={handleDelete}
         onClose={onCloseDelete}
-      />
+        title="Delete Resource"
+        networkOperation="delete.resource"
+      >
+        <Text>Are you sure you want to delete {name} ?</Text>
+      </DeleteConfirmation>
     </VStack>
   );
 };
