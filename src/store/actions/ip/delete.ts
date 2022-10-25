@@ -1,13 +1,16 @@
+import { AxiosError } from "axios";
 import { useContext, Dispatch } from "react";
 import { TAppAction, TIpAddress, TService } from "../..";
 import { AppContext, TAppState } from "../../../contexts";
+import { TError, useErrorHandler } from "../../../utilities";
 import { client } from "../client";
 
 export const useDeleteIpAddress = () => {
   const [{ me }, dispatch] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const errorHandler = useErrorHandler();
 
-  return async (ip: TIpAddress) => {
+  return async (ip: TIpAddress, onClose?: () => void) => {
     const defaultService = ((me?.services as TService[]) ?? []).find(
       (service) => service._id === (me?.default_service as string)
     ) as TService;
@@ -26,7 +29,10 @@ export const useDeleteIpAddress = () => {
           text: `${ip.value} deleted successfully`,
         },
       });
-    } catch (error) {}
+      onClose?.();
+    } catch (error) {
+      errorHandler(error as AxiosError<TError>);
+    }
 
     dispatch({ type: "SET_LOADING", payload: false });
     dispatch({ type: "SET_NETWORK_OPERATION", payload: "" });

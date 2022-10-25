@@ -1,5 +1,4 @@
 import { TApiKey, TIpAddress, TNotification, TResource } from ".";
-import { TPagination } from "../../contexts";
 
 export type TService = {
   _id: string;
@@ -9,9 +8,9 @@ export type TService = {
   backup_duration: "1w" | "1m" | "3m";
   created_at: string;
   updated_at: string;
+  hasMoreResources?: boolean;
   api_keys: TApiKey[];
   ips: TIpAddress[];
   notifications: TNotification;
   resources?: TResource[];
-  resourcePagination?: TPagination;
 };

@@ -38,24 +38,22 @@ export const ApiKeys = () => {
   };
 
   const ZeroApiKeys = () => (
-    <VStack spacing={8} my={10}>
+    <VStack spacing={{ base: 6, sm: 8 }} my={{ base: 8, sm: 10 }}>
       <Image
-        boxSize="100px"
+        boxSize="120px"
         objectFit="contain"
-        src="https://res.cloudinary.com/olamileke/image/upload/v1664229010/backmeup/assets/states/bonbon-yellow-key_dwqxpw.png"
+        src="https://res.cloudinary.com/olamileke/image/upload/v1666403233/backmeup/assets/states/burgundy-key-3_skecfr.png"
       />
-      <Box>
-        <Text
-          fontSize="15px"
-          w={{ base: "100%", sm: "100%" }}
-          textAlign="center"
-          lineHeight="7"
-        >
-          No API Keys currently exist for {capitalize(defaultService.name)}. API
-          Keys are required to backup {capitalize(defaultService.name)}'s
-          resources.
-        </Text>
-      </Box>
+      <Text
+        fontSize="15px"
+        w={{ base: "85%", sm: "60%" }}
+        textAlign="center"
+        lineHeight="7"
+      >
+        No API Keys currently exist for {capitalize(defaultService.name)}. Use
+        API keys to secure and authorize your backup requests for{" "}
+        {capitalize(defaultService.name)}.
+      </Text>
     </VStack>
   );
 

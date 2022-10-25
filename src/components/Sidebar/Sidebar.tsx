@@ -16,9 +16,6 @@ export const Sidebar: FC<TSidebar> = ({ toggle }) => {
       pt="55%"
     >
       {displayTabs()}
-      <Text pos="absolute" fontFamily="oswald" left={5} bottom={10}>
-        DOME
-      </Text>
     </Box>
   );
 };

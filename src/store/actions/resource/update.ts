@@ -1,11 +1,13 @@
+import { AxiosError } from "axios";
 import { useContext } from "react";
 import { AppContext } from "../../../contexts";
-import { capitalize } from "../../../utilities";
+import { capitalize, TError, useErrorHandler } from "../../../utilities";
 import { client } from "../client";
 import { TEditResourceResponse, TEditResourceVariables } from "./types";
 
 export const useUpdateResource = () => {
   const [{ me, loading }, dispatch] = useContext(AppContext);
+  const errorHandler = useErrorHandler();
 
   return async (
     resource_uuid: string,
@@ -42,7 +44,9 @@ export const useUpdateResource = () => {
         },
       });
       onClose?.();
-    } catch (error) {}
+    } catch (error) {
+      errorHandler(error as AxiosError<TError>);
+    }
 
     dispatch({ type: "SET_LOADING", payload: false });
     dispatch({ type: "SET_NETWORK_OPERATION", payload: "" });

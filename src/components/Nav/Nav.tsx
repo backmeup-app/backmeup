@@ -1,15 +1,7 @@
-import { useContext, Dispatch } from "react";
-import { Flex, Text, HStack, Avatar, chakra } from "@chakra-ui/react";
-import { AiOutlineDown } from "react-icons/ai";
-import { AppContext, TAppState } from "../../contexts";
-import { TAppAction } from "../../store";
+import { Flex } from "@chakra-ui/react";
 import { User, ServiceSelector } from "./components";
 
 export const Nav = () => {
-  const [{ me, browserWidth }] =
-    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
-  const CaretDown = chakra(AiOutlineDown);
-
   return (
     <Flex
       bg="white"

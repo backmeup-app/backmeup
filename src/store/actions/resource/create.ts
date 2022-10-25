@@ -1,13 +1,15 @@
+import { AxiosError } from "axios";
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { AppContext } from "../../../contexts";
-import { capitalize } from "../../../utilities";
+import { capitalize, TError, useErrorHandler } from "../../../utilities";
 import { client } from "../client";
 import { TEditResourceResponse, TEditResourceVariables } from "./types";
 
 export const useCreateResource = () => {
   const [{ me }, dispatch] = useContext(AppContext);
   const history = useHistory();
+  const errorHandler = useErrorHandler();
 
   return async (variables: TEditResourceVariables, onClose?: () => void) => {
     const service_uuid = me?.services?.find(
@@ -42,7 +44,9 @@ export const useCreateResource = () => {
         payload: { ...resource, service_uuid },
       });
       onClose?.();
-    } catch (error) {}
+    } catch (error) {
+      errorHandler(error as AxiosError<TError>);
+    }
 
     dispatch({ type: "SET_LOADING", payload: false });
     dispatch({ type: "SET_NETWORK_OPERATION", payload: "" });

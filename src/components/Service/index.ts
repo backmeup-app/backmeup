@@ -5,6 +5,5 @@ export * from "./EditService";
 export * from "./General";
 export * from "./Message";
 export * from "./Notifications";
-export * from "./Overview";
 export * from "./Security";
 export * from "./Settings";

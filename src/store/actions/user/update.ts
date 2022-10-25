@@ -14,6 +14,7 @@ import {
 
 export const useUpdateUser = () => {
   const [, dispatch] = useContext(AppContext);
+  const errorHandler = useErrorHandler();
 
   return async (variables: TUpdateUserVariables) => {
     dispatch({ type: "SET_LOADING", payload: true });
@@ -43,7 +44,9 @@ export const useUpdateUser = () => {
             : "Updated successfully",
         },
       });
-    } catch (error) {}
+    } catch (error) {
+      errorHandler(error as AxiosError<TError>);
+    }
     dispatch({ type: "SET_LOADING", payload: false });
     dispatch({
       type: "SET_NETWORK_OPERATION",

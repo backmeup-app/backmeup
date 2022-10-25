@@ -7,8 +7,10 @@ import { AppContext } from "../../contexts";
 import { TService, useGetResources } from "../../store";
 
 export const Resources = () => {
-  const [{ me, loading: contextLoading, networkOperation }] =
-    useContext(AppContext);
+  const [
+    { me, loading: contextLoading, onScroll, networkOperation },
+    dispatch,
+  ] = useContext(AppContext);
   const [uuid, setUuid] = useState<string>();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const getResources = useGetResources();
@@ -23,9 +25,23 @@ export const Resources = () => {
     ) as TService;
   }, [me?.default_service, me?.services]);
 
+  const hasResources = !defaultService?.resources
+    ? false
+    : defaultService?.resources?.length > 1
+    ? true
+    : !Boolean(
+        defaultService?.resources?.length === 1 &&
+          defaultService?.resources[0].isSingle
+      );
+
   useEffect(() => {
-    if (defaultService && !defaultService?.resources)
-      getResources(defaultService?.uuid);
+    dispatch({ type: "SET_ON_SCROLL", payload: getResources });
+
+    if (!hasResources) getResources();
+
+    return () => {
+      dispatch({ type: "SET_ON_SCROLL", payload: undefined });
+    };
   }, [defaultService?.uuid]);
 
   const handleEdit = (uuid: string) => {
@@ -47,7 +63,7 @@ export const Resources = () => {
   }, [defaultService]);
 
   const displaySkeletons = () =>
-    new Array(6).fill("").map((value, index) => (
+    new Array(12).fill("").map((value, index) => (
       <GridItem key={index} colSpan={{ base: 12, md: 6 }}>
         <Skeleton startColor="#f6f8fa" endColor="#d0d7de" height="105px" />
         {value}
@@ -59,9 +75,8 @@ export const Resources = () => {
 
   return (
     <SimpleGrid columns={12} mx={{ base: 0, lg: 5 }} spacing={5}>
-      {displayResources()}
-      {!defaultService?.resources && displaySkeletons()}
-      {defaultService.resources && (
+      {hasResources ? displayResources() : displaySkeletons()}
+      {hasResources && (
         <Box
           pos="fixed"
           right={{ base: 5, sm: 7, md: 10 }}

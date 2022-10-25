@@ -1,6 +1,8 @@
+import { AxiosError } from "axios";
 import { useContext, Dispatch } from "react";
 import { TAppAction, TService } from "../..";
 import { AppContext, TAppState } from "../../../contexts";
+import { TError, useErrorHandler } from "../../../utilities";
 import { client } from "../client";
 import {
   TUpdateNotificationsResponse,
@@ -10,6 +12,7 @@ import {
 export const useUpdateNotifications = () => {
   const [{ me }, dispatch] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const errorHandler = useErrorHandler();
 
   return async (variables: TUpdateNotificationsVariables) => {
     const defaultService = ((me?.services as TService[]) ?? []).find(
@@ -32,7 +35,9 @@ export const useUpdateNotifications = () => {
         type: "SET_NOTIFICATION",
         payload: { status: "success", text: "Updated successfully" },
       });
-    } catch (error) {}
+    } catch (error) {
+      errorHandler(error as AxiosError<TError>);
+    }
 
     dispatch({ type: "SET_LOADING", payload: false });
     dispatch({ type: "SET_NETWORK_OPERATION", payload: "" });

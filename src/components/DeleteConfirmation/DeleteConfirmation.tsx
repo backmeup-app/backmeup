@@ -1,40 +1,42 @@
 import { FC, useContext, Dispatch } from "react";
-import { VStack, HStack, Flex, Text, Button, chakra } from "@chakra-ui/react";
-import { TDeleteConfirmation } from ".";
-import { AppContext, TAppState } from "../../../../contexts";
-import { TAppAction } from "../../../../store";
+import { chakra, Flex, VStack, HStack, Button } from "@chakra-ui/react";
 import { BsExclamationDiamondFill } from "react-icons/bs";
-import { Modal } from "../../..";
+import { TDeleteConfirmation } from "./types";
+import { Modal } from "..";
+import { AppContext, TAppState } from "../../contexts";
+import { TAppAction } from "../../store";
 
 export const DeleteConfirmation: FC<TDeleteConfirmation> = ({
-  name,
   isOpen,
-  handleDelete,
   onClose,
+  title,
+  children,
+  networkOperation,
+  handleDelete,
 }) => {
-  const [{ loading, networkOperation }] =
+  const [{ loading, networkOperation: networkOperationCtxt }] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const DangerIcon = chakra(BsExclamationDiamondFill);
 
   return (
     <Modal
-      title={
-        <Flex alignItems="center">
-          <DangerIcon color="red.500" fontSize="xl" mr={3} /> Delete Resource
-        </Flex>
-      }
       isOpen={isOpen}
       onClose={onClose}
+      title={
+        <Flex alignItems="center">
+          <DangerIcon color="red.500" fontSize="xl" mr={3} /> {title}
+        </Flex>
+      }
       isCentered={false}
     >
       <VStack align="flex-start" spacing={4}>
-        <Text>Are you sure you want to delete {name} ?</Text>
+        {children}
         <HStack justify="flex-end" w="100%" spacing={4}>
           <Button
             size="sm"
             variant="danger"
+            isLoading={loading && networkOperationCtxt === networkOperation}
             onClick={handleDelete}
-            isLoading={loading && networkOperation === "delete.resource"}
           >
             Delete
           </Button>

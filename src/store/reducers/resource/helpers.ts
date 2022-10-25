@@ -12,20 +12,56 @@ export const getResources = (
 ) => {
   const { me } = state;
   const services = me?.services ?? [];
-  const { pagination, resources } = payload as TMultipleResourcePayload;
+  const { hasMoreResources, resources } = payload as TMultipleResourcePayload;
   const idx = services.findIndex(
     (service) => service.uuid === (payload.service_uuid as string)
   );
 
   if (idx === -1) return state;
   const service = services[idx];
-  if (pagination.currentPage > 1)
-    service.resources = ((service.resources as TResource[]) ?? []).concat(
-      resources
-    );
-  else service.resources = resources;
+  service.resources = (parseResources(service?.resources) ?? []).concat(
+    resources
+  );
+  service.hasMoreResources = hasMoreResources;
+  services[idx] = service;
 
-  service.resourcePagination = pagination;
+  return {
+    ...state,
+    me: {
+      ...state.me,
+      services,
+    },
+  };
+};
+
+const parseResources = (resources?: TResource[]) => {
+  if (!resources) return [];
+
+  if (resources.length === 1 && resources[0]?.isSingle) return [];
+
+  return resources;
+};
+
+export const getResource = (
+  state: TAppState,
+  payload: TResourceAction["payload"]
+) => {
+  const { me } = state;
+  const services = me?.services ?? [];
+  const { service_uuid, ...resource } = payload as TSingleResourcePayload;
+  const idx = services.findIndex(
+    (service) => service.uuid === (service_uuid as string)
+  );
+
+  if (idx === -1) return state;
+
+  const service = services[idx];
+  service.resources = service.resources as TResource[];
+  service.resources = [
+    ...(service.resources ?? []),
+    { ...resource, isSingle: true },
+  ];
+
   services[idx] = service;
 
   return {

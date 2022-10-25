@@ -1,12 +1,14 @@
+import { AxiosError } from "axios";
 import { useContext } from "react";
 import { TEditServiceResponse } from ".";
-import { TUser } from "../..";
 import { AppContext } from "../../../contexts";
+import { TError, useErrorHandler } from "../../../utilities";
 import { client } from "../client";
 import { TCreateServiceVariables } from "./types";
 
 export const useCreateService = () => {
-  const [{ me }, dispatch] = useContext(AppContext);
+  const [, dispatch] = useContext(AppContext);
+  const errorHandler = useErrorHandler();
 
   return async (variables: TCreateServiceVariables, onClose?: () => void) => {
     dispatch({ type: "SET_LOADING", payload: true });
@@ -29,7 +31,9 @@ export const useCreateService = () => {
         payload: { default_service: service._id },
       });
       onClose?.();
-    } catch (error) {}
+    } catch (error) {
+      errorHandler(error as AxiosError<TError>);
+    }
 
     dispatch({ type: "SET_LOADING", payload: false });
   };

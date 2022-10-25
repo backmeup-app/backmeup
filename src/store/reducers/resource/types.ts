@@ -1,5 +1,4 @@
 import { TResource } from "../..";
-import { TPagination } from "../../../contexts";
 
 export type TOptionalResourceAction = {
   service_uuid?: string;
@@ -7,8 +6,8 @@ export type TOptionalResourceAction = {
 
 export type TSingleResourcePayload = TOptionalResourceAction & TResource;
 export type TMultipleResourcePayload = TOptionalResourceAction & {
-  pagination: TPagination;
   resources: TResource[];
+  hasMoreResources: boolean;
 };
 
 export type TResourceAction = {
@@ -17,6 +16,7 @@ export type TResourceAction = {
     | "UPDATE_RESOURCE"
     | "DELETE_RESOURCE"
     | "GET_RESOURCES"
+    | "GET_RESOURCE"
     | "DELETE_RESOURCE";
   payload: TSingleResourcePayload | TMultipleResourcePayload;
 };

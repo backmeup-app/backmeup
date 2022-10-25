@@ -1,12 +1,15 @@
+import { AxiosError } from "axios";
 import { useContext, Dispatch } from "react";
 import { TAppAction, TService } from "../..";
 import { AppContext, TAppState } from "../../../contexts";
+import { TError, useErrorHandler } from "../../../utilities";
 import { client } from "../client";
 import { TCreateIpAddressResponse, TCreateIpAddressVariables } from "./types";
 
 export const useCreateIpAddress = () => {
   const [{ me }, dispatch] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const errorHandler = useErrorHandler();
 
   return async (variables: TCreateIpAddressVariables, onClose?: () => void) => {
     const defaultService = ((me?.services as TService[]) ?? []).find(
@@ -30,7 +33,9 @@ export const useCreateIpAddress = () => {
         },
       });
       onClose?.();
-    } catch (error) {}
+    } catch (error) {
+      errorHandler(error as AxiosError<TError>);
+    }
 
     dispatch({ type: "SET_LOADING", payload: false });
     dispatch({ type: "SET_NETWORK_OPERATION", payload: "" });

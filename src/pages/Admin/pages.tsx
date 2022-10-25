@@ -1,16 +1,10 @@
 import { Route } from "react-router-dom";
-import {
-  Overview,
-  Resources,
-  Settings,
-  Profile,
-  Notifications,
-} from "../../components";
+import { Resources, Settings, Profile, Backups } from "../../components";
 
 const pages = [
   {
-    path: "/overview",
-    component: <Overview />,
+    path: "/resources/:resource_uuid/backups",
+    component: <Backups />,
   },
   {
     path: "/resources",
@@ -24,10 +18,6 @@ const pages = [
     path: "/account",
     component: <Profile />,
   },
-  {
-    path: "/notifications",
-    component: <Notifications />,
-  },
 ];
 
 export const useRenderPages = () => {
@@ -35,7 +25,7 @@ export const useRenderPages = () => {
     return (
       <>
         {pages.map(({ path, component }, index) => (
-          <Route key={index} path={path}>
+          <Route key={index} path={path} exact={true}>
             {component}
           </Route>
         ))}

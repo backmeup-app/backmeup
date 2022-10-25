@@ -5,6 +5,13 @@ export type TAppReducerAction = {
     | "SET_LOADING"
     | "SET_NOTIFICATION"
     | "SET_NETWORK_OPERATION"
-    | "SET_BROWSER_WIDTH";
-  payload: string | number | boolean | TAppNotification;
+    | "SET_BROWSER_WIDTH"
+    | "SET_ON_SCROLL";
+  payload:
+    | string
+    | number
+    | boolean
+    | TAppNotification
+    | (() => void)
+    | undefined;
 };
