@@ -1,5 +1,4 @@
 import { TIpAction } from ".";
-import { TService } from "../..";
 import { TAppState } from "../../../contexts";
 
 export const createIpAddress = (
@@ -15,7 +14,10 @@ export const createIpAddress = (
   if (idx === -1) return state;
 
   const defaultService = services[idx];
-  defaultService.ips = [payload, ...(defaultService.ips ?? [])];
+  defaultService.ip_whitelist.ips = [
+    ...(defaultService.ip_whitelist.ips ?? []),
+    payload,
+  ];
 
   services[idx] = defaultService;
 
@@ -42,7 +44,7 @@ export const deleteIpAddress = (
 
   const defaultService = services[idx];
 
-  defaultService.ips = defaultService.ips.filter(
+  defaultService.ip_whitelist.ips = defaultService.ip_whitelist.ips.filter(
     (ip) => ip.uuid !== payload.uuid
   );
 

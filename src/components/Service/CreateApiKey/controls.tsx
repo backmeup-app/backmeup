@@ -24,7 +24,7 @@ export const useFormConfig = () => {
     },
     onSubmit: async (values: { name: string }) => {
       if (
-        (defaultService.api_keys ?? [])
+        (defaultService.auth.api_keys ?? [])
           .map(({ name }) => name.toLowerCase())
           .includes(values.name.toLowerCase())
       ) {
