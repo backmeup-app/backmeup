@@ -2,11 +2,13 @@ import { useContext, Dispatch } from "react";
 import {
   Box,
   VStack,
+  HStack,
   Image,
   Flex,
   Text,
   chakra,
   Switch,
+  Spinner,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { AppContext, TAppState } from "../../../contexts";
@@ -17,7 +19,8 @@ import { CreateApiKey } from "..";
 import { ApiKey } from "./ApiKey";
 
 export const ApiKeys = () => {
-  const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const [{ me, networkOperation }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const defaultService = ((me?.services as TService[]) ?? []).find(
     (service) => service._id === (me?.default_service as string)
   ) as TService;
@@ -74,13 +77,19 @@ export const ApiKeys = () => {
   return (
     <Box bgColor="white" w="100%" boxShadow="sm">
       <Flex {...headerStyleProps}>
-        <Box d="flex" alignItems="center">
+        <HStack d="flex" alignItems="center" spacing={2}>
           <Switch
             isChecked={defaultService.auth.is_enabled}
             onChange={handleAuthChange}
           />
-          <Text ml={2}>Authentication</Text>
-        </Box>
+          <Text>Authentication</Text>
+          <Spinner
+            size="sm"
+            visibility={
+              networkOperation === "update.service.auth" ? "visible" : "hidden"
+            }
+          />
+        </HStack>
         <Flex align="center" cursor="pointer" onClick={onOpen}>
           <Text fontSize="sm">Add API Key</Text>
           <PlusIcon ml={2} />

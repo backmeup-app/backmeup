@@ -5,6 +5,8 @@ import {
   Text,
   Image,
   chakra,
+  HStack,
+  Spinner,
   VStack,
   Switch,
 } from "@chakra-ui/react";
@@ -16,7 +18,8 @@ import { EditIp } from "..";
 import { Ip } from "./Ip";
 
 export const Ips = () => {
-  const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const [{ me, networkOperation }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const defaultService = ((me?.services as TService[]) ?? []).find(
     (service) => service._id === (me?.default_service as string)
   ) as TService;
@@ -72,14 +75,19 @@ export const Ips = () => {
   return (
     <Box bgColor="white" w="100%" boxShadow="sm">
       <Flex {...headerStyleProps}>
-        <Box d="flex">
+        <HStack d="flex">
           <Switch
             isChecked={defaultService.ip_whitelist.is_enabled}
             onChange={handleIpWhitelistChange}
-            mr={2}
           />
           <Text>IP Whitelisting</Text>
-        </Box>
+          <Spinner
+            size="sm"
+            visibility={
+              networkOperation === "update.service.ip" ? "visible" : "hidden"
+            }
+          />
+        </HStack>
         <Flex align="center" cursor="not-allowed" onClick={onOpen}>
           <Text fontSize="sm">Add IP Address</Text>
           <PlusIcon ml={2} />

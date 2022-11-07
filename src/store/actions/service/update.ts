@@ -16,7 +16,10 @@ export const useUpdateService = () => {
 
   return async (variables: TUpdateServiceVariables) => {
     dispatch({ type: "SET_LOADING", payload: true });
-    dispatch({ type: "SET_NETWORK_OPERATION", payload: "update.service" });
+    dispatch({
+      type: "SET_NETWORK_OPERATION",
+      payload: getNetworkOperation(variables),
+    });
 
     try {
       const url = `/services/${defaultService.uuid}`;
@@ -38,4 +41,12 @@ export const useUpdateService = () => {
     dispatch({ type: "SET_LOADING", payload: false });
     dispatch({ type: "SET_NETWORK_OPERATION", payload: "" });
   };
+};
+
+const getNetworkOperation = (variables: TUpdateServiceVariables) => {
+  if (variables?.auth_enabled !== undefined) return "update.service.auth";
+
+  if (variables?.ip_whitelist_enabled !== undefined) return "update.service.ip";
+
+  return "update.service";
 };
