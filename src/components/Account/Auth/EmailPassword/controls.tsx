@@ -2,12 +2,27 @@ import { useState } from "react";
 import { FormLabel, FormErrorMessage, IconButton } from "@chakra-ui/react";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { TFormControl } from "../../..";
-import { handleInputBlur, handleInputChange } from "../../../../utilities";
+import {
+  handleInputBlur,
+  handleInputChange,
+  updateAuthEmailSchema,
+} from "../../../../utilities";
+import { TLoginVariables, useChangeAuthEmail } from "../../../../store";
 
 export const useEmailPasswordConfig = () => {
-  return () => ({
+  const changeAuthEmail = useChangeAuthEmail();
+
+  return (onClose?: () => void) => ({
     initialValues: { email: "", password: "", password_confirmation: "" },
-    onSubmit: async () => {},
+    validationSchema: updateAuthEmailSchema,
+    onSubmit: async (
+      variables: TLoginVariables & { password_confirmation: string }
+    ) => {
+      const params = (({ email, password }) => ({ email, password }))(
+        variables
+      );
+      await changeAuthEmail({ ...params }, onClose);
+    },
   });
 };
 

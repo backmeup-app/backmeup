@@ -102,7 +102,11 @@ export const Auth = () => {
           isEmailPassword ? "Use Google Sign-in" : "Email and Password Sign-in"
         }
       >
-        {isEmailPassword ? <Google /> : <EmailPassword />}
+        {isEmailPassword ? (
+          <Google />
+        ) : (
+          <EmailPassword isOpen={isOpen} onClose={onClose} />
+        )}
       </Modal>
     </VStack>
   );

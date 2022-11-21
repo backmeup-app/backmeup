@@ -34,3 +34,15 @@ export const changeEmailSchema = Yup.object().shape({
     .email("Must be a valid email address")
     .required("Email is required"),
 });
+
+export const updateAuthEmailSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Must be a valid email address")
+    .required("Email is required"),
+  password: Yup.string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters in length"),
+  password_confirmation: Yup.string()
+    .required("Passwords must match")
+    .oneOf([Yup.ref("password"), null], "Passwords must match"),
+});

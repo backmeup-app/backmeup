@@ -18,15 +18,3 @@ export type TLoginVariables = Pick<TSignupVariables, "email" | "password">;
 export type TLoginResponse = TSignupResponse;
 
 export type TVerifyGoogleAuth = TSignupResponse;
-
-export type TResetEmailVariables = {
-  password: string;
-};
-
-export type TChangeEmailVariables = {
-  token: string;
-};
-
-export type TChangeEmailInitialVariables = TChangeEmailVariables & {
-  email: string;
-};

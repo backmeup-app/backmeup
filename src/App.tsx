@@ -9,7 +9,7 @@ import {
   RouteProps,
 } from "react-router-dom";
 import { Auth, Notification } from "./components";
-import { Admin, ResetEmail, UserVerify } from "./pages";
+import { Admin, UserVerify } from "./pages";
 import { isAuthenticated } from "./utilities";
 import { AppProvider } from "./contexts";
 
@@ -38,9 +38,6 @@ export const App = () => (
     <ChakraProvider theme={theme}>
       <Router>
         <Switch>
-          <Route path="/email/:action/:token">
-            <ResetEmail />
-          </Route>
           <Route path="/verify/:token">
             <UserVerify />
           </Route>
