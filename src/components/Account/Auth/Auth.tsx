@@ -1,4 +1,4 @@
-import { useContext, Dispatch } from "react";
+import { useContext, useState, useRef, Dispatch } from "react";
 import {
   VStack,
   HStack,
@@ -7,9 +7,9 @@ import {
   Text,
   chakra,
   useDisclosure,
+  useOutsideClick,
 } from "@chakra-ui/react";
 import { AiOutlineDown } from "react-icons/ai";
-import { SiGmail } from "react-icons/si";
 import { FcGoogle } from "react-icons/fc";
 import { AppContext, TAppState } from "../../../contexts";
 import { TAppAction } from "../../../store";
@@ -19,21 +19,28 @@ import { Google } from "./Google";
 
 export const Auth = () => {
   const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const [showOptions, setShowOptions] = useState(false);
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const optionsRef = useRef<HTMLDivElement | null>(null);
   const ArrowDown = chakra(AiOutlineDown);
-  const EmailIcon = chakra(SiGmail);
   const GoogleIcon = chakra(FcGoogle);
   const isEmailPassword = me?.auth_type === "PASSWORD";
+
+  useOutsideClick({
+    ref: optionsRef,
+    handler: () => setShowOptions(false),
+  });
 
   const AuthOptions = () => (
     <Box
       bg="white"
-      shadow="md"
+      shadow="sm"
       pos="absolute"
       top="calc(100% + 8px)"
       minWidth="250px"
       right="0"
       py={2}
+      onClick={onOpen}
     >
       {isEmailPassword ? (
         <Flex align="center" px={5} py={2} cursor="pointer">
@@ -56,17 +63,21 @@ export const Auth = () => {
       d="flex"
       alignItems="center"
       pos="relative"
+      ref={optionsRef}
+      onClick={() => {
+        setShowOptions(!showOptions);
+      }}
     >
       <Text mr={2} fontSize="15px">
         Change
       </Text>
       <ArrowDown fontSize="sm" pos="relative" top="1px" />
-      <AuthOptions />
+      {showOptions && <AuthOptions />}
     </Box>
   );
 
   return (
-    <VStack w="100%">
+    <VStack w="100%" ref={optionsRef}>
       <HStack
         bg="white"
         w="100%"
@@ -78,20 +89,27 @@ export const Auth = () => {
       >
         <Text fontWeight="bold">Sign-in method</Text>
         <Box
-          w="70%"
+          w="60%"
           d="flex"
           alignItems="center"
           justifyContent="space-between"
           cursor="pointer"
-          onClick={onOpen}
         >
-          {isEmailPassword ? (
-            <Text d="flex" alignItems="center">
-              <EmailIcon mr={2} /> Email and Password
-            </Text>
-          ) : (
-            <Text>Google</Text>
-          )}
+          <Box
+            pos="relative"
+            borderBottom="3px solid"
+            borderBottomColor="charlestonGreen"
+          >
+            <Text>{isEmailPassword ? "Email/Password" : "Google"}</Text>
+            <Box
+              as="span"
+              pos="absolute"
+              bottom="-6px"
+              width="100%"
+              h="3px"
+              bg="navajoWhite"
+            />
+          </Box>
           <AuthSelector />
         </Box>
       </HStack>
