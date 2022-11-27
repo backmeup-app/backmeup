@@ -1,28 +1,34 @@
-import { useContext, Dispatch, useMemo } from "react";
+import { useContext, Dispatch } from "react";
 import {
   Box,
   Flex,
   Text,
   Image,
   chakra,
+  HStack,
+  Spinner,
   VStack,
   Switch,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { AiOutlinePlus } from "react-icons/ai";
 import { AppContext, TAppState } from "../../../contexts";
-import { TAppAction, TService } from "../../../store";
+import { TAppAction, TService, useUpdateService } from "../../../store";
 import { EditIp } from "..";
 import { Ip } from "./Ip";
 
 export const Ips = () => {
-  const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
-  const defaultService = useMemo(() => {
-    return ((me?.services as TService[]) ?? []).find(
-      (service) => service._id === (me?.default_service as string)
-    ) as TService;
-  }, [me?.default_service]);
-  const isIps = defaultService.ips && defaultService.ips.length > 0;
+  const [{ me, networkOperation }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const defaultService = ((me?.services as TService[]) ?? []).find(
+    (service) => service._id === (me?.default_service as string)
+  ) as TService;
+  const updateService = useUpdateService();
+
+  const {
+    ip_whitelist: { ips },
+  } = defaultService;
+  const isIps = ips && ips.length > 0;
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const PlusIcon = chakra(AiOutlinePlus);
@@ -33,6 +39,13 @@ export const Ips = () => {
     justify: "space-between",
     borderBottom: "1px solid",
     borderBottomColor: "rgba(0,0,0,0.06)",
+  };
+
+  const handleIpWhitelistChange = async () => {
+    await updateService({
+      name: defaultService.name,
+      ip_whitelist_enabled: !defaultService.ip_whitelist.is_enabled,
+    });
   };
 
   const ZeroIps = () => (
@@ -55,15 +68,26 @@ export const Ips = () => {
   );
 
   const displayIps = () =>
-    (defaultService.ips ?? []).map((ip, index) => <Ip key={index} {...ip} />);
+    (defaultService.ip_whitelist.ips ?? []).map((ip, index) => (
+      <Ip key={index} {...ip} />
+    ));
 
   return (
     <Box bgColor="white" w="100%" boxShadow="sm">
       <Flex {...headerStyleProps}>
-        <Box d="flex">
-          <Switch isChecked={true} mr={2} />
+        <HStack d="flex">
+          <Switch
+            isChecked={defaultService.ip_whitelist.is_enabled}
+            onChange={handleIpWhitelistChange}
+          />
           <Text>IP Whitelisting</Text>
-        </Box>
+          <Spinner
+            size="sm"
+            visibility={
+              networkOperation === "update.service.ip" ? "visible" : "hidden"
+            }
+          />
+        </HStack>
         <Flex align="center" cursor="not-allowed" onClick={onOpen}>
           <Text fontSize="sm">Add IP Address</Text>
           <PlusIcon ml={2} />

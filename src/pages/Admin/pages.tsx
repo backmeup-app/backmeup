@@ -1,5 +1,5 @@
 import { Route } from "react-router-dom";
-import { Resources, Settings, Profile, Backups } from "../../components";
+import { Resources, Settings, Account, Backups } from "../../components";
 
 const pages = [
   {
@@ -16,7 +16,7 @@ const pages = [
   },
   {
     path: "/account",
-    component: <Profile />,
+    component: <Account />,
   },
 ];
 

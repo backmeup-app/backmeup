@@ -1,30 +1,26 @@
 import { useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 import { Flex, Image, Box } from "@chakra-ui/react";
 import { Login } from "./Login";
 import { Signup } from "./Signup";
 import { Footer, Loader } from "../";
 import { useVerifyGoogleAuth } from "../../store";
 import { ResetPassword } from "./ResetPassword";
+import { ChangeAuth } from "./ChangeAuth";
+import { GuestGuardedRoute } from "../../App";
 
 export const Auth = () => {
   const verifyGoogleAuth = useVerifyGoogleAuth();
   const code = new URLSearchParams(window.location.search).get("code");
+  const location = useLocation();
 
   useEffect(() => {
-    if (code) verifyGoogleAuth(code);
+    if (code) verifyGoogleAuth();
   }, []);
 
-  const redirectGoogleAuth = () => {
-    const apiUrl = String(
-      process.env.REACT_APP_BACKMEUP_API ??
-        window.__env__.REACT_APP_BACKMEUP_API
-    );
-    const googleAuthUrl = apiUrl + "/accounts/google";
-    window.location.href = googleAuthUrl;
-  };
-
   if (code) return <Loader />;
+
+  if (location.pathname.includes("/auth/change")) return <ChangeAuth />;
 
   return (
     <Box overflowX="hidden" minH="100vh">
@@ -50,12 +46,12 @@ export const Auth = () => {
           <Route path="/password/reset/:token">
             <ResetPassword />
           </Route>
-          <Route path="/session/new">
-            <Login handleGoogleSignin={redirectGoogleAuth} />
-          </Route>
-          <Route path="/accounts/new">
-            <Signup handleGoogleSignin={redirectGoogleAuth} />
-          </Route>
+          <GuestGuardedRoute path="/session/new">
+            <Login />
+          </GuestGuardedRoute>
+          <GuestGuardedRoute path="/accounts/new">
+            <Signup />
+          </GuestGuardedRoute>
         </Switch>
       </Flex>
       <Footer />

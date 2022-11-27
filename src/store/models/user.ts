@@ -5,6 +5,7 @@ export type TUser = {
   uuid: string;
   first_name: string;
   last_name: string;
+  auth_type: string;
   email: string;
   email_verification_token: string | undefined;
   avatar: string;

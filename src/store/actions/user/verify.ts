@@ -16,7 +16,6 @@ export const useVerifyUser = () => {
 
   return async () => {
     try {
-      console.log("skssksssbb");
       const {
         data: { user },
       } = await client().post<TUpdateUserResponse>(`/me/verify/${token}`);

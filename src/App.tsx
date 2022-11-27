@@ -9,11 +9,11 @@ import {
   RouteProps,
 } from "react-router-dom";
 import { Auth, Notification } from "./components";
-import { Admin, ResetEmail, UserVerify } from "./pages";
+import { Admin, UserVerify } from "./pages";
 import { isAuthenticated } from "./utilities";
 import { AppProvider } from "./contexts";
 
-const AuthGuardedRoute: FC<RouteProps> = ({ path, exact, children }) => {
+export const AuthGuardedRoute: FC<RouteProps> = ({ path, exact, children }) => {
   return isAuthenticated() ? (
     <Route path={path} exact={exact}>
       {children}
@@ -23,7 +23,11 @@ const AuthGuardedRoute: FC<RouteProps> = ({ path, exact, children }) => {
   );
 };
 
-const GuestGuardedRoute: FC<RouteProps> = ({ path, exact, children }) => {
+export const GuestGuardedRoute: FC<RouteProps> = ({
+  path,
+  exact,
+  children,
+}) => {
   return !isAuthenticated() ? (
     <Route path={path} exact={exact}>
       {children}
@@ -38,18 +42,18 @@ export const App = () => (
     <ChakraProvider theme={theme}>
       <Router>
         <Switch>
-          <Route path="/email/:action/:token">
-            <ResetEmail />
-          </Route>
           <Route path="/verify/:token">
             <UserVerify />
+          </Route>
+          <Route path="/auth/change/:token">
+            <Auth />
           </Route>
           <GuestGuardedRoute path="/password/reset/:token">
             <Auth />
           </GuestGuardedRoute>
-          <GuestGuardedRoute path="/session">
+          <Route path="/session">
             <Auth />
-          </GuestGuardedRoute>
+          </Route>
           <GuestGuardedRoute path="/accounts/new">
             <Auth />
           </GuestGuardedRoute>

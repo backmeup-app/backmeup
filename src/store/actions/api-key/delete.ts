@@ -19,7 +19,7 @@ export const useDeleteApiKey = () => {
     dispatch({ type: "SET_NETWORK_OPERATION", payload: "delete.api.key" });
 
     try {
-      const apiKey = (defaultService.api_keys ?? []).find(
+      const apiKey = (defaultService.auth.api_keys ?? []).find(
         (key) => key.uuid === variables.uuid
       ) as TApiKey;
       const url = `/services/${defaultService.uuid}/api-keys/${variables.uuid}`;

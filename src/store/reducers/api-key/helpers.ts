@@ -1,5 +1,4 @@
 import { TApiKeyAction } from ".";
-import { TService } from "../..";
 import { TAppState } from "../../../contexts";
 
 export const createApiKey = (
@@ -15,7 +14,10 @@ export const createApiKey = (
   if (idx === -1) return state;
 
   const defaultService = services[idx];
-  defaultService.api_keys = [payload, ...(defaultService.api_keys ?? [])];
+  defaultService.auth.api_keys = [
+    ...(defaultService.auth.api_keys ?? []),
+    payload,
+  ];
   services[idx] = defaultService;
 
   return {
@@ -40,7 +42,7 @@ export const deleteApiKey = (
   if (idx === -1) return state;
 
   const defaultService = services[idx];
-  defaultService.api_keys = (defaultService.api_keys ?? []).filter(
+  defaultService.auth.api_keys = (defaultService.auth.api_keys ?? []).filter(
     (key) => key.uuid !== payload.uuid
   );
   services[idx] = defaultService;

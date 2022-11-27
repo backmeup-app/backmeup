@@ -1,5 +1,15 @@
 import { TApiKey, TIpAddress, TNotification, TResource } from ".";
 
+export type TServiceAuth = {
+  is_enabled: boolean;
+  api_keys: TApiKey[];
+};
+
+export type TServiceIpWhitelist = {
+  is_enabled: boolean;
+  ips: TIpAddress[];
+};
+
 export type TService = {
   _id: string;
   uuid: string;
@@ -9,8 +19,8 @@ export type TService = {
   created_at: string;
   updated_at: string;
   hasMoreResources?: boolean;
-  api_keys: TApiKey[];
-  ips: TIpAddress[];
+  auth: TServiceAuth;
+  ip_whitelist: TServiceIpWhitelist;
   notifications: TNotification;
   resources?: TResource[];
 };

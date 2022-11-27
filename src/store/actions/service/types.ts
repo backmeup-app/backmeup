@@ -7,7 +7,10 @@ export type TCreateServiceVariables = {
   backup_duration?: string;
 };
 
-export type TUpdateServiceVariables = Partial<TCreateServiceVariables>;
+export type TUpdateServiceVariables = Partial<TCreateServiceVariables> & {
+  auth_enabled?: boolean;
+  ip_whitelist_enabled?: boolean;
+};
 
 export type TEditServiceResponse = TCommonApiResponse & {
   service: TService;

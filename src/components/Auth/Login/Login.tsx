@@ -1,15 +1,14 @@
-import { FC, useEffect, useContext, Dispatch } from "react";
+import { useEffect, useContext, Dispatch } from "react";
 import { Box, Text, Link as ChakraLink } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { useFormConfig, useLoginControls } from "./controls";
 import { Form } from "../..";
-import { TLogin } from ".";
 import { AppContext, TAppState } from "../../../contexts";
 import { TAppAction } from "../../../store";
-import { resetFormTouched } from "../../../utilities";
+import { resetFormTouched, redirectGoogleAuth } from "../../../utilities";
 
-export const Login: FC<TLogin> = ({ handleGoogleSignin }) => {
+export const Login = () => {
   const [{ networkOperation }] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const getFormConfig = useFormConfig();
@@ -53,7 +52,9 @@ export const Login: FC<TLogin> = ({ handleGoogleSignin }) => {
           fontSize="15.5px"
           textAlign="center"
           cursor="pointer"
-          onClick={handleGoogleSignin}
+          onClick={() => {
+            redirectGoogleAuth();
+          }}
         >
           Login with Google
         </Text>

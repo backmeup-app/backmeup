@@ -15,18 +15,15 @@ export type TSignupResponse = TCommonApiResponse & {
 
 export type TLoginVariables = Pick<TSignupVariables, "email" | "password">;
 
+export type TInitiateChangeAuthVariables = {
+  email?: string;
+  password: string;
+};
+
 export type TLoginResponse = TSignupResponse;
 
 export type TVerifyGoogleAuth = TSignupResponse;
 
-export type TResetEmailVariables = {
-  password: string;
-};
-
-export type TChangeEmailVariables = {
+export type TInitiateChangeAuthResponse = TCommonApiResponse & {
   token: string;
-};
-
-export type TChangeEmailInitialVariables = TChangeEmailVariables & {
-  email: string;
 };

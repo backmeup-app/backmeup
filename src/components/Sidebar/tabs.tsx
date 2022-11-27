@@ -1,9 +1,15 @@
 import { useLocation, Link } from "react-router-dom";
-import { chakra, Link as ChakraLink, Flex, VStack } from "@chakra-ui/react";
+import {
+  chakra,
+  Link as ChakraLink,
+  Flex,
+  Text,
+  VStack,
+  Badge,
+} from "@chakra-ui/react";
 import { BsFolder } from "react-icons/bs";
+import { FiTool, FiUser } from "react-icons/fi";
 import { GoSettings } from "react-icons/go";
-import { ImInfinite } from "react-icons/im";
-import { VscAccount } from "react-icons/vsc";
 
 const tabs = [
   {
@@ -18,12 +24,13 @@ const tabs = [
   },
   {
     name: "Integrations",
-    Icon: chakra(ImInfinite),
+    Icon: chakra(FiTool),
     isActive: (pathname: string) => pathname === "/integrations",
+    hasBadge: true,
   },
   {
     name: "Account",
-    Icon: chakra(VscAccount),
+    Icon: chakra(FiUser),
     isActive: (pathname: string) => pathname === "/account",
   },
 ];
@@ -33,26 +40,42 @@ export const useDisplayTabs = () => {
 
   return () => (
     <VStack spacing={12} align="flex-start" pl={5}>
-      {tabs.map(({ name, Icon, isActive: isActiveFunc }, index) => {
+      {tabs.map(({ name, Icon, isActive: isActiveFunc, hasBadge }, index) => {
         const isActive = isActiveFunc(location.pathname);
         return (
           <Flex
             key={index}
+            pos="relative"
             align="center"
             color={isActive ? "navajowhite" : "#FBFBFB"}
             fontSize="15.5px"
             transition="all 0.3s ease-in"
           >
             <Icon fontSize="16.5px" mr={3} />
-            <ChakraLink
-              as={Link}
-              to={`/${name.toLowerCase()}`}
-              _hover={{
-                underline: "none",
-              }}
-            >
-              {name}
-            </ChakraLink>
+            {hasBadge ? (
+              <Text>{name}</Text>
+            ) : (
+              <ChakraLink
+                as={Link}
+                to={`/${name.toLowerCase()}`}
+                _hover={{
+                  underline: "none",
+                }}
+              >
+                {name}
+              </ChakraLink>
+            )}
+            {hasBadge && (
+              <Badge
+                pos="relative"
+                top="2px"
+                ml={2}
+                fontSize="0.6em"
+                colorScheme="yellow"
+              >
+                SOON
+              </Badge>
+            )}
           </Flex>
         );
       })}

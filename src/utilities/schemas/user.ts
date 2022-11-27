@@ -14,7 +14,10 @@ export const resetUserPasswordSchema = Yup.object().shape({
     .min(8, "Password must be at least 8 characters in length"),
 });
 
-export const updateUserPasswordSchema = Yup.object().shape({
+export const updateAuthEmailSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Must be a valid email address")
+    .required("Email is required"),
   password: Yup.string()
     .required("Password is required")
     .min(8, "Password must be at least 8 characters in length"),
@@ -23,14 +26,8 @@ export const updateUserPasswordSchema = Yup.object().shape({
     .oneOf([Yup.ref("password"), null], "Passwords must match"),
 });
 
-export const resetEmailSchema = Yup.object().shape({
-  user_password: Yup.string()
+export const updateAuthGoogleSchema = Yup.object().shape({
+  password: Yup.string()
     .required("Password is required")
     .min(8, "Password must be at least 8 characters in length"),
-});
-
-export const changeEmailSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Must be a valid email address")
-    .required("Email is required"),
 });
