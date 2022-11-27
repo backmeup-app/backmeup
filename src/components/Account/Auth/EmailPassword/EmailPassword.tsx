@@ -20,7 +20,7 @@ export const EmailPassword: FC<TEmailPassword> = ({ isOpen, onClose }) => {
       controls={controls}
       onSubmit={formik.handleSubmit}
       submitBtnText="Update"
-      networkOperation="update.user.auth.email"
+      networkOperation="initiate.change.auth.email"
     />
   );
 };

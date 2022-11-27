@@ -7,10 +7,10 @@ import {
   handleInputChange,
   updateAuthEmailSchema,
 } from "../../../../utilities";
-import { TLoginVariables, useChangeAuthEmail } from "../../../../store";
+import { TLoginVariables, useInitiateChangeAuth } from "../../../../store";
 
 export const useEmailPasswordConfig = () => {
-  const changeAuthEmail = useChangeAuthEmail();
+  const initiateChangeAuth = useInitiateChangeAuth();
 
   return (onClose?: () => void) => ({
     initialValues: { email: "", password: "", password_confirmation: "" },
@@ -21,7 +21,7 @@ export const useEmailPasswordConfig = () => {
       const params = (({ email, password }) => ({ email, password }))(
         variables
       );
-      await changeAuthEmail({ ...params }, onClose);
+      await initiateChangeAuth({ ...params }, onClose);
     },
   });
 };

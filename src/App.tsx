@@ -41,6 +41,9 @@ export const App = () => (
           <Route path="/verify/:token">
             <UserVerify />
           </Route>
+          <Route path="/auth/change/:token">
+            <Auth />
+          </Route>
           <GuestGuardedRoute path="/password/reset/:token">
             <Auth />
           </GuestGuardedRoute>

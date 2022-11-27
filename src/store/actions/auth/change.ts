@@ -1,34 +1,39 @@
 import { AxiosError } from "axios";
 import { useContext, Dispatch } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import { TInitiateChangeAuthVariables } from ".";
 import { TAppAction } from "../..";
 import { AppContext, TAppState } from "../../../contexts";
-import { TError, useErrorHandler } from "../../../utilities";
+import { useErrorHandler, TError } from "../../../utilities";
 import { client } from "../client";
 
-export const useSendVerificationEmail = () => {
-  const [{ loading }, dispatch] =
+export const useInitiateChangeAuth = () => {
+  const [, dispatch] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const errorHandler = useErrorHandler();
 
-  return async () => {
-    if (loading) return;
-
+  return async (
+    variables: TInitiateChangeAuthVariables,
+    onClose?: () => void
+  ) => {
     dispatch({ type: "SET_LOADING", payload: true });
     dispatch({
       type: "SET_NETWORK_OPERATION",
-      payload: "resend.verification.email",
+      payload: variables?.email
+        ? "initiate.change.auth.email"
+        : "initiate.change.auth.google",
     });
 
     try {
-      await client().post("/me/verification-email/send");
+      await client().post("/me/auth/initiate-change", variables);
       dispatch({
         type: "SET_NOTIFICATION",
         payload: {
           status: "success",
-          text: "Verification email sent successfully",
+          text: `A confirmation email has been sent to ${variables.email}`,
         },
       });
+      onClose?.();
     } catch (error) {
       errorHandler(error as AxiosError<TError>);
     }
@@ -38,24 +43,24 @@ export const useSendVerificationEmail = () => {
   };
 };
 
-export const useVerifyEmail = () => {
-  const [{ me }, dispatch] =
+export const useChangeAuthEmail = () => {
+  const [, dispatch] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const errorHandler = useErrorHandler();
   const { token } = useParams<{ token: string }>();
   const history = useHistory();
-  const errorHandler = useErrorHandler();
 
   return async () => {
     try {
-      await client().post(`/me/verify/${token}`);
+      await client().put(`/me/auth/change/${token}`);
+      history.push("/account");
       dispatch({
         type: "SET_NOTIFICATION",
         payload: {
           status: "success",
-          text: `${me?.email ?? "Email Address"} verified successfully`,
+          text: "Sign-in method changed to Email/Password",
         },
       });
-      history.push("/");
     } catch (error) {
       errorHandler(error as AxiosError<TError>);
     }
