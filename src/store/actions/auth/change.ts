@@ -1,10 +1,14 @@
 import { AxiosError } from "axios";
 import { useContext, Dispatch } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { TInitiateChangeAuthVariables } from ".";
+import { TInitiateChangeAuthVariables, TInitiateChangeAuthResponse } from ".";
 import { TAppAction } from "../..";
 import { AppContext, TAppState } from "../../../contexts";
-import { useErrorHandler, TError } from "../../../utilities";
+import {
+  useErrorHandler,
+  TError,
+  redirectGoogleAuth,
+} from "../../../utilities";
 import { client } from "../client";
 
 export const useInitiateChangeAuth = () => {
@@ -25,15 +29,25 @@ export const useInitiateChangeAuth = () => {
     });
 
     try {
-      await client().post("/me/auth/initiate-change", variables);
-      dispatch({
-        type: "SET_NOTIFICATION",
-        payload: {
-          status: "success",
-          text: `A confirmation email has been sent to ${variables.email}`,
-        },
-      });
+      const {
+        data: { token },
+      } = await client().post<TInitiateChangeAuthResponse>(
+        "/me/auth/initiate-change",
+        variables
+      );
       onClose?.();
+
+      if (variables?.email)
+        return dispatch({
+          type: "SET_NOTIFICATION",
+          payload: {
+            status: "success",
+            text: `A confirmation email has been sent to ${variables.email}`,
+          },
+        });
+
+      const state = `auth_change.${token}`;
+      redirectGoogleAuth(state);
     } catch (error) {
       errorHandler(error as AxiosError<TError>);
     }

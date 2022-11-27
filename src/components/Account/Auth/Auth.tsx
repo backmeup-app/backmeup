@@ -103,7 +103,7 @@ export const Auth = () => {
         }
       >
         {isEmailPassword ? (
-          <Google />
+          <Google isOpen={isOpen} onClose={onClose} />
         ) : (
           <EmailPassword isOpen={isOpen} onClose={onClose} />
         )}

@@ -17,15 +17,6 @@ export const Auth = () => {
     if (code) verifyGoogleAuth(code);
   }, []);
 
-  const redirectGoogleAuth = () => {
-    const apiUrl = String(
-      process.env.REACT_APP_BACKMEUP_API ??
-        window.__env__.REACT_APP_BACKMEUP_API
-    );
-    const googleAuthUrl = apiUrl + "/accounts/google";
-    window.location.href = googleAuthUrl;
-  };
-
   if (code) return <Loader />;
 
   if (location.pathname.includes("/auth/change")) return <ChangeAuth />;
@@ -55,10 +46,10 @@ export const Auth = () => {
             <ResetPassword />
           </Route>
           <Route path="/session/new">
-            <Login handleGoogleSignin={redirectGoogleAuth} />
+            <Login />
           </Route>
           <Route path="/accounts/new">
-            <Signup handleGoogleSignin={redirectGoogleAuth} />
+            <Signup />
           </Route>
         </Switch>
       </Flex>

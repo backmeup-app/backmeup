@@ -31,6 +31,9 @@ export const useHandleUserError = () => {
       case "user-005":
         response.payload.text = "There was a problem resetting your password";
         break;
+      case "user-008":
+        response.payload.text = "Password is incorrect!";
+        break;
       default:
         response.payload.text = "We couldn't complete that request!";
     }
