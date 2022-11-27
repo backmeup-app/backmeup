@@ -1,7 +1,6 @@
 import { useContext, useState, useRef, Dispatch } from "react";
 import {
-  VStack,
-  HStack,
+  Stack,
   Box,
   Flex,
   Text,
@@ -38,7 +37,8 @@ export const Auth = () => {
       pos="absolute"
       top="calc(100% + 8px)"
       minWidth="250px"
-      right="0"
+      right={{ sm: 0 }}
+      left={{ base: 0, sm: "unset" }}
       py={2}
       onClick={onOpen}
     >
@@ -77,28 +77,32 @@ export const Auth = () => {
   );
 
   return (
-    <VStack w="100%" ref={optionsRef}>
-      <HStack
+    <Box w="100%" ref={optionsRef}>
+      <Stack
         bg="white"
         w="100%"
         p={{ base: 6, sm: 8, md: 10 }}
         boxShadow="sm"
-        alignItems="center"
+        alignItems={{ base: "flex-start", sm: "center" }}
         justify="space-between"
-        mb={20}
+        direction={{ base: "column", sm: "row" }}
       >
-        <Text fontWeight="bold">Sign-in method</Text>
+        <Text fontWeight="bold" mb={{ base: 3, sm: 0 }}>
+          Sign-in method
+        </Text>
         <Box
           w="60%"
           d="flex"
-          alignItems="center"
+          alignItems={{ base: "flex-start", sm: "center" }}
           justifyContent="space-between"
           cursor="pointer"
+          flexDirection={{ base: "column", sm: "row" }}
         >
           <Box
             pos="relative"
             borderBottom="3px solid"
             borderBottomColor="charlestonGreen"
+            mb={{ base: 7, sm: 0 }}
           >
             <Text>{isEmailPassword ? "Email/Password" : "Google"}</Text>
             <Box
@@ -112,7 +116,7 @@ export const Auth = () => {
           </Box>
           <AuthSelector />
         </Box>
-      </HStack>
+      </Stack>
       <Modal
         isOpen={isOpen}
         onClose={onClose}
@@ -126,6 +130,6 @@ export const Auth = () => {
           <EmailPassword isOpen={isOpen} onClose={onClose} />
         )}
       </Modal>
-    </VStack>
+    </Box>
   );
 };
