@@ -13,7 +13,7 @@ import { Admin, UserVerify } from "./pages";
 import { isAuthenticated } from "./utilities";
 import { AppProvider } from "./contexts";
 
-const AuthGuardedRoute: FC<RouteProps> = ({ path, exact, children }) => {
+export const AuthGuardedRoute: FC<RouteProps> = ({ path, exact, children }) => {
   return isAuthenticated() ? (
     <Route path={path} exact={exact}>
       {children}
@@ -23,7 +23,11 @@ const AuthGuardedRoute: FC<RouteProps> = ({ path, exact, children }) => {
   );
 };
 
-const GuestGuardedRoute: FC<RouteProps> = ({ path, exact, children }) => {
+export const GuestGuardedRoute: FC<RouteProps> = ({
+  path,
+  exact,
+  children,
+}) => {
   return !isAuthenticated() ? (
     <Route path={path} exact={exact}>
       {children}
@@ -47,9 +51,9 @@ export const App = () => (
           <GuestGuardedRoute path="/password/reset/:token">
             <Auth />
           </GuestGuardedRoute>
-          <GuestGuardedRoute path="/session">
+          <Route path="/session">
             <Auth />
-          </GuestGuardedRoute>
+          </Route>
           <GuestGuardedRoute path="/accounts/new">
             <Auth />
           </GuestGuardedRoute>

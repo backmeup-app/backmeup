@@ -7,6 +7,7 @@ import { Footer, Loader } from "../";
 import { useVerifyGoogleAuth } from "../../store";
 import { ResetPassword } from "./ResetPassword";
 import { ChangeAuth } from "./ChangeAuth";
+import { GuestGuardedRoute } from "../../App";
 
 export const Auth = () => {
   const verifyGoogleAuth = useVerifyGoogleAuth();
@@ -14,7 +15,7 @@ export const Auth = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (code) verifyGoogleAuth(code);
+    if (code) verifyGoogleAuth();
   }, []);
 
   if (code) return <Loader />;
@@ -45,12 +46,12 @@ export const Auth = () => {
           <Route path="/password/reset/:token">
             <ResetPassword />
           </Route>
-          <Route path="/session/new">
+          <GuestGuardedRoute path="/session/new">
             <Login />
-          </Route>
-          <Route path="/accounts/new">
+          </GuestGuardedRoute>
+          <GuestGuardedRoute path="/accounts/new">
             <Signup />
-          </Route>
+          </GuestGuardedRoute>
         </Switch>
       </Flex>
       <Footer />

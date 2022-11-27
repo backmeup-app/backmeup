@@ -72,7 +72,7 @@ export const useChangeAuthEmail = () => {
         type: "SET_NOTIFICATION",
         payload: {
           status: "success",
-          text: "Sign-in method changed to Email/Password",
+          text: "Sign-in method successfully changed to Email/Password",
         },
       });
     } catch (error) {

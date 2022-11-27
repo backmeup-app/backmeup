@@ -6,7 +6,7 @@ export const ChangeAuth = () => {
   const changeAuthEmail = useChangeAuthEmail();
 
   useEffect(() => {
-    // changeAuthEmail();
+    changeAuthEmail();
   }, []);
 
   return <Loader />;
