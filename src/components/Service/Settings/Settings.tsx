@@ -1,5 +1,5 @@
 import { useState, useContext, useCallback, Dispatch } from "react";
-import { SimpleGrid, GridItem, Stack, Box, Text } from "@chakra-ui/react";
+import { SimpleGrid, GridItem, Stack, Text } from "@chakra-ui/react";
 import { General, Security, ServiceNotifications } from "..";
 import { AppContext, TAppState } from "../../../contexts";
 import { TAppAction } from "../../../store";
