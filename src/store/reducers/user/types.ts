@@ -7,5 +7,5 @@ type TSetUser = Pick<
 
 export type TUserAction = {
   type: "SET_USER" | "UPDATE_USER";
-  payload: TSetUser | Partial<TSetUser>;
+  payload: TSetUser | Partial<TSetUser> | undefined;
 };

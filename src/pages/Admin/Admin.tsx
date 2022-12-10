@@ -10,20 +10,11 @@ import { capitalize } from "../../utilities";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 export const Admin = () => {
-  const [
-    { me, browserWidth, loading: contextLoading, networkOperation, onScroll },
-  ] = useContext(AppContext);
+  const [{ me, browserWidth, loading: contextLoading, onScroll }] =
+    useContext(AppContext);
   const getUser = useGetUser();
   const renderPages = useRenderPages();
   const location = useLocation();
-  const operations = [
-    "update.resource.status",
-    "update.default.service",
-    "update.notifications",
-    "resend.verification.email",
-  ];
-  const isLoading =
-    contextLoading && operations.includes(networkOperation ?? "");
   const [showSidebar, setShowSidebar] = useState(false);
   const HamburgerIcon = chakra(GiHamburgerMenu);
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -70,7 +61,7 @@ export const Admin = () => {
           onClick={(e) => e.stopPropagation()}
           zIndex={999}
         >
-          <Sidebar toggle={toggleSidebar} />
+          <Sidebar />
         </Box>
         <Box
           ref={scrollRef}

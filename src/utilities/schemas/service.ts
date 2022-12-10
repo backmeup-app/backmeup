@@ -1,7 +1,4 @@
-import { useContext, Dispatch, useMemo } from "react";
 import * as Yup from "yup";
-import { AppContext, TAppState } from "../../contexts";
-import { TAppAction, TService } from "../../store";
 
 const ipRegex =
   /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;

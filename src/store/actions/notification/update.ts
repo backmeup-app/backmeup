@@ -23,7 +23,7 @@ export const useUpdateNotifications = () => {
     dispatch({ type: "SET_LOADING", payload: true });
     dispatch({
       type: "SET_NETWORK_OPERATION",
-      payload: "update.notifications",
+      payload: `update.notifications.${variables.key}`,
     });
 
     try {

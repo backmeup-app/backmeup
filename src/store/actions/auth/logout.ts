@@ -12,6 +12,7 @@ export const useLogout = () => {
 
   return () => {
     cookies.remove("token", { path: "/" });
+    dispatch({ type: "SET_USER", payload: undefined });
     history.push("/session/new");
     dispatch({
       type: "SET_NOTIFICATION",

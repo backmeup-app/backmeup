@@ -1,10 +1,11 @@
 import { useContext, Dispatch } from "react";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, Spinner } from "@chakra-ui/react";
 import { AppContext, TAppState } from "../../contexts";
 import { TAppAction, useSendVerificationEmail } from "../../store";
 
 export const VerifyEmail = () => {
-  const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const [{ me, networkOperation }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const sendVerificationEmail = useSendVerificationEmail();
 
   return (
@@ -22,6 +23,15 @@ export const VerifyEmail = () => {
         <Text onClick={sendVerificationEmail} as="u" cursor="pointer" ml={1}>
           resend
         </Text>
+        <Spinner
+          size="xs"
+          ml={2}
+          visibility={
+            networkOperation === "resend.verification.email"
+              ? "visible"
+              : "hidden"
+          }
+        />
       </Text>
     </Box>
   );

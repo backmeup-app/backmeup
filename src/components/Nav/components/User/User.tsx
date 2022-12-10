@@ -11,7 +11,6 @@ import {
   useOutsideClick,
 } from "@chakra-ui/react";
 import { AiOutlineDown } from "react-icons/ai";
-import { HiOutlineMail } from "react-icons/hi";
 import { AppContext, TAppState } from "../../../../contexts";
 import { TAppAction, useLogout } from "../../../../store";
 
@@ -21,7 +20,6 @@ export const User = () => {
   const logout = useLogout();
   const [showOptions, setShowOptions] = useState(false);
   const optionsRef = useRef<HTMLDivElement | null>(null);
-  const EmailIcon = chakra(HiOutlineMail);
   const CaretDown = chakra(AiOutlineDown);
 
   useOutsideClick({
