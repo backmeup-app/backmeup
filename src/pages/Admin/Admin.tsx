@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useLocation, Switch, Route, Redirect } from "react-router-dom";
-import { Box, Flex, Spinner, chakra } from "@chakra-ui/react";
+import { Box, Flex, chakra } from "@chakra-ui/react";
 import { Helmet } from "react-helmet";
 import { AppContext } from "../../contexts";
 import { useGetUser } from "../../store";
@@ -18,7 +18,6 @@ export const Admin = () => {
   const location = useLocation();
   const operations = [
     "update.resource.status",
-    "delete.resource",
     "update.default.service",
     "update.notifications",
     "resend.verification.email",
@@ -110,9 +109,6 @@ export const Admin = () => {
       >
         <HamburgerIcon color="white" fontSize="lg" />
       </Box>
-      {isLoading && (
-        <Spinner size="lg" pos="fixed" right={"52px"} bottom={10} />
-      )}
       <Box
         pos="fixed"
         display={{ lg: "none" }}

@@ -1,4 +1,5 @@
 import { useContext, Dispatch, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Box,
   VStack,
@@ -6,6 +7,7 @@ import {
   HStack,
   Avatar,
   chakra,
+  Link as ChakraLink,
   useOutsideClick,
 } from "@chakra-ui/react";
 import { AiOutlineDown } from "react-icons/ai";
@@ -38,27 +40,28 @@ export const User = () => {
       top="160%"
       bg="white"
       boxShadow="sm"
+      fontSize="13.9px"
       opacity={showOptions ? 1 : 0}
       zIndex={showOptions ? 5 : -9999}
       transition="all 5s ease-in"
     >
       <VStack
-        spacing={1}
+        spacing={4}
         align="flex-start"
         borderBottom="1px solid"
         borderBottomColor="rgba(0,0,0,0.06)"
         px={4}
-        py={3}
+        py={4}
       >
-        <Text fontSize="14px" fontWeight={500}>
-          {me?.first_name + " " + me?.last_name}
-        </Text>
-        <Box d="flex" alignItems="center">
-          <EmailIcon mr="6px" color="rgba(0,0,0,0.7)" />{" "}
-          <Text fontSize="12.5px">{me?.email}</Text>
+        <Box>
+          <Text mb={1}>{me?.first_name + " " + me?.last_name}</Text>
+          <Text>{me?.email}</Text>
         </Box>
+        <ChakraLink as={Link} to="/account" _hover={{ textDecoration: "none" }}>
+          Manage Account
+        </ChakraLink>
       </VStack>
-      <Box px={4} py={3} fontSize="14px" fontWeight={500} onClick={logout}>
+      <Box px={4} py={3} onClick={logout}>
         Logout
       </Box>
     </Box>

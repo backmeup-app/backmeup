@@ -25,7 +25,7 @@ export const useRenderPages = () => {
     return (
       <>
         {pages.map(({ path, component }, index) => (
-          <Route key={index} path={path} exact={true}>
+          <Route key={index} path={path} exact={!(path === "/settings")}>
             {component}
           </Route>
         ))}

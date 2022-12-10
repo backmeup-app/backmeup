@@ -1,26 +1,31 @@
-import { useState, useContext, useCallback, Dispatch } from "react";
-import { SimpleGrid, GridItem, Stack, Text } from "@chakra-ui/react";
+import { useCallback } from "react";
+import { Switch, Route, Link, useLocation } from "react-router-dom";
+import {
+  SimpleGrid,
+  GridItem,
+  Stack,
+  Link as ChakraLink,
+} from "@chakra-ui/react";
 import { General, Security, ServiceNotifications } from "..";
-import { AppContext, TAppState } from "../../../contexts";
-import { TAppAction } from "../../../store";
 
 export const Settings = () => {
-  const [{ browserWidth }] =
-    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
-  const [activeTab, setActiveTab] = useState(0);
-  const tabs = [<General />, <Security />, <ServiceNotifications />];
+  const location = useLocation();
 
   const displayTabs = useCallback(
     () =>
       ["General", "Security", "Notifications"].map((tab, index) => {
-        const isActive = activeTab === index;
+        const url = `/settings/${tab.toLowerCase()}`;
+        const isActive =
+          location.pathname === "/settings"
+            ? tab.toLowerCase() === "general"
+            : location.pathname === url;
+
         return (
-          <Text
+          <ChakraLink
             key={index}
+            as={Link}
+            to={url}
             cursor="pointer"
-            onClick={() => {
-              setActiveTab(index);
-            }}
             color="charlestonGreen"
             opacity={isActive ? 1 : 0.8}
             fontWeight={isActive ? 500 : "normal"}
@@ -29,15 +34,14 @@ export const Settings = () => {
             py={2}
             width="fit-content"
             transition="all 0.3s ease-in"
+            _hover={{ textDecoration: "none" }}
           >
             {tab}
-          </Text>
+          </ChakraLink>
         );
       }),
-    [activeTab]
+    [location.pathname]
   );
-
-  const displayContent = useCallback(() => tabs[activeTab], [activeTab]);
 
   return (
     <SimpleGrid columns={12}>
@@ -55,7 +59,17 @@ export const Settings = () => {
         </Stack>
       </GridItem>
       <GridItem colSpan={{ base: 12, md: 10 }} pl={{ base: 0, lg: 10 }}>
-        {displayContent()}
+        <Switch>
+          <Route path="/settings/security" exact>
+            <Security />
+          </Route>
+          <Route path="/settings/notifications" exact>
+            <ServiceNotifications />
+          </Route>
+          <Route path="/settings">
+            <General />
+          </Route>
+        </Switch>
       </GridItem>
     </SimpleGrid>
   );
