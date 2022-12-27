@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Switch, Route, useLocation } from "react-router-dom";
-import { Flex, Image, Box } from "@chakra-ui/react";
+import { Flex, Image, Box, Text } from "@chakra-ui/react";
 import { Login } from "./Login";
 import { Signup } from "./Signup";
 import { Footer, Loader } from "../";
@@ -34,14 +34,17 @@ export const Auth = () => {
         pos="relative"
         left={{ md: "-2vw" }}
       >
-        <Image
-          src="https://res.cloudinary.com/olamileke/image/upload/v1663418501/backmeup/assets/logos/logo_transparent_ligpzi.png"
+        {/* <Image
+          src="https://res.cloudinary.com/olamileke/image/upload/v1672062805/dome/assets/logos/logo_transparent_et4gvg.png"
           width={{ base: "14rem", sm: "17rem" }}
           height={{ base: "80px", sm: "100px" }}
           objectFit="cover"
           pos="relative"
           top={{ md: "-3vh" }}
-        />
+        /> */}
+        <Box w="17rem" pos="relative" top={{ md: "-3vh" }} mb={{ base: 6, sm: 8, md: 0 }}>
+          <Text fontFamily="oswald" fontSize="2xl" textAlign={{ base: "center", md: "left" }}>DOME</Text>
+        </Box>
         <Switch>
           <Route path="/password/reset/:token">
             <ResetPassword />

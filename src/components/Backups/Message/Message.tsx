@@ -41,7 +41,7 @@ export const Message = () => {
       <VStack spacing={6} w="100%" pos="relative" top="-10.5%">
         <Image
           boxSize={28}
-          src="https://res.cloudinary.com/olamileke/image/upload/v1666402968/backmeup/assets/states/bouncy-folder-icon_pepkvh.png"
+          src="https://res.cloudinary.com/olamileke/image/upload/v1672057959/dome/assets/gello/bouncy-folder-icon_bwik8j.png"
           objectFit="contain"
           position="relative"
           top="5px"

@@ -32,7 +32,7 @@ export const ResourceMessage = () => {
       >
         <Image
           boxSize={32}
-          src="https://res.cloudinary.com/olamileke/image/upload/v1664228275/backmeup/assets/states/sammy-1_vbrguh.png"
+          src="https://res.cloudinary.com/olamileke/image/upload/v1672058337/dome/assets/gello/sammy-1_coxm0q.png"
           objectFit="contain"
           pos="relative"
           top="30px"

@@ -54,7 +54,7 @@ export const ApiKeys = () => {
       <Image
         boxSize="120px"
         objectFit="contain"
-        src="https://res.cloudinary.com/olamileke/image/upload/v1666403233/backmeup/assets/states/burgundy-key-3_skecfr.png"
+        src="https://res.cloudinary.com/olamileke/image/upload/v1672057835/dome/assets/gello/burgundy-key-3_vehxck.png"
       />
       <Text
         fontSize="15px"

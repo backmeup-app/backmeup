@@ -53,7 +53,7 @@ export const Ips = () => {
       <Image
         boxSize={{ base: "105px", sm: "120px" }}
         objectFit="contain"
-        src="https://res.cloudinary.com/olamileke/image/upload/v1666403864/backmeup/assets/states/clip-ray_hb9oxd.png"
+        src="https://res.cloudinary.com/olamileke/image/upload/v1672057772/dome/assets/gello/clip-ray_zte0qb.png"
       />
       <Text
         fontSize="15px"
