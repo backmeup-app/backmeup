@@ -7,6 +7,7 @@ import {
   Box,
   Text,
   chakra,
+  Spinner,
   useDisclosure,
   useOutsideClick,
 } from "@chakra-ui/react";
@@ -17,7 +18,8 @@ import { AppContext, TAppState } from "../../../../contexts";
 import { EditService } from "../../..";
 
 export const ServiceSelector = () => {
-  const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const [{ me, networkOperation }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const servicesRef = useRef<HTMLDivElement | null>(null);
   const [showServices, setShowServices] = useState(false);
@@ -79,6 +81,15 @@ export const ServiceSelector = () => {
               visibility={isDefaultService ? "visible" : "hidden"}
             />
             <Text>{service?.name}</Text>
+            <Spinner
+              size="xs"
+              ml={2}
+              visibility={
+                networkOperation === `update.default.service.${service?.uuid}`
+                  ? "visible"
+                  : "hidden"
+              }
+            />
           </Flex>
         );
       })}

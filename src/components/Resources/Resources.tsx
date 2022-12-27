@@ -7,17 +7,11 @@ import { AppContext } from "../../contexts";
 import { TService, useGetResources } from "../../store";
 
 export const Resources = () => {
-  const [
-    { me, loading: contextLoading, onScroll, networkOperation },
-    dispatch,
-  ] = useContext(AppContext);
+  const [{ me }, dispatch] = useContext(AppContext);
   const [uuid, setUuid] = useState<string>();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const getResources = useGetResources();
   const PlusIcon = chakra(AiOutlinePlus);
-  const operations = ["update.resource.status", "update.default.service"];
-  const isLoading =
-    contextLoading && operations.includes(networkOperation ?? "");
 
   const defaultService: TService = useMemo(() => {
     return (me?.services ?? []).find(
@@ -80,7 +74,7 @@ export const Resources = () => {
         <Box
           pos="fixed"
           right={{ base: 5, sm: 7, md: 10 }}
-          bottom={isLoading ? 20 : 10}
+          bottom={10}
           w="60px"
           h="60px"
           d="flex"
@@ -90,7 +84,6 @@ export const Resources = () => {
           bg="charlestonGreen"
           cursor="pointer"
           onClick={onOpen}
-          transition="bottom 0.2s ease-in"
         >
           <PlusIcon color="white" fontSize={{ base: "2xl", lg: "xl" }} />
         </Box>

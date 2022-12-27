@@ -1,9 +1,7 @@
-import { FC, useContext, useCallback } from "react";
-import { Box, Text } from "@chakra-ui/react";
-import { TSidebar } from "./types";
+import { Box } from "@chakra-ui/react";
 import { useDisplayTabs } from "./tabs";
 
-export const Sidebar: FC<TSidebar> = ({ toggle }) => {
+export const Sidebar = () => {
   const displayTabs = useDisplayTabs();
 
   return (

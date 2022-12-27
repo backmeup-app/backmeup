@@ -1,12 +1,25 @@
-import { FC } from "react";
+import { FC, useContext, Dispatch } from "react";
 import { useHistory } from "react-router-dom";
-import { VStack, Flex, Text, Heading, Switch } from "@chakra-ui/react";
+import {
+  VStack,
+  Flex,
+  Text,
+  Heading,
+  Switch,
+  HStack,
+  Spinner,
+} from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { useUpdateResource, useDeleteResource } from "../../../store";
+import {
+  useUpdateResource,
+  useDeleteResource,
+  TAppAction,
+} from "../../../store";
 import { TResourceComponent } from "./types";
 import { DeleteConfirmation } from "../../";
 import { ResourceUrl } from "./ResourceUrl";
 import { ResourceMenu } from "./ResourceMenu";
+import { AppContext, TAppState } from "../../../contexts";
 
 export const Resource: FC<TResourceComponent> = ({
   name,
@@ -15,6 +28,8 @@ export const Resource: FC<TResourceComponent> = ({
   is_active,
   edit,
 }) => {
+  const [{ networkOperation }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const {
     isOpen: isOpenDelete,
     onOpen: onOpenDelete,
@@ -76,11 +91,16 @@ export const Resource: FC<TResourceComponent> = ({
               : description
             : "----"}
         </Text>
-        <Switch
-          colorScheme="green"
-          onChange={handleStatusChange}
-          isChecked={is_active}
-        />
+        <HStack align="center">
+          {networkOperation === `update.resource.${uuid}` && (
+            <Spinner size="sm" mt="2px" />
+          )}
+          <Switch
+            colorScheme="green"
+            onChange={handleStatusChange}
+            isChecked={is_active}
+          />
+        </HStack>
       </Flex>
       <ResourceUrl
         name={name}

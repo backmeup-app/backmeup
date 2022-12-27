@@ -1,24 +1,35 @@
 import { useEffect, useContext, useMemo, Dispatch } from "react";
-import { Box, Flex, VStack, Text, Button } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  VStack,
+  Text,
+  Button,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { Form } from "../..";
 import { useFormConfig, useGeneralControls } from "./controls";
 import { AppContext, TAppState } from "../../../contexts";
 import { TAppAction, TService } from "../../../store";
 import { capitalize } from "../../../utilities";
+import { DeleteService } from "../DeleteService";
 
 export const General = () => {
   const [{ me, networkOperation }] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+
   const defaultService = useMemo(() => {
     return ((me?.services as TService[]) ?? []).find(
       (service) => service._id === (me?.default_service as string)
     ) as TService;
   }, [me?.default_service]);
+
   const getFormConfig = useFormConfig();
   const getControls = useGeneralControls();
   const formik = useFormik(getFormConfig());
   const controls = getControls(formik);
+  const { onOpen, onClose, isOpen } = useDisclosure();
 
   useEffect(() => {
     if (!defaultService) return;
@@ -67,10 +78,11 @@ export const General = () => {
             backups. Please be certain.
           </Text>
         </Box>
-        <Button variant="danger" w={["100%", "fit-content"]}>
+        <Button variant="danger" w={["100%", "fit-content"]} onClick={onOpen}>
           Delete
         </Button>
       </Flex>
+      <DeleteService isOpen={isOpen} onClose={onClose} />
     </VStack>
   );
 };

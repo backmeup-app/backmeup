@@ -17,3 +17,10 @@ export const createIpSchema = Yup.object().shape({
     .required("IP Address is required")
     .matches(ipRegex, "IP Address is not valid"),
 });
+
+export const deleteServiceSchema = Yup.object().shape({
+  default_service: Yup.string().required(""),
+  name: Yup.string()
+    .lowercase()
+    .oneOf([Yup.ref("default_service"), null], "Incorrect service name"),
+});

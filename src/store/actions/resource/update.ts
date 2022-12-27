@@ -24,7 +24,7 @@ export const useUpdateResource = () => {
       type: "SET_NETWORK_OPERATION",
       payload:
         Object.keys(variables).length === 1
-          ? "update.resource.status"
+          ? `update.resource.${resource_uuid}`
           : "update.resource",
     });
 

@@ -1,5 +1,5 @@
 import { TAppState } from "../../../contexts";
-import { updateService } from "./helpers";
+import { deleteService, updateService } from "./helpers";
 import { TServiceAction } from "./types";
 
 export * from "./types";
@@ -23,6 +23,8 @@ export const serviceReducer = (state: TAppState, action: TServiceAction) => {
       };
     case "UPDATE_SERVICE":
       return updateService(state, action.payload);
+    case "DELETE_SERVICE":
+      return deleteService(state, action.payload);
     default:
       return state;
   }

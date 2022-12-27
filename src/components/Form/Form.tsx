@@ -36,7 +36,6 @@ export const Form: FC<TForm> = ({
           isLoading={isLoading}
           loadingText={submitBtnText}
           mb={1}
-          // variant="secondary"
         >
           {submitBtnText}
         </Button>

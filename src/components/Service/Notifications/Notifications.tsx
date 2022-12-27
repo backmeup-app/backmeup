@@ -1,11 +1,12 @@
 import { useContext, Dispatch, useMemo } from "react";
-import { Box, VStack, Flex, Text, Switch } from "@chakra-ui/react";
+import { Box, VStack, Flex, Text, Switch, Spinner } from "@chakra-ui/react";
 import { AppContext, TAppState } from "../../../contexts";
 import { TAppAction, TService, useUpdateNotifications } from "../../../store";
 import { events } from "./helpers";
 
 export const ServiceNotifications = () => {
-  const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const [{ me, networkOperation }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const defaultService = useMemo(() => {
     return ((me?.services as TService[]) ?? []).find(
       (service) => service._id === (me?.default_service as string)
@@ -50,6 +51,7 @@ export const ServiceNotifications = () => {
   const displayEvents = () =>
     events.map(({ name, key }, index) => {
       const isChecked = Boolean(defaultService?.notifications?.events[key]);
+      const eventKey = "event." + key.toLowerCase();
       return (
         <Flex
           key={index}
@@ -60,17 +62,22 @@ export const ServiceNotifications = () => {
           alignItems={{ base: "flex-start", md: "center" }}
         >
           <Text fontSize="15.7px">{name}</Text>
-          <Switch
-            isChecked={isChecked}
-            onChange={() => {
-              updateNotifications({
-                key: "event." + key.toLowerCase(),
-                value: !isChecked,
-              });
-            }}
-            mb={{ base: 3, md: 0 }}
-            colorScheme="green"
-          />
+          <Flex align="center">
+            {networkOperation === `update.notifications.${eventKey}` && (
+              <Spinner size="sm" mr={3} />
+            )}
+            <Switch
+              isChecked={isChecked}
+              onChange={() => {
+                updateNotifications({
+                  key: eventKey,
+                  value: !isChecked,
+                });
+              }}
+              mb={{ base: 3, md: 0 }}
+              colorScheme="green"
+            />
+          </Flex>
         </Flex>
       );
     });

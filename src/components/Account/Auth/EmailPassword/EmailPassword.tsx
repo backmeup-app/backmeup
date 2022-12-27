@@ -12,7 +12,10 @@ export const EmailPassword: FC<TEmailPassword> = ({ isOpen, onClose }) => {
   const controls = getEmailPasswordControls(formik);
 
   useEffect(() => {
-    if (!isOpen) resetFormTouched(formik);
+    if (!isOpen) {
+      formik.resetForm();
+      resetFormTouched(formik);
+    }
   }, [isOpen]);
 
   return (

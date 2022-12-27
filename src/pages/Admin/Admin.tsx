@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useLocation, Switch, Route, Redirect } from "react-router-dom";
-import { Box, Flex, Spinner, chakra } from "@chakra-ui/react";
+import { Box, Flex, chakra } from "@chakra-ui/react";
 import { Helmet } from "react-helmet";
 import { AppContext } from "../../contexts";
 import { useGetUser } from "../../store";
@@ -10,21 +10,11 @@ import { capitalize } from "../../utilities";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 export const Admin = () => {
-  const [
-    { me, browserWidth, loading: contextLoading, networkOperation, onScroll },
-  ] = useContext(AppContext);
+  const [{ me, browserWidth, loading: contextLoading, onScroll }] =
+    useContext(AppContext);
   const getUser = useGetUser();
   const renderPages = useRenderPages();
   const location = useLocation();
-  const operations = [
-    "update.resource.status",
-    "delete.resource",
-    "update.default.service",
-    "update.notifications",
-    "resend.verification.email",
-  ];
-  const isLoading =
-    contextLoading && operations.includes(networkOperation ?? "");
   const [showSidebar, setShowSidebar] = useState(false);
   const HamburgerIcon = chakra(GiHamburgerMenu);
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -71,7 +61,7 @@ export const Admin = () => {
           onClick={(e) => e.stopPropagation()}
           zIndex={999}
         >
-          <Sidebar toggle={toggleSidebar} />
+          <Sidebar />
         </Box>
         <Box
           ref={scrollRef}
@@ -110,9 +100,6 @@ export const Admin = () => {
       >
         <HamburgerIcon color="white" fontSize="lg" />
       </Box>
-      {isLoading && (
-        <Spinner size="lg" pos="fixed" right={"52px"} bottom={10} />
-      )}
       <Box
         pos="fixed"
         display={{ lg: "none" }}
