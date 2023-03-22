@@ -82,7 +82,9 @@ export const ApiKeys = () => {
             isChecked={defaultService.auth.is_enabled}
             onChange={handleAuthChange}
           />
-          <Text>Authentication</Text>
+          <Text fontSize={{ base: "0.9rem", sm: "0.95rem" }}>
+            Authentication
+          </Text>
           <Spinner
             size="sm"
             visibility={

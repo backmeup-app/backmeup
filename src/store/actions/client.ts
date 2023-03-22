@@ -11,8 +11,7 @@ export const client = () => {
   if (token) headers["Authorization"] = "Bearer " + token;
   return axios.create({
     baseURL: String(
-      process.env.REACT_APP_BACKMEUP_API ??
-        window.__env__.REACT_APP_BACKMEUP_API
+      process.env.REACT_APP_DOME_API ?? window.__env__.REACT_APP_DOME_API
     ),
     headers,
   });

@@ -54,7 +54,9 @@ export const useGeneralControls = () => {
       type: "text",
       properties: {
         name: "name",
-        label: <FormLabel>Name</FormLabel>,
+        label: (
+          <FormLabel fontSize={{ base: "0.95rem", sm: "md" }}>Name</FormLabel>
+        ),
         autoFocus: true,
         styleProps: { colSpan: 12, mb: 4, isRequired: true },
         errorMessage:
@@ -74,7 +76,11 @@ export const useGeneralControls = () => {
       type: "textarea",
       properties: {
         name: "description",
-        label: <FormLabel>Description</FormLabel>,
+        label: (
+          <FormLabel fontSize={{ base: "0.95rem", sm: "md" }}>
+            Description
+          </FormLabel>
+        ),
         styleProps: { colSpan: 12, mb: 4 },
         onBlur: () => {
           handleInputBlur(formik, "description");
@@ -89,7 +95,11 @@ export const useGeneralControls = () => {
       type: "radiogroup",
       properties: {
         name: "backup_duration",
-        label: <FormLabel>Backup Duration</FormLabel>,
+        label: (
+          <FormLabel fontSize={{ base: "0.95rem", sm: "md" }}>
+            Backup Duration
+          </FormLabel>
+        ),
         styleProps: { colSpan: 12, mb: 4 },
         onChange: (value: string) =>
           formik.setFieldValue("backup_duration", value),

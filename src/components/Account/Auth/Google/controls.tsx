@@ -29,7 +29,11 @@ export const useGoogleControls = () => {
       properties: {
         name: "password",
         type: showPassword ? "text" : "password",
-        label: <FormLabel>Password</FormLabel>,
+        label: (
+          <FormLabel fontSize={{ base: "0.95rem", sm: "md" }}>
+            Password
+          </FormLabel>
+        ),
         styleProps: { colSpan: 12, mb: 4, isRequired: true },
         rightElement: formik?.touched?.password &&
           formik.values?.password.length > 0 && {

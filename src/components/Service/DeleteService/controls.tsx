@@ -45,7 +45,7 @@ export const useDeleteServiceControls = () => {
         name: "name",
         autoFocus: true,
         label: (
-          <FormLabel>
+          <FormLabel fontSize={{ base: "0.95rem", sm: "md" }}>
             Please type <b>{defaultService?.name}</b> to confirm
           </FormLabel>
         ),

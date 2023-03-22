@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { RadioGroup, Radio, Stack } from "@chakra-ui/react";
+import { RadioGroup, Radio, Text, Stack } from "@chakra-ui/react";
 import { TWrapperRadioGroup } from "./types";
 
 export const WrapperRadioGroup: FC<TWrapperRadioGroup> = ({
@@ -11,8 +11,8 @@ export const WrapperRadioGroup: FC<TWrapperRadioGroup> = ({
 }) => {
   const displayOptions = () =>
     options.map(({ label, value }, index) => (
-      <Radio key={index} value={value}>
-        {label}
+      <Radio key={index} value={value} fontSize={{ base: "0.95rem", sm: "md" }}>
+        <Text fontSize={{ base: "0.95rem", sm: "md" }}>{label}</Text>
       </Radio>
     ));
 

@@ -125,7 +125,9 @@ export const ServiceSelector = () => {
           name={defaultService?.name}
           boxSize="10"
         />
-        <Text>{defaultService?.name}</Text>
+        <Text fontSize={{ base: "0.95rem", sm: "md" }}>
+          {defaultService?.name}
+        </Text>
         <ArrowDown mt="2px" fontSize="xl" />
       </HStack>
       <ListServices />

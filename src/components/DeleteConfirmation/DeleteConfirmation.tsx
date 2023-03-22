@@ -23,7 +23,7 @@ export const DeleteConfirmation: FC<TDeleteConfirmation> = ({
       isOpen={isOpen}
       onClose={onClose}
       title={
-        <Flex alignItems="center">
+        <Flex alignItems="center" fontSize={{ base: "0.95rem", md: "md" }}>
           <DangerIcon color="red.500" fontSize="xl" mr={3} /> {title}
         </Flex>
       }

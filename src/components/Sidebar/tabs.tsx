@@ -8,9 +8,9 @@ import {
   Spinner,
   Badge,
 } from "@chakra-ui/react";
-import { BsFolder } from "react-icons/bs";
-import { FiTool, FiUser } from "react-icons/fi";
+import { BsFolder, BsGear } from "react-icons/bs";
 import { GoSettings } from "react-icons/go";
+import { RiShareBoxLine } from "react-icons/ri";
 
 const tabs = [
   {
@@ -21,17 +21,17 @@ const tabs = [
   {
     name: "Settings",
     Icon: chakra(GoSettings),
-    isActive: (pathname: string) => pathname === "/settings",
+    isActive: (pathname: string) => pathname.includes("settings"),
   },
   {
     name: "Integrations",
-    Icon: chakra(FiTool),
+    Icon: chakra(RiShareBoxLine),
     isActive: (pathname: string) => pathname === "/integrations",
     hasBadge: true,
   },
   {
     name: "Account",
-    Icon: chakra(FiUser),
+    Icon: chakra(BsGear),
     isActive: (pathname: string) => pathname === "/account",
   },
 ];
@@ -39,8 +39,8 @@ const tabs = [
 export const useDisplayTabs = () => {
   const location = useLocation();
 
-  return () => (
-    <VStack spacing={12} align="flex-start" pl={5}>
+  return (onNavigate?: () => void) => (
+    <VStack spacing={14} align="flex-start" pl={5}>
       {tabs.map(({ name, Icon, isActive: isActiveFunc, hasBadge }, index) => {
         const isActive = isActiveFunc(location.pathname);
         return (
@@ -49,12 +49,16 @@ export const useDisplayTabs = () => {
             pos="relative"
             align="center"
             color={isActive ? "navajowhite" : "#FBFBFB"}
-            fontSize="15.5px"
             transition="all 0.3s ease-in"
           >
-            <Icon fontSize="16.5px" mr={3} />
+            <Icon
+              fontSize="16.5px"
+              mr={3}
+              position="relative"
+              top={hasBadge ? "1px" : "0"}
+            />
             {hasBadge ? (
-              <Text>{name}</Text>
+              <Text fontSize={hasBadge ? "0.9rem" : "0.95rem"}>{name}</Text>
             ) : (
               <ChakraLink
                 as={Link}
@@ -62,6 +66,10 @@ export const useDisplayTabs = () => {
                 _hover={{
                   underline: "none",
                 }}
+                onClick={() => {
+                  onNavigate?.();
+                }}
+                fontSize="0.95rem"
               >
                 {name}
               </ChakraLink>

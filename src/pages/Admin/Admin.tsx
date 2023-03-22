@@ -61,7 +61,11 @@ export const Admin = () => {
           onClick={(e) => e.stopPropagation()}
           zIndex={999}
         >
-          <Sidebar />
+          <Sidebar
+            onNavigate={() => {
+              setShowSidebar(false);
+            }}
+          />
         </Box>
         <Box
           ref={scrollRef}

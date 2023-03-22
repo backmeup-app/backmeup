@@ -42,7 +42,11 @@ export const useGeneralControls = () => {
         type: "text",
         properties: {
           name: "first_name",
-          label: <FormLabel>First name</FormLabel>,
+          label: (
+            <FormLabel fontSize={{ base: "0.95rem", sm: "md" }}>
+              First name
+            </FormLabel>
+          ),
           styleProps: { colSpan: { base: 12, md: 6 }, mb: 4, isRequired: true },
           errorMessage:
             formik.touched?.first_name && formik.errors?.first_name ? (
@@ -59,7 +63,11 @@ export const useGeneralControls = () => {
         type: "text",
         properties: {
           name: "last_name",
-          label: <FormLabel>Last name</FormLabel>,
+          label: (
+            <FormLabel fontSize={{ base: "0.95rem", sm: "md" }}>
+              Last name
+            </FormLabel>
+          ),
           styleProps: { colSpan: { base: 12, md: 6 }, mb: 4, isRequired: true },
           errorMessage:
             formik.touched?.last_name && formik.errors?.last_name ? (

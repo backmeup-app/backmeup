@@ -29,15 +29,15 @@ export const ResourceMenu: FC<TResourceMenu> = ({
         borderRadius="none"
         boxShadow="sm"
         fontSize="15px"
-        w="135px"
+        w="125px"
       >
         <MenuItem py={1} onClick={handleEdit} _hover={{ bg: "transparent" }}>
-          <Text fontSize="14px" textAlign="center" w="100%">
+          <Text fontSize="12px" textAlign="center" w="100%">
             Edit Resource
           </Text>
         </MenuItem>
         <MenuItem py={1} onClick={handleViewUrl} _hover={{ bg: "transparent" }}>
-          <Text fontSize="14px" textAlign="center" w="100%">
+          <Text fontSize="12px" textAlign="center" w="100%">
             View URL
           </Text>
         </MenuItem>
@@ -46,13 +46,13 @@ export const ResourceMenu: FC<TResourceMenu> = ({
           onClick={handleViewBackups}
           _hover={{ bg: "transparent" }}
         >
-          <Text fontSize="14px" textAlign="center" w="100%">
+          <Text fontSize="12px" textAlign="center" w="100%">
             View Backups
           </Text>
         </MenuItem>
         <MenuDivider />
         <MenuItem py={0} onClick={handleDelete} _hover={{ bg: "transparent" }}>
-          <Text fontSize="14px" textAlign="center" color="#FF0000" w="100%">
+          <Text fontSize="12px" textAlign="center" color="#FF0000" w="100%">
             Delete
           </Text>
         </MenuItem>

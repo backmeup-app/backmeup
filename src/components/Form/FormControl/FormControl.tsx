@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useContext, Dispatch } from "react";
 import {
   FormControl as ChakraFormControl,
   GridItem,
@@ -7,8 +7,12 @@ import {
 } from "@chakra-ui/react";
 import { TFormControl } from ".";
 import { WrapperRadioGroup, WrapperTextInput } from "../Wrappers";
+import { AppContext, TAppState } from "../../../contexts";
+import { TAppAction } from "../../../store";
 
 export const FormControl: FC<TFormControl> = ({ type, properties }) => {
+  const [{ browserWidth }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const { label, helperText, errorMessage, styleProps, ...props } = properties;
   const { isRequired, ...gridItemProps } = styleProps;
 
@@ -30,6 +34,8 @@ export const FormControl: FC<TFormControl> = ({ type, properties }) => {
               },
             }}
             borderRadius="4px"
+            fontSize={{ base: "0.95rem", sm: "md" }}
+            size={browserWidth && browserWidth > 480 ? "lg" : "md"}
           />
         );
       case "switch":

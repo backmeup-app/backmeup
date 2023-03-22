@@ -80,7 +80,9 @@ export const Ips = () => {
             isChecked={defaultService.ip_whitelist.is_enabled}
             onChange={handleIpWhitelistChange}
           />
-          <Text>IP Whitelisting</Text>
+          <Text fontSize={{ base: "0.9rem", sm: "0.95rem" }}>
+            IP Whitelisting
+          </Text>
           <Spinner
             size="sm"
             visibility={

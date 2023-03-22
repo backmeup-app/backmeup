@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useContext, Dispatch } from "react";
 import {
   InputGroup,
   Input,
@@ -6,6 +6,8 @@ import {
   InputLeftElement,
 } from "@chakra-ui/react";
 import { TWrapperTextInput } from "./types";
+import { AppContext, TAppState } from "../../../../contexts";
+import { TAppAction } from "../../../../store";
 
 export const WrapperTextInput: FC<TWrapperTextInput> = ({
   rightAddOn,
@@ -14,6 +16,9 @@ export const WrapperTextInput: FC<TWrapperTextInput> = ({
   leftElement,
   ...props
 }) => {
+  const [{ browserWidth }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+
   return (
     <InputGroup>
       {leftElement && <InputLeftElement {...leftElement} />}
@@ -28,6 +33,8 @@ export const WrapperTextInput: FC<TWrapperTextInput> = ({
           },
         }}
         borderRadius="4px"
+        size={browserWidth && browserWidth > 480 ? "lg" : "md"}
+        fontSize={{ base: "0.95rem", sm: "md" }}
       />
       {rightElement && <InputRightElement {...rightElement} />}
     </InputGroup>
