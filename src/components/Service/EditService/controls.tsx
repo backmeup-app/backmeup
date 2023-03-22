@@ -30,7 +30,9 @@ export const useEditServiceControls = () => {
         properties: {
           name: "name",
           autoFocus: true,
-          label: <FormLabel>Name</FormLabel>,
+          label: (
+            <FormLabel fontSize={{ base: "0.95rem", sm: "md" }}>Name</FormLabel>
+          ),
           styleProps: { colSpan: 12, mb: 4, isRequired: true },
           textTransform: "capitalize",
           errorMessage:
@@ -50,7 +52,7 @@ export const useEditServiceControls = () => {
       //   type: "textarea",
       //   properties: {
       //     name: "description",
-      //     label: <FormLabel>Description</FormLabel>,
+      //     label: <FormLabel fontSize={{ base: "0.95rem", sm:"md"  }}>Description</FormLabel>,
       //     styleProps: { colSpan: 12, mb: 4 },
       //     onChange: (event: any) => {
       //       handleChange("description", event);

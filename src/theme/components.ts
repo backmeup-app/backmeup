@@ -9,6 +9,9 @@ export const components: { [key: string]: ComponentStyleConfig } = {
   },
   Input: {
     sizes: {
+      md: {
+        py: 7,
+      },
       lg: {
         field: {
           borderRadius: 4,
@@ -30,15 +33,6 @@ export const components: { [key: string]: ComponentStyleConfig } = {
     },
   },
   Textarea: {
-    // baseStyle: {
-    //   focusBorderColor: "#D2D7E5",
-    //   errorBorderColor: "red.300",
-
-    //   _focus: {
-    //     borderWidth: "2px",
-    //     borderColor: "#D2D7E5",
-    //   },
-    // },
     sizes: {
       lg: {
         borderRadius: 4,

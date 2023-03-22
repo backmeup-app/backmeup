@@ -1,10 +1,19 @@
 import { FC, useContext, Dispatch } from "react";
-import { VStack, Text, Button } from "@chakra-ui/react";
+import {
+  VStack,
+  Box,
+  Text,
+  Button,
+  AccordionButton,
+  AccordionIcon,
+  AccordionPanel,
+} from "@chakra-ui/react";
 import { TResourceUrl } from "./types";
 import { Modal } from "../../..";
 import { capitalize } from "../../../../utilities";
 import { AppContext, TAppState } from "../../../../contexts";
 import { TAppAction } from "../../../../store";
+import { Accordion } from "../../..";
 
 export const ResourceUrl: FC<TResourceUrl> = ({
   name,
@@ -16,7 +25,7 @@ export const ResourceUrl: FC<TResourceUrl> = ({
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
 
   const handleCopy = () => {
-    const url = "https://duran.olamileke.me/" + uuid;
+    const url = uuid + ".usedo.me";
     navigator.clipboard.writeText(url);
     dispatch({
       type: "SET_NOTIFICATION",
@@ -24,13 +33,28 @@ export const ResourceUrl: FC<TResourceUrl> = ({
     });
   };
 
-  // const handleCreateApiKey = () => {
-  //   const anchor = document.createElement("a");
-  //   anchor.target = "_blank";
-  //   const location = document.location;
-  //   anchor.href = "https:" + "//" + location.host + "settings";
-  //   anchor.click();
-  // };
+  const Instruction = () => (
+    <AccordionPanel
+      bg="#f5f8fa"
+      p={5}
+      boxShadow="sm"
+      fontSize="sm"
+      lineHeight="taller"
+      mt={4}
+      mb={2}
+    >
+      <Text mb={3}>
+        Note: Make your backup requests for {capitalize(name)} to the below URL.
+        Remember that the request body requires two parameters. The intended
+        file to back up (backup) and its file format (format).
+      </Text>
+
+      <Text>
+        Dont forget to include a valid Authorization header in the format Bearer
+        - {"Api Key"} if you have authentication enabled for the service.
+      </Text>
+    </AccordionPanel>
+  );
 
   return (
     <Modal
@@ -39,28 +63,29 @@ export const ResourceUrl: FC<TResourceUrl> = ({
       onClose={onClose}
     >
       <VStack spacing={5} alignItems="flex-start" w="100%">
+        <Accordion
+          width="100%"
+          items={[
+            {
+              heading: (
+                <AccordionButton p={0} justifyContent="center">
+                  <Text mr={2}>View Instructions</Text>
+                  <AccordionIcon />
+                </AccordionButton>
+              ),
+              content: <Instruction />,
+            },
+          ]}
+        />
         <Text
-          bg="#f5f8fa"
-          p={5}
-          boxShadow="sm"
-          fontSize="sm"
-          lineHeight="taller"
-        >
-          Note: Make your backup requests for {capitalize(name)} to the below
-          URL. Remember that backup requests require two things. A valid API key
-          for the service specified as the Authorization header and the intended
-          file to be backed up for {capitalize(name)}.
-        </Text>
-
-        <Text
-          p={5}
+          p={{ base: 3, sm: 5 }}
           textAlign="center"
           w="100%"
           bg="#FBFBFB"
           boxShadow="sm"
           fontSize="sm"
         >
-          https://duran.olamileke.me/{uuid}
+          {uuid}.usedo.me
         </Text>
 
         <Text

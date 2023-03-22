@@ -37,11 +37,13 @@ export const Ip: FC<TIpAddress> = ({ uuid, value }) => {
       align={{ md: "center" }}
     >
       <VStack alignItems="flex-start" spacing={2}>
-        <Text fontSize={{ base: "md", md: "15px" }}>{value}</Text>
-        <Text>{isResponsive ? "L" : "l"}ast used 25/04/2022</Text>
+        <Text fontSize={{ base: "sm", md: "15px" }}>{value}</Text>
+        <Text fontSize={{ base: "sm", md: "md" }}>
+          {isResponsive ? "L" : "l"}ast used 25/04/2022
+        </Text>
       </VStack>
       {isResponsive ? (
-        <Text mt={2} onClick={onOpen} fontSize="15px">
+        <Text mt={2} onClick={onOpen} fontSize="14px">
           Delete
         </Text>
       ) : (

@@ -61,7 +61,11 @@ export const useEmailPasswordControls = () => {
       properties: {
         name: "password",
         type: show.password ? "text" : "password",
-        label: <FormLabel>Password</FormLabel>,
+        label: (
+          <FormLabel fontSize={{ base: "0.95rem", sm: "md" }}>
+            Password
+          </FormLabel>
+        ),
         styleProps: { colSpan: 12, mb: 4, isRequired: true },
         rightElement: formik?.touched?.password &&
           formik.values?.password.length > 0 && {
@@ -107,7 +111,11 @@ export const useEmailPasswordControls = () => {
       properties: {
         name: "password_confirmation",
         type: show.password_confirmation ? "text" : "password",
-        label: <FormLabel>Confirm Password</FormLabel>,
+        label: (
+          <FormLabel fontSize={{ base: "0.95rem", sm: "md" }}>
+            Confirm Password
+          </FormLabel>
+        ),
         styleProps: { colSpan: 12, mb: 4, isRequired: true },
         rightElement: formik?.touched?.password_confirmation &&
           formik.values?.password_confirmation.length > 0 && {

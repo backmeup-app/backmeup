@@ -44,12 +44,16 @@ export const ApiKey: FC<TApiKeyComponent> = ({
         align="flex-start"
         w={{ base: "100%", md: "80%" }}
       >
-        <Text fontSize={{ base: "md", md: "sm" }}>{name}</Text>
+        <Text fontSize={{ base: "sm", md: "sm" }}>{name}</Text>
         <Box w="100%">
-          <Text mb={{ base: 2.5, sm: 0 }}>
+          <Text mb={{ base: 2.5, sm: 0 }} fontSize={{ base: "sm", md: "md" }}>
             {visible ? value : "********************" + value.slice(22)}
           </Text>
-          <Text mt={{ md: 1 }} textAlign="left">
+          <Text
+            mt={{ md: 1 }}
+            textAlign="left"
+            fontSize={{ base: "sm", md: "md" }}
+          >
             {isResponsive ? "L" : "l"}ast used 23/04/2022
           </Text>
         </Box>
@@ -70,13 +74,13 @@ export const ApiKey: FC<TApiKeyComponent> = ({
               <InvisibleIcon fontSize="xl" cursor="pointer" />
             )
           ) : isResponsive ? (
-            <Text fontSize="15px">View</Text>
+            <Text fontSize="14px">View</Text>
           ) : (
             <VisibleIcon fontSize="xl" cursor="pointer" />
           )}
         </Box>
         {isResponsive ? (
-          <Text fontSize="15px" onClick={onOpen}>
+          <Text fontSize="14px" onClick={onOpen}>
             Delete
           </Text>
         ) : (

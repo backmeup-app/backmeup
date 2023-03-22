@@ -96,11 +96,15 @@ export const useLoginControls = () => {
           name: "password",
           type: showPassword ? "text" : "password",
           label: (
-            <Box mb={2} d="flex" justifyContent="space-between">
-              <FormLabel>
+            <Box mb={1} d="flex" justifyContent="space-between">
+              <FormLabel fontSize={{ base: "0.95rem", sm: "md" }}>
                 <Text>Password</Text>
               </FormLabel>
-              <Text cursor="pointer" onClick={handleForgotPassword}>
+              <Text
+                cursor="pointer"
+                fontSize={{ base: "0.95rem", sm: "md" }}
+                onClick={handleForgotPassword}
+              >
                 Forgot ?
               </Text>
             </Box>

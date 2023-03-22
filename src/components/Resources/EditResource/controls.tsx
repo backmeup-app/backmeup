@@ -39,7 +39,9 @@ export const useEditResourceControls = () => {
         type: "text",
         properties: {
           name: "name",
-          label: <FormLabel>Name</FormLabel>,
+          label: (
+            <FormLabel fontSize={{ base: "0.95rem", sm: "md" }}>Name</FormLabel>
+          ),
           styleProps: { colSpan: 12, mb: 4, isRequired: true },
           autoFocus: true,
           textTransform: "capitalize",
@@ -60,7 +62,11 @@ export const useEditResourceControls = () => {
         type: "textarea",
         properties: {
           name: "description",
-          label: <FormLabel>Description</FormLabel>,
+          label: (
+            <FormLabel fontSize={{ base: "0.95rem", sm: "md" }}>
+              Description
+            </FormLabel>
+          ),
           styleProps: { colSpan: 12, mb: 4 },
           onBlur: () => {
             handleInputBlur(formik, "description");
@@ -75,7 +81,11 @@ export const useEditResourceControls = () => {
         type: "switch",
         properties: {
           name: "is_active",
-          label: <FormLabel>Status</FormLabel>,
+          label: (
+            <FormLabel fontSize={{ base: "0.95rem", sm: "md" }}>
+              Status
+            </FormLabel>
+          ),
           styleProps: { colSpan: 12, mb: 4 },
           onChange: formik.handleChange,
           onBlur: formik.handleBlur,

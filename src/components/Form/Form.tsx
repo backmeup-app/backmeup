@@ -11,7 +11,7 @@ export const Form: FC<TForm> = ({
   submitBtnText = "Save",
   classNames,
 }) => {
-  const [{ loading, networkOperation: networkOperationCtxt }] =
+  const [{ loading, browserWidth, networkOperation: networkOperationCtxt }] =
     useContext(AppContext);
 
   const displayControls = () =>
@@ -29,13 +29,19 @@ export const Form: FC<TForm> = ({
   return (
     <SimpleGrid as="form" onSubmit={handleSubmit} columnGap={5} columns={12}>
       {displayControls()}
-      <GridItem colSpan={12} mt={2} {...(classNames?.buttonParent ?? {})}>
+      <GridItem
+        colSpan={12}
+        mt={{ base: 0, sm: 2 }}
+        {...(classNames?.buttonParent ?? {})}
+      >
         <Button
           type="submit"
           w="100%"
           isLoading={isLoading}
           loadingText={submitBtnText}
           mb={1}
+          size={browserWidth && browserWidth > 480 ? "md" : "sm"}
+          fontSize={{ base: "0.94rem", sm: "unset" }}
         >
           {submitBtnText}
         </Button>

@@ -29,6 +29,7 @@ export const Settings = () => {
             color="charlestonGreen"
             opacity={isActive ? 1 : 0.8}
             fontWeight={isActive ? 500 : "normal"}
+            fontSize={{ base: "0.95rem", sm: "md" }}
             borderBottom="3px solid"
             borderBottomColor={isActive ? "navajoWhite" : "transparent"}
             py={2}
@@ -44,7 +45,11 @@ export const Settings = () => {
   );
 
   return (
-    <SimpleGrid columns={12}>
+    <SimpleGrid
+      columns={12}
+      position="relative"
+      top={{ base: "-16px", sm: "0" }}
+    >
       <GridItem colSpan={{ base: 12, md: 2 }}>
         <Stack
           direction={{ base: "row", md: "column" }}
@@ -53,7 +58,7 @@ export const Settings = () => {
           pl={{ base: 0, lg: 5 }}
           align="flex-start"
           justify={{ base: "center", md: "flex-start" }}
-          mb={{ base: 8, md: 0 }}
+          mb={{ base: 5, md: 0 }}
         >
           {displayTabs()}
         </Stack>

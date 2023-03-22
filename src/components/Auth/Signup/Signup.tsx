@@ -1,4 +1,5 @@
 import { useEffect, useContext, Dispatch } from "react";
+import { Helmet } from "react-helmet";
 import { Box, Text, Link as ChakraLink } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
@@ -22,6 +23,9 @@ export const Signup = () => {
 
   return (
     <Box w={{ base: "90%", sm: "550px" }}>
+      <Helmet>
+        <title>Dome | Signup</title>
+      </Helmet>
       <Box
         bg="white"
         boxShadow="0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%)"

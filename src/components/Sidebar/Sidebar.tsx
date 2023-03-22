@@ -1,7 +1,9 @@
+import { FC } from "react";
 import { Box } from "@chakra-ui/react";
 import { useDisplayTabs } from "./tabs";
+import { TSidebar } from "./types";
 
-export const Sidebar = () => {
+export const Sidebar: FC<TSidebar> = ({ onNavigate }) => {
   const displayTabs = useDisplayTabs();
 
   return (
@@ -11,9 +13,9 @@ export const Sidebar = () => {
       minH="100vh"
       bg="charlestonGreen"
       color="white"
-      pt="55%"
+      pt="60%"
     >
-      {displayTabs()}
+      {displayTabs(onNavigate)}
     </Box>
   );
 };

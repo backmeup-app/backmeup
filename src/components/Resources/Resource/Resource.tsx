@@ -84,7 +84,7 @@ export const Resource: FC<TResourceComponent> = ({
         />
       </Flex>
       <Flex alignItems="center" justify="space-between" w="100%">
-        <Text textTransform="lowercase">
+        <Text textTransform="lowercase" fontSize="0.97rem">
           {description && Boolean(description)
             ? description.length > 60
               ? description.slice(0, 57) + "..."

@@ -25,8 +25,10 @@ export const Modal: FC<TModal> = ({
     >
       <ModalOverlay />
       <ModalContent pb={4} borderRadius={"sm"} w={["90%", "100%"]}>
-        <ModalHeader fontSize="md">{title}</ModalHeader>
-        <ModalCloseButton />
+        <ModalHeader fontSize={{ base: "0.95rem", sm: "md" }}>
+          {title}
+        </ModalHeader>
+        <ModalCloseButton marginTop={{ base: "3px", sm: "0" }} />
         <ModalBody>{children}</ModalBody>
       </ModalContent>
     </ChakraModal>

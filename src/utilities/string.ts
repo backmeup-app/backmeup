@@ -7,5 +7,5 @@ export const capitalize = (param: string) => {
     .map(
       (slice) => slice.charAt(0).toUpperCase() + slice.slice(1).toLowerCase()
     );
-  return pathSplits.join(" >> ");
+  return pathSplits.join(" - ");
 };

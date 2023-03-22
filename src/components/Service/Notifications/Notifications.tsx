@@ -39,10 +39,15 @@ export const ServiceNotifications = () => {
         alignItems={{ base: "flex-start", md: "center" }}
       >
         <Box>
-          <Text fontSize="md" mb={{ base: 1, md: 2 }}>
+          <Text
+            fontSize={{ base: "0.93rem", md: "md" }}
+            mb={{ base: 1, md: 2 }}
+          >
             {channel.name}
           </Text>
-          <Text fontSize={{ base: "16px", md: "15px" }}>{channel.value}</Text>
+          <Text fontSize={{ base: "0.93rem", md: "15px" }}>
+            {channel.value}
+          </Text>
         </Box>
         <Switch isChecked={true} isDisabled={true} mb={{ base: 3, md: 0 }} />
       </Flex>
@@ -61,7 +66,7 @@ export const ServiceNotifications = () => {
           justifyContent={{ md: "space-between" }}
           alignItems={{ base: "flex-start", md: "center" }}
         >
-          <Text fontSize="15.7px">{name}</Text>
+          <Text fontSize={{ base: "0.9rem", sm: "15.7px" }}>{name}</Text>
           <Flex align="center">
             {networkOperation === `update.notifications.${eventKey}` && (
               <Spinner size="sm" mr={3} />
@@ -86,7 +91,9 @@ export const ServiceNotifications = () => {
     <VStack spacing={6}>
       <Box bg="white" shadow="sm" w="100%">
         <Box {...headerStyleProps}>
-          <Text textAlign="left">Channels</Text>
+          <Text textAlign="left" fontSize={{ base: "0.9rem", sm: "0.95rem" }}>
+            Channels
+          </Text>
         </Box>
         <VStack spacing={5} py={5}>
           {displayChannels()}
@@ -94,7 +101,9 @@ export const ServiceNotifications = () => {
       </Box>
       <Box bg="white" shadow="sm" w="100%">
         <Box {...headerStyleProps}>
-          <Text textAlign="left">Alerts</Text>
+          <Text textAlign="left" fontSize={{ base: "0.9rem", sm: "0.95rem" }}>
+            Alerts
+          </Text>
         </Box>
         <VStack spacing={{ base: 6, md: 8 }} py={8}>
           {displayEvents()}

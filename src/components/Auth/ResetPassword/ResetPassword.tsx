@@ -1,4 +1,5 @@
 import { useEffect, useContext, Dispatch } from "react";
+import { Helmet } from "react-helmet";
 import { Box, Text } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useFormConfig, useResetPasswordControls } from "./controls";
@@ -21,6 +22,9 @@ export const ResetPassword = () => {
 
   return (
     <Box w={{ base: "90%", sm: "550px" }}>
+      <Helmet>
+        <title>Dome | Reset Password</title>
+      </Helmet>
       <Box
         bg="white"
         boxShadow="0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%)"

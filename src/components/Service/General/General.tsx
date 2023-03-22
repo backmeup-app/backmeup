@@ -16,7 +16,7 @@ import { capitalize } from "../../../utilities";
 import { DeleteService } from "../DeleteService";
 
 export const General = () => {
-  const [{ me, networkOperation }] =
+  const [{ me, networkOperation, browserWidth }] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
 
   const defaultService = useMemo(() => {
@@ -70,15 +70,27 @@ export const General = () => {
           mb={[4, 0]}
           textAlign="left"
         >
-          <Text fontWeight="600" fontSize="lg" mb={2}>
+          <Text
+            fontWeight="600"
+            fontSize={{ base: "0.95rem", sm: "md" }}
+            mb={2}
+          >
             Delete {capitalize(defaultService?.name ?? "")}
           </Text>
-          <Text lineHeight={["tall", "unset"]}>
+          <Text
+            lineHeight={["tall", "unset"]}
+            fontSize={{ base: "0.9rem", sm: "0.98rem" }}
+          >
             Doing this will delete all its associated resources along with their
             backups. Please be certain.
           </Text>
         </Box>
-        <Button variant="danger" w={["100%", "fit-content"]} onClick={onOpen}>
+        <Button
+          variant="danger"
+          w={["100%", "fit-content"]}
+          onClick={onOpen}
+          size={browserWidth && browserWidth > 480 ? "md" : "sm"}
+        >
           Delete
         </Button>
       </Flex>
