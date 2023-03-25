@@ -74,8 +74,12 @@ export const Ips = () => {
 
   return (
     <Box bgColor="white" w="100%" boxShadow="sm">
-      <Flex {...headerStyleProps}>
-        <HStack d="flex">
+      <Flex
+        {...headerStyleProps}
+        direction={{ base: "column", sm: "row" }}
+        align={{ base: "flex-start", sm: "center" }}
+      >
+        <HStack d="flex" mb={{ base: 3, sm: 0 }}>
           <Switch
             isChecked={defaultService.ip_whitelist.is_enabled}
             onChange={handleIpWhitelistChange}

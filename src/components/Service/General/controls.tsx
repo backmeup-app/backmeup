@@ -100,7 +100,7 @@ export const useGeneralControls = () => {
             Backup Duration
           </FormLabel>
         ),
-        styleProps: { colSpan: 12, mb: 4 },
+        styleProps: { colSpan: 12, mb: 6 },
         onChange: (value: string) =>
           formik.setFieldValue("backup_duration", value),
         value: formik.values?.backup_duration,

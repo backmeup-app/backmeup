@@ -54,7 +54,11 @@ export const ApiKey: FC<TApiKeyComponent> = ({
             textAlign="left"
             fontSize={{ base: "sm", md: "md" }}
           >
-            {isResponsive ? "L" : "l"}ast used 23/04/2022
+            {last_used
+              ? isResponsive
+                ? "L"
+                : "l" + `ast used ${last_used}`
+              : ""}
           </Text>
         </Box>
       </VStack>

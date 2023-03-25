@@ -112,24 +112,26 @@ export const ServiceSelector = () => {
 
   return (
     <Box pos="relative" ref={servicesRef} cursor="pointer" alignItems="center">
-      <HStack
-        onClick={toggleServices}
-        spacing={4}
-        visibility={defaultService?.uuid ? "visible" : "hidden"}
-      >
-        <Avatar
-          size="sm"
-          borderRadius="none"
-          bg="navajowhite"
-          color="charlestonGreen"
-          name={defaultService?.name}
-          boxSize="10"
-        />
-        <Text fontSize={{ base: "0.95rem", sm: "md" }}>
-          {defaultService?.name}
-        </Text>
-        <ArrowDown mt="2px" fontSize="xl" />
-      </HStack>
+      {defaultService?.uuid ? (
+        <HStack
+          onClick={toggleServices}
+          spacing={4}
+          visibility={defaultService?.uuid ? "visible" : "hidden"}
+        >
+          <Avatar
+            size="sm"
+            borderRadius="none"
+            bg="navajowhite"
+            color="charlestonGreen"
+            name={defaultService?.name}
+            boxSize="9"
+          />
+          <Text fontSize={{ base: "0.95rem" }}>{defaultService?.name}</Text>
+          <ArrowDown mt="2px" fontSize="xl" />
+        </HStack>
+      ) : (
+        <Text fontFamily="oswald">DOME</Text>
+      )}
       <ListServices />
     </Box>
   );

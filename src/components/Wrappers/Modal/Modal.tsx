@@ -29,7 +29,7 @@ export const Modal: FC<TModal> = ({
           {title}
         </ModalHeader>
         <ModalCloseButton marginTop={{ base: "3px", sm: "0" }} />
-        <ModalBody>{children}</ModalBody>
+        <ModalBody pt={0}>{children}</ModalBody>
       </ModalContent>
     </ChakraModal>
   );
