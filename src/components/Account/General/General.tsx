@@ -27,7 +27,6 @@ export const General = () => {
           h={{ base: "90px", sm: "100px", md: "120px" }}
           border="4px solid"
           borderColor="white"
-          rounded={{ base: "full", md: "none" }}
           mr={4}
         />
         <Text as="u" fontSize="sm" cursor="pointer" color="gray.700">

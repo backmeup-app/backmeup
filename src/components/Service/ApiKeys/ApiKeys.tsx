@@ -76,8 +76,17 @@ export const ApiKeys = () => {
 
   return (
     <Box bgColor="white" w="100%" boxShadow="sm">
-      <Flex {...headerStyleProps}>
-        <HStack d="flex" alignItems="center" spacing={2}>
+      <Flex
+        {...headerStyleProps}
+        direction={{ base: "column", sm: "row" }}
+        align={{ base: "flex-start", sm: "center" }}
+      >
+        <HStack
+          d="flex"
+          alignItems="center"
+          spacing={2}
+          mb={{ base: 3, sm: 0 }}
+        >
           <Switch
             isChecked={defaultService.auth.is_enabled}
             onChange={handleAuthChange}

@@ -1,8 +1,13 @@
+import { useContext, Dispatch } from "react";
 import { Flex, VStack, Image, Heading, Text, Button } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { EditService, Nav } from "../..";
+import { AppContext, TAppState } from "../../../contexts";
+import { TAppAction } from "../../../store";
 
 export const Message = () => {
+  const [{ browserWidth }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Flex w="100vw" h="100vh" flexDirection="column" align="center">
@@ -14,18 +19,25 @@ export const Message = () => {
         justify="center"
       >
         <Image
-          boxSize="20"
-          src="https://res.cloudinary.com/olamileke/image/upload/v1651325548/backmeup/startup-rocket_zrhku3.svg"
+          boxSize={{ base: 16, sm: 20 }}
+          src="https://res.cloudinary.com/olamileke/image/upload/v1679754220/dome/assets/gello/startup-rocket_xzuujx.svg"
         />
-        <Heading fontFamily="openSans" fontSize="2xl">
+        <Heading fontFamily="openSans" fontSize={{ base: "xl", sm: "2xl" }}>
           Create Your First Service
         </Heading>
-        <Text fontSize="17px" textAlign="center" lineHeight={1.8}>
+        <Text
+          fontSize={{ base: "0.95rem", sm: "1.05rem" }}
+          textAlign="center"
+          lineHeight={1.8}
+        >
           Get up and running with Backmeup by creating your first service.
           Services are the core components of Dome and enable you to logically
           group the different resources which you intend to create backups for.
         </Text>
-        <Button variant="primary" onClick={onOpen}>
+        <Button
+          onClick={onOpen}
+          size={browserWidth && browserWidth > 480 ? "md" : "sm"}
+        >
           Create Service
         </Button>
       </VStack>

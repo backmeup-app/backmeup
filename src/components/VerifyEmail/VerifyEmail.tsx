@@ -18,7 +18,11 @@ export const VerifyEmail = () => {
       bg="rgba(247, 219, 167, 0.7)"
       textAlign="center"
     >
-      <Text textAlign="center" fontSize="md" color="gray.800">
+      <Text
+        textAlign="center"
+        fontSize={{ base: "sm", sm: "0.95rem" }}
+        color="gray.800"
+      >
         {me?.email} is not verified. Didn't receive verification email ?
         <Text onClick={sendVerificationEmail} as="u" cursor="pointer" ml={1}>
           resend

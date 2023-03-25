@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { useDisplayTabs } from "./tabs";
 import { TSidebar } from "./types";
 
@@ -16,6 +16,16 @@ export const Sidebar: FC<TSidebar> = ({ onNavigate }) => {
       pt="60%"
     >
       {displayTabs(onNavigate)}
+      <Text
+        pos="absolute"
+        color="white"
+        fontFamily="oswald"
+        left={5}
+        bottom={8}
+        fontSize="sm"
+      >
+        DOME
+      </Text>
     </Box>
   );
 };

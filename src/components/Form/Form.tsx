@@ -29,11 +29,7 @@ export const Form: FC<TForm> = ({
   return (
     <SimpleGrid as="form" onSubmit={handleSubmit} columnGap={5} columns={12}>
       {displayControls()}
-      <GridItem
-        colSpan={12}
-        mt={{ base: 0, sm: 2 }}
-        {...(classNames?.buttonParent ?? {})}
-      >
+      <GridItem colSpan={12} {...(classNames?.buttonParent ?? {})}>
         <Button
           type="submit"
           w="100%"
