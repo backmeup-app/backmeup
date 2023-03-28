@@ -1,38 +1,77 @@
 import { useContext, Dispatch, useRef } from "react";
 import { useFormik } from "formik";
-import { Box, Image, Text, Flex } from "@chakra-ui/react";
+import { Box, Avatar, Flex, chakra } from "@chakra-ui/react";
 import { AppContext, TAppState } from "../../../contexts";
 import { TAppAction } from "../../../store";
 import { Form } from "../../";
 import { useGeneralConfig, useGeneralControls } from "./controls";
+import { BiImageAdd } from "react-icons/bi";
+import { useParseAvatar } from "./helpers";
 
 export const General = () => {
   const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
+  const CameraIcon = chakra(BiImageAdd);
 
   const getGeneralConfig = useGeneralConfig();
   const generalFormik = useFormik(getGeneralConfig());
   const getGeneralControls = useGeneralControls();
   const generalControls = getGeneralControls(generalFormik);
+  const parseAvatar = useParseAvatar(generalFormik);
+
+  const triggerAvatarSelection = () => {
+    if (!fileRef.current) return;
+
+    fileRef.current.click();
+  };
 
   return (
     <Box w="100%">
-      <Flex mb={5} alignItems="flex-end">
-        <Image
-          src={me?.avatar}
-          alt={me?.first_name ?? "" + " " + me?.last_name}
+      <Flex
+        mb={5}
+        alignItems="flex-end"
+        position="relative"
+        width="fit-content"
+        cursor="pointer"
+        onClick={triggerAvatarSelection}
+      >
+        <Avatar
+          className="avatar"
+          src={
+            me?.avatar ?? "https://mauii.xyz/images/auth-home/DefaultAvatar.png"
+          }
+          bg="navajowhite"
+          color="charlestonGreen"
           ref={imageRef}
           w={{ base: "90px", sm: "100px", md: "120px" }}
           h={{ base: "90px", sm: "100px", md: "120px" }}
-          border="4px solid"
-          borderColor="white"
-          mr={4}
+          borderRadius="none"
+          border="3px solid white"
         />
-        <Text as="u" fontSize="sm" cursor="pointer" color="gray.700">
-          Change Avatar
-        </Text>
-        <input type="file" ref={fileRef} accept="image/*" hidden />
+        <input
+          type="file"
+          ref={fileRef}
+          onChange={parseAvatar}
+          accept="image/*"
+          hidden
+        />
+        <CameraIcon
+          color="white"
+          position="absolute"
+          top={"calc((100% - 10px)/2)"}
+          left={"calc((100% - 20px)/2)"}
+          fontSize="xl"
+          zIndex={5}
+        />
+        <Box
+          position="absolute"
+          top="3px"
+          left="3px"
+          width="calc(100% - 6px)"
+          height="calc(100% - 6px)"
+          bg={me?.avatar ? "rgba(0,0,0,0.15)" : "rgba(0,0,0,0.05)"}
+        />
       </Flex>
       <Box
         w="100%"

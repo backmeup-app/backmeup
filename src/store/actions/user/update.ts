@@ -30,7 +30,10 @@ export const useUpdateUser = () => {
         data: {
           user: { first_name, last_name, email, avatar, default_service },
         },
-      } = await client().put<TUpdateUserResponse>("/me", variables);
+      } = await client(true).put<TUpdateUserResponse>(
+        "/me",
+        parseUpdateUserVariables(variables) as FormData
+      );
       dispatch({
         type: "SET_USER",
         payload: { first_name, last_name, email, avatar, default_service },
@@ -53,6 +56,17 @@ export const useUpdateUser = () => {
       payload: "",
     });
   };
+};
+
+const parseUpdateUserVariables = (variables: TUpdateUserVariables) => {
+  if (!variables?.avatar) return variables;
+
+  const formData = new FormData();
+  formData.append("avatar", variables.avatar);
+  formData.append("first_name", variables?.first_name ?? "");
+  formData.append("last_name", variables?.last_name ?? "");
+
+  return formData;
 };
 
 export const useUpdateUserPassword = () => {
