@@ -4,7 +4,6 @@ import { TFormControl } from "../..";
 import { AppContext, TAppState } from "../../../contexts";
 import { TAppAction, useUpdateUser } from "../../../store";
 import { updateUserSchema } from "../../../utilities";
-import { HiOutlinePencilAlt } from "react-icons/hi";
 
 export const useGeneralConfig = () => {
   const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
@@ -15,20 +14,21 @@ export const useGeneralConfig = () => {
       first_name: me?.first_name as string,
       last_name: me?.last_name as string,
       email: me?.email as string,
+      avatar: undefined,
     },
     onSubmit: async (values: {
       first_name: string;
       last_name: string;
       email: string;
+      avatar?: File;
     }) => {
-      const { first_name, last_name } = values;
-      await updateUser({ first_name, last_name });
+      const { first_name, last_name, avatar } = values;
+      await updateUser({ first_name, last_name, avatar });
     },
   });
 };
 
 export const useGeneralControls = () => {
-  const PencilEdit = chakra(HiOutlinePencilAlt);
   return (formik: any): TFormControl[] => {
     const handleChange = (
       field: string,
