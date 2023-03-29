@@ -10,7 +10,6 @@ import { useParseAvatar } from "./helpers";
 
 export const General = () => {
   const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
-  const imageRef = useRef<HTMLImageElement | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
   const CameraIcon = chakra(BiImageAdd);
 
@@ -43,7 +42,7 @@ export const General = () => {
           }
           bg="navajowhite"
           color="charlestonGreen"
-          ref={imageRef}
+          name={me?.first_name + " " + me?.last_name}
           w={{ base: "90px", sm: "100px", md: "120px" }}
           h={{ base: "90px", sm: "100px", md: "120px" }}
           borderRadius="none"
