@@ -13,7 +13,8 @@ import { AppContext, TAppState } from "../../../contexts";
 import { TAppAction, TService } from "../../../store";
 
 export const Message = () => {
-  const [{ me }] = useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
+  const [{ me, browserWidth }] =
+    useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const history = useHistory();
   const { resource_uuid } = useParams<{ resource_uuid: string }>();
   const ArrowBack = chakra(IoArrowBackCircleOutline);
@@ -40,7 +41,7 @@ export const Message = () => {
     >
       <VStack spacing={6} w="100%" pos="relative" top="-10.5%">
         <Image
-          boxSize={28}
+          boxSize={{ base: 24, sm: 28 }}
           src="https://res.cloudinary.com/olamileke/image/upload/v1672057959/dome/assets/gello/bouncy-folder-icon_bwik8j.png"
           objectFit="contain"
           position="relative"
@@ -48,7 +49,7 @@ export const Message = () => {
         />
         <Heading
           fontFamily="openSans"
-          fontSize={{ base: "1.2rem", sm: "1.3rem" }}
+          fontSize={{ base: "1.05rem", sm: "1.3rem" }}
           textTransform="capitalize"
           textAlign="center"
           lineHeight="tall"
@@ -61,6 +62,7 @@ export const Message = () => {
           }}
           position="relative"
           top="2px"
+          size={browserWidth && browserWidth > 480 ? "md" : "sm"}
         >
           <ArrowBack mr={1} fontSize="xl" /> Resources
         </Button>

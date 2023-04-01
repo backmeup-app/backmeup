@@ -22,7 +22,7 @@ import { Message } from "./Message";
 import { capitalize } from "../../utilities";
 
 export const Backups = () => {
-  const [{ me, onScroll }, dispatch] =
+  const [{ me, browserWidth }, dispatch] =
     useContext<[TAppState, Dispatch<TAppAction>]>(AppContext);
   const history = useHistory();
   const { resource_uuid } = useParams<{ resource_uuid: string }>();

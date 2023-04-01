@@ -7,7 +7,7 @@ import { TService } from "../../../store";
 import { capitalize } from "../../../utilities";
 
 export const ResourceMessage = () => {
-  const [{ me }] = useContext(AppContext);
+  const [{ me, browserWidth }] = useContext(AppContext);
 
   const defaultService: TService = useMemo(() => {
     return (me?.services ?? []).find(
@@ -39,17 +39,25 @@ export const ResourceMessage = () => {
         />
         <Heading
           fontFamily="openSans"
-          fontSize={{ base: "1.2rem", sm: "1.35rem" }}
+          fontSize={{ base: "1.05rem", sm: "1.35rem" }}
           textTransform="capitalize"
           textAlign="center"
         >
           No resources exist for{" "}
           {capitalize(defaultService ? defaultService.name : "")}
         </Heading>
-        <Text fontSize={"md"} textAlign="center" lineHeight="tall">
+        <Text
+          fontSize={{ base: "0.95rem", sm: "md" }}
+          textAlign="center"
+          lineHeight="tall"
+        >
           Create your first resource by clicking the button below.
         </Text>
-        <Button variant="primary" onClick={onOpen}>
+        <Button
+          variant="primary"
+          onClick={onOpen}
+          size={browserWidth && browserWidth > 480 ? "md" : "sm"}
+        >
           Create Resource
         </Button>
       </VStack>
