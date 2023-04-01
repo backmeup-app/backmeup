@@ -7,6 +7,7 @@ import { BiTrashAlt } from "react-icons/bi";
 import { TAppAction, useDeleteApiKey } from "../../../../store";
 import { AppContext, TAppState } from "../../../../contexts";
 import { DeleteConfirmation } from "../../..";
+import { getTimeFrom } from "../../../../utilities";
 
 export const ApiKey: FC<TApiKeyComponent> = ({
   name,
@@ -57,7 +58,7 @@ export const ApiKey: FC<TApiKeyComponent> = ({
             {last_used
               ? isResponsive
                 ? "L"
-                : "l" + `ast used ${last_used}`
+                : "l" + `ast used ${getTimeFrom(last_used)}`
               : ""}
           </Text>
         </Box>

@@ -30,9 +30,9 @@ export const Message = () => {
           textAlign="center"
           lineHeight={1.8}
         >
-          Get up and running with Backmeup by creating your first service.
-          Services are the core components of Dome and enable you to logically
-          group the different resources which you intend to create backups for.
+          Get up and running with Dome by creating your first service. Services
+          are the core components of Dome and enable you to logically group the
+          different resources which you intend to create backups for.
         </Text>
         <Button
           onClick={onOpen}

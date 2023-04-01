@@ -53,3 +53,22 @@ const parseDateExtension = (date: string) => {
     ? date + extensions[lastChar]
     : date + "th";
 };
+
+export const getTimeFrom = (timestamp: string) => {
+  const date = Date.now();
+  const difference = date - new Date(timestamp).getTime();
+
+  if (difference < 60000) {
+    return `${Math.round(difference / 1000)} seconds ago`;
+  }
+
+  if (difference < 3600000) {
+    return `${Math.round(difference / 60000)} minutes ago`;
+  }
+
+  if (difference < 86400000) {
+    return `${Math.round(difference / 3600000)} hours ago`;
+  }
+
+  return `${Math.round(difference / 86400000)} days ago`;
+};

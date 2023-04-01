@@ -81,7 +81,7 @@ export const Ips = () => {
       >
         <HStack d="flex" mb={{ base: 3, sm: 0 }}>
           <Switch
-            isChecked={defaultService.ip_whitelist.is_enabled}
+            isChecked={defaultService?.ip_whitelist?.is_enabled}
             onChange={handleIpWhitelistChange}
           />
           <Text fontSize={{ base: "0.9rem", sm: "0.95rem" }}>
@@ -94,7 +94,16 @@ export const Ips = () => {
             }
           />
         </HStack>
-        <Flex align="center" cursor="not-allowed" onClick={onOpen}>
+        <Flex
+          align="center"
+          cursor={
+            defaultService?.ip_whitelist?.is_enabled ? "pointer" : "not-allowed"
+          }
+          onClick={() => {
+            if (!defaultService?.ip_whitelist?.is_enabled) return;
+            onOpen();
+          }}
+        >
           <Text fontSize="sm">Add IP Address</Text>
           <PlusIcon ml={2} />
         </Flex>

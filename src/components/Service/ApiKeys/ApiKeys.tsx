@@ -101,7 +101,14 @@ export const ApiKeys = () => {
             }
           />
         </HStack>
-        <Flex align="center" cursor="pointer" onClick={onOpen}>
+        <Flex
+          align="center"
+          cursor={defaultService.auth.is_enabled ? "pointer" : "not-allowed"}
+          onClick={() => {
+            if (!defaultService.auth.is_enabled) return;
+            onOpen();
+          }}
+        >
           <Text fontSize="sm">Add API Key</Text>
           <PlusIcon ml={2} />
         </Flex>
