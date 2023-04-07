@@ -48,19 +48,6 @@ export const useEditServiceControls = () => {
           value: formik.values?.name,
         },
       },
-      // {
-      //   type: "textarea",
-      //   properties: {
-      //     name: "description",
-      //     label: <FormLabel fontSize={{ base: "0.95rem", sm:"md"  }}>Description</FormLabel>,
-      //     styleProps: { colSpan: 12, mb: 4 },
-      //     onChange: (event: any) => {
-      //       handleChange("description", event);
-      //     },
-      //     onBlur: formik.handleBlur,
-      //     value: formik.values?.description,
-      //   },
-      // },
     ];
   };
 };
