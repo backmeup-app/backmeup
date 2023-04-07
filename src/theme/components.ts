@@ -116,6 +116,14 @@ export const components: { [key: string]: ComponentStyleConfig } = {
       danger: {
         background: "red.500",
         color: "white",
+
+        _loading: {
+          opacity: 1,
+
+          _hover: {
+            background: "red.500",
+          },
+        },
       },
     },
     sizes: {
