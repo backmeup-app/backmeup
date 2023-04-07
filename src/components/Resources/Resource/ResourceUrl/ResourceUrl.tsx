@@ -85,7 +85,7 @@ export const ResourceUrl: FC<TResourceUrl> = ({
           boxShadow="sm"
           fontSize="sm"
         >
-          {uuid}.usedo.me
+          https://{uuid}.usedo.me
         </Text>
 
         <Text
