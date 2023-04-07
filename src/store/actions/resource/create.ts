@@ -19,9 +19,9 @@ export const useCreateResource = () => {
     if (me?.email_verification_token) {
       dispatch({
         type: "SET_NOTIFICATION",
-        payload: { status: "error", text: `${me?.email} is not verified` },
+        payload: { status: "error", text: `Verify your email address first` },
       });
-      return history.push("/profile");
+      return history.push("/account");
     }
 
     dispatch({ type: "SET_LOADING", payload: true });
