@@ -34,7 +34,7 @@ export const User = () => {
       pos="absolute"
       left={{ sm: "-6px" }}
       right={{ base: "0%", sm: "unset" }}
-      w={{ base: "200px", sm: "100%" }}
+      w={{ base: "200px", sm: "225px" }}
       top="160%"
       bg="white"
       boxShadow="sm"
