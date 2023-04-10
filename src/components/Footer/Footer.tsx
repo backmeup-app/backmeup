@@ -22,11 +22,7 @@ export const Footer = () => {
     <Box py={{ base: 10, sm: 8, lg: 12 }} bg="charlestonGreen" color="white">
       <Container maxW="1300px" w="90%" margin="0 auto">
         <Flex align="center" direction={{ base: "column-reverse", sm: "row" }}>
-          <Text
-            fontSize="md"
-            // textShadow="0 0.5px navajoWhite"
-            ml={{ base: 1, sm: 0 }}
-          >
+          <Text fontSize={{ base: "sm", lg: "md" }} ml={{ base: 1, sm: 0 }}>
             Dome Tooling &copy; {new Date().getFullYear()}
           </Text>
           <Spacer />
